@@ -19,4 +19,5 @@ repositories {
 
 dependencies {
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'com.mashape.unirest:unirest-java:1.4.7'
 }
