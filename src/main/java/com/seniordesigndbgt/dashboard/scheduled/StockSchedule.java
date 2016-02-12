@@ -12,6 +12,7 @@ public class StockSchedule {
 
     @Scheduled(fixedRate = 15000)
     public void getCurrentPrice() {
+        System.out.println("test");
 //        try {
 //            HttpResponse<JsonNode> response = Unirest.get("http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol=DB&callbak=x")
 //                .asJson();
