@@ -1,12 +1,59 @@
 package com.seniordesigndbgt.dashboard.controller;
 
+import com.seniordesigndbgt.dashboard.model.Module;
+import org.apache.tomcat.util.digester.ArrayStack;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.seniordesigndbgt.dashboard.model.User;
+import com.seniordesigndbgt.dashboard.model.View;
+
+import java.util.ArrayList;
 
 @Controller
 public class ViewController {
+
+    @RequestMapping("/{username}")
+    public String loadHome(@PathVariable String username, ModelMap modelMap) {
+        System.out.println("username" + username);
+        User current = new User(username, "employee");
+        ArrayList<Module> columnOne = new ArrayList<Module>();
+        ArrayList<Module> columnTwo = new ArrayList<Module>();
+        ArrayList<Module> columnThree = new ArrayList<Module>();
+        Module stockModule = new Module("Stocks from module", "/stocks");
+        Module trendModule = new Module("Trends from module", "/trends");
+        Module geoModule = new Module("Geo from module", "/geo");
+        Module sentiment = new Module("Sentiment from moudule", "/sentiment");
+        Module press = new Module ("Press from module", "/press");
+        Module earnings = new Module ("Earnings from module", "/earnings");
+        columnOne.add(stockModule);
+        columnOne.add(sentiment);
+        columnOne.add(press);
+        columnTwo.add(trendModule);
+        columnThree.add(geoModule);
+        columnThree.add(earnings);
+        View preferred = new View(username, current.getDefaultView(), columnOne, columnTwo, columnThree);
+        modelMap.put("view", preferred);
+        return "index";
+    }
+
     @RequestMapping("/")
-    public String loadHome() {
+    public String loadHome(ModelMap modelMap) {
+        String username = "deafult";
+        System.out.println("username" + username);
+        User current = new User(username, "employee");
+        ArrayList<Module> columnOne = new ArrayList<Module>();
+        ArrayList<Module> columnTwo = new ArrayList<Module>();
+        ArrayList<Module> columnThree = new ArrayList<Module>();
+        Module stockModule = new Module("Stocks from module", "/stocks");
+        Module trendModule = new Module("Trends from module", "/trends");
+        Module geoModule = new Module("Geo from module", "/geo");
+        columnOne.add(stockModule);
+        columnTwo.add(trendModule);
+        columnThree.add(geoModule);
+        View preferred = new View(username, current.getDefaultView(), columnOne, columnTwo, columnThree);
+        modelMap.put("view", preferred);
         return "index";
     }
 
