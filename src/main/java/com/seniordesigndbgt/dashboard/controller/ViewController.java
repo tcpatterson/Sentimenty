@@ -16,7 +16,7 @@ public class ViewController {
 
     @RequestMapping("/{username}")
     public String loadHome(@PathVariable String username, ModelMap modelMap) {
-        System.out.println("username" + username);
+        System.out.println("username " + username);
         User current = new User(username, "employee");
         ArrayList<Module> columnOne = new ArrayList<Module>();
         ArrayList<Module> columnTwo = new ArrayList<Module>();
@@ -41,7 +41,7 @@ public class ViewController {
     @RequestMapping("/")
     public String loadHome(ModelMap modelMap) {
         String username = "deafult";
-        System.out.println("username" + username);
+        System.out.println("username " + username);
         User current = new User(username, "employee");
         ArrayList<Module> columnOne = new ArrayList<Module>();
         ArrayList<Module> columnTwo = new ArrayList<Module>();

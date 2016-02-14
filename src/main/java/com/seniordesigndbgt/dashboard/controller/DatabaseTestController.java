@@ -16,7 +16,7 @@ public class DatabaseTestController {
 
     @RequestMapping("/newUser/{username}")
     @ResponseBody
-    public String save(String username) {
+    public String save(@PathVariable String username) {
         try {
             User user = new User(username);
             _userDao.save(user);
@@ -28,14 +28,14 @@ public class DatabaseTestController {
 
     @RequestMapping("/show/{username}")
     @ResponseBody
-    public String show(String username) {
+    public String show(@PathVariable String username) {
         User user;
         try {
             user = _userDao.getByUsername(username);
         } catch (Exception e) {
             return "User not found";
         }
-        return user.getDefaultView();
+        return "username " + user.getUsername();
 
     }
 }

@@ -1,8 +1,9 @@
 #build
 /build/
-
+.gitignore
 # IntelliJ
 /out/
 .idea/
 *.iml
 *.iws
+/.gradle/*

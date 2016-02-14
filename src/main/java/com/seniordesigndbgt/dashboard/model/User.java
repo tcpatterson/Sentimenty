@@ -11,14 +11,17 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private long id;
 
     @NotNull
     @Size(min = 3, max = 50)
+    @Column(name = "username")
     private String username;
 
     @NotNull
     @Size(min =3, max = 50)
+    @Column(name = "default_view")
     private String defaultView;
 
     public User() {}
