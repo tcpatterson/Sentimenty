@@ -13,7 +13,7 @@ public class ApiController {
 
     @RequestMapping("/stocks")
     public @ResponseBody
-    Stock stock(@RequestParam(required=false, defaultValue="World") String name) {
+    Stock stock() {
         System.out.println("==== getting stock data ====");
         Stock newStock = new Stock("DB", LocalTime.now(), 33.45);
         return newStock;

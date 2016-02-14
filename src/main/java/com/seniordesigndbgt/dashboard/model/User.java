@@ -1,10 +1,32 @@
 package com.seniordesigndbgt.dashboard.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
+@Entity
+@Table(name="users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @NotNull
+    @Size(min = 3, max = 50)
     private String username;
+
+    @NotNull
+    @Size(min =3, max = 50)
     private String defaultView;
+
+    public User() {}
+
+    public User(String username) {
+        this.username = username;
+        this.defaultView = "employee";
+    }
 
     public User(String username, String defaultView) {
         this.username = username;
