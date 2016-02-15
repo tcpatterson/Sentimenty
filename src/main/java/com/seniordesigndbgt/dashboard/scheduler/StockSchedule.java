@@ -5,7 +5,10 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.seniordesigndbgt.dashboard.action.StockAction;
+import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
 import com.seniordesigndbgt.dashboard.model.DailyStock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +17,11 @@ import java.time.LocalTime;
 @Component
 public class StockSchedule {
 
-    @Scheduled(cron = "* 0/5  9-17 * * MON-FRI")
+    @Autowired
+    private DailyStockDAO _dailyStockDao;
+
+    //@Scheduled(cron = "*/5 9-16 * * MON-FRI")
+    @Scheduled(fixedDelay = 5000)
     public void getCurrentPrice() {
         DailyStock result = null;
         try {
@@ -39,6 +46,8 @@ public class StockSchedule {
             
             result = new DailyStock(symbol, LocalTime.now(), price);
 
+            _dailyStockDao.save(result);
+
 
             //TODO - Link DailyStock object with Hibernate
         } catch (UnirestException e) {
@@ -48,12 +57,12 @@ public class StockSchedule {
     /*
     * Get the last trade price of the day and add it to the historical data table
     * */
-    @Scheduled(cron = "0 1 17 * * MON-FRI")
+    //@Scheduled(cron = "0 0 * * MON-FRI")
     public void updateHistoricalDatabase() {
 
     }
 
-    @Scheduled(cron = "0 59 8 * * MON-FRI")
+    //@Scheduled(cron = "0 0 * * MON-FRI")
     public void clearDailyDatabase(){
 
     }

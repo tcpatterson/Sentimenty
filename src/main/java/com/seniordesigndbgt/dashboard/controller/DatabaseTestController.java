@@ -62,12 +62,12 @@ public class DatabaseTestController {
 
     }
 
-    @RequestMapping("/test/showDailyStocks")
+    @RequestMapping("/saveStock")
     @ResponseBody
-    public String showStocks(){
-        DailyStock test1 = new DailyStock("DB", LocalTime.now(), 100.01);
-        DailyStock test2 = new DailyStock("DB", LocalTime.now(), 101.01);
-        DailyStock test3 = new DailyStock("DB", LocalTime.now(), 102.01);
+    public String saveStock(){
+        DailyStock test1 = new DailyStock("test 1", LocalTime.now(), 100.23);
+        DailyStock test2 = new DailyStock("test 2", LocalTime.now(), 101.01);
+        DailyStock test3 = new DailyStock("test 3", LocalTime.now(), 102.01);
 
         _dailyStockDao.save(test1);
         _dailyStockDao.save(test2);
@@ -75,5 +75,16 @@ public class DatabaseTestController {
 
         return "Stocks: " + test1.getValue() + " " + test2.getValue() + " " + test3.getValue();
 
+    }
+
+    @RequestMapping("/showStocks")
+    @ResponseBody
+    public String showStock(){
+        List<DailyStock> allStocks = _dailyStockDao.getAll();
+        String r = "";
+        for(DailyStock stock : allStocks) {
+            r += stock.getSymbol() + " " + stock.getValue() + " " + stock.getTime() + "\n\n";
+        }
+        return r;
     }
 }

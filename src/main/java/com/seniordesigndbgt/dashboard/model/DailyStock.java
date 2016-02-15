@@ -1,15 +1,35 @@
 package com.seniordesigndbgt.dashboard.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalTime;
 
+@Entity
+@Table(name="dailystock")
 public class DailyStock {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long id;
+
+    @NotNull
+    @Column(name = "symbol")
     private String symbol;
-    private LocalTime Time;
+
+    @Column(name = "timestamp")
+    private LocalTime time;
+
+    @NotNull
+    @Column(name = "price")
     private double value;
+
+    public DailyStock() {}
 
     public DailyStock(String symbol, LocalTime time, double value) {
         this.symbol = symbol;
-        Time = time;
+        this.time = time;
         this.value = value;
     }
 
@@ -22,11 +42,11 @@ public class DailyStock {
     }
 
     public LocalTime getTime() {
-        return Time;
+        return time;
     }
 
     public void setTime(LocalTime time) {
-        Time = time;
+        this.time = time;
     }
 
     public double getValue() {

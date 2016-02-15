@@ -9,9 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by neel on 2/15/16.
- */
 @Repository
 @Transactional
 public class DailyStockDAO {
@@ -22,11 +19,18 @@ public class DailyStockDAO {
         return _sessionFactory.getCurrentSession();
     }
 
-    public void save(DailyStock stock){ getSession().save(stock); }
+    public void save(DailyStock stock){
+        getSession().save(stock);
+    }
 
-    public void delete(DailyStock stock){ getSession().delete(stock); }
+    public void delete(DailyStock stock){
+        getSession().delete(stock);
+    }
 
-    public List<DailyStock> getAll() { return getSession().createQuery("from DailyStock").list(); }
+    @SuppressWarnings("unchecked")
+    public List<DailyStock> getAll() {
+        return getSession().createQuery("from DailyStock").list();
+    }
 
     public void clearDaily() {
         for (DailyStock stock : getAll()){
