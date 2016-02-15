@@ -18,9 +18,9 @@ public class ViewController {
     public String loadHome(@PathVariable String username, ModelMap modelMap) {
         System.out.println("username " + username);
         User current = new User(username, "employee");
-        ArrayList<Module> columnOne = new ArrayList<>();
-        ArrayList<Module> columnTwo = new ArrayList<>();
-        ArrayList<Module> columnThree = new ArrayList<>();
+        ArrayList<Module> columnOne = new ArrayList<Module>();
+        ArrayList<Module> columnTwo = new ArrayList<Module>();
+        ArrayList<Module> columnThree = new ArrayList<Module>();
         Module stockModule = new Module("Stocks from module", "/stocks");
         Module trendModule = new Module("Trends from module", "/trends");
         Module geoModule = new Module("Geo from module", "/geo");
@@ -33,7 +33,7 @@ public class ViewController {
         columnTwo.add(trendModule);
         columnThree.add(geoModule);
         columnThree.add(earnings);
-        View preferred = new View(current , current.getDefaultView(), columnOne, columnTwo, columnThree);
+        View preferred = new View(current, current.getDefaultView(), columnOne, columnTwo, columnThree);
         modelMap.put("view", preferred);
         return "index";
     }
@@ -43,12 +43,12 @@ public class ViewController {
         String username = "deafult";
         System.out.println("username " + username);
         User current = new User(username, "employee");
-        ArrayList<Module> columnOne = new ArrayList<>();
-        ArrayList<Module> columnTwo = new ArrayList<>();
-        ArrayList<Module> columnThree = new ArrayList<>();
-        Module stockModule = new Module("Stocks from module", "/stocks");
-        Module trendModule = new Module("Trends from module", "/trends");
-        Module geoModule = new Module("Geo from module", "/geo");
+        ArrayList<Module> columnOne = new ArrayList<Module>();
+        ArrayList<Module> columnTwo = new ArrayList<Module>();
+        ArrayList<Module> columnThree = new ArrayList<Module>();
+        Module stockModule = new Module("Stocks from module", "stock");
+        Module trendModule = new Module("Trends from module", "trends");
+        Module geoModule = new Module("Geo from module", "geo");
         columnOne.add(stockModule);
         columnTwo.add(trendModule);
         columnThree.add(geoModule);
