@@ -1,4 +1,4 @@
-package com.seniordesigndbgt.dashboard.scheduled;
+package com.seniordesigndbgt.dashboard.scheduler;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

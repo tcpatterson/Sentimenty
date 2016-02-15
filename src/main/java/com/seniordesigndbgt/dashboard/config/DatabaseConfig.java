@@ -1,6 +1,4 @@
-package com.seniordesigndbgt.dashboard.configs;
-
-import java.util.Properties;
+package com.seniordesigndbgt.dashboard.config;
 
 import javax.sql.DataSource;
 
