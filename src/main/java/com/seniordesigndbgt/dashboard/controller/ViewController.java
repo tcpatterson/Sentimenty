@@ -46,9 +46,9 @@ public class ViewController {
         ArrayList<Module> columnOne = new ArrayList<Module>();
         ArrayList<Module> columnTwo = new ArrayList<Module>();
         ArrayList<Module> columnThree = new ArrayList<Module>();
-        Module stockModule = new Module("Stocks from module", "/stocks");
-        Module trendModule = new Module("Trends from module", "/trends");
-        Module geoModule = new Module("Geo from module", "/geo");
+        Module stockModule = new Module("Stocks from module", "stock");
+        Module trendModule = new Module("Trends from module", "trends");
+        Module geoModule = new Module("Geo from module", "geo");
         columnOne.add(stockModule);
         columnTwo.add(trendModule);
         columnThree.add(geoModule);

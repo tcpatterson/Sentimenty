@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="stock">
+            <div>
+                <h4>Current price: 17.38</h4>
+            </div>
+            <div id="stockChart"></div>
+            <link rel="stylesheet" href="/css/stock.css"/>
+            <script src="/vendor/d3/d3.min.js"></script>
+            <script src="/js/stock.js"></script>
+        </div>
+    </body>
+</html>
