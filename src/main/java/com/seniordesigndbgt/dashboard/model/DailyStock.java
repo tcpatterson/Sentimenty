@@ -2,12 +2,12 @@ package com.seniordesigndbgt.dashboard.model;
 
 import java.time.LocalTime;
 
-public class Stock {
+public class DailyStock {
     private String symbol;
     private LocalTime Time;
     private double value;
 
-    public Stock(String symbol, LocalTime time, double value) {
+    public DailyStock(String symbol, LocalTime time, double value) {
         this.symbol = symbol;
         Time = time;
         this.value = value;

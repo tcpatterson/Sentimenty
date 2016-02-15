@@ -1,9 +1,8 @@
 package com.seniordesigndbgt.dashboard.controller;
 
-import com.seniordesigndbgt.dashboard.model.Stock;
+import com.seniordesigndbgt.dashboard.model.DailyStock;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalTime;
@@ -13,9 +12,9 @@ public class ApiController {
 
     @RequestMapping("/stocks")
     public @ResponseBody
-    Stock stock() {
+    DailyStock stock() {
         System.out.println("==== getting stock data ====");
-        Stock newStock = new Stock("DB", LocalTime.now(), 33.45);
+        DailyStock newStock = new DailyStock("DB", LocalTime.now(), 33.45);
         return newStock;
     }
 
