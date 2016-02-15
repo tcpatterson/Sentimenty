@@ -1,4 +1,4 @@
-package com.seniordesigndbgt.dashboard.scheduled;
+package com.seniordesigndbgt.dashboard.scheduler;
 
 import com.google.gson.*;
 import com.mashape.unirest.http.HttpResponse;
