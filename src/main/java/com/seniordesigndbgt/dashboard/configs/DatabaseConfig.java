@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 
 import com.seniordesigndbgt.dashboard.dao.UserDAO;
 import com.seniordesigndbgt.dashboard.model.User;
+import com.seniordesigndbgt.dashboard.model.View;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +58,7 @@ public class DatabaseConfig {
     @Bean
     public SessionFactory sessionFactory() {
         return new LocalSessionFactoryBuilder(getDataSource())
-                .addAnnotatedClasses(User.class)
+                .addAnnotatedClasses(new Class<?>[]{User.class, View.class})
                 .buildSessionFactory();
     }
     @Bean
