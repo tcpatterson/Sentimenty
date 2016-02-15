@@ -1,7 +1,9 @@
 package com.seniordesigndbgt.dashboard.controller;
 
+import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
 import com.seniordesigndbgt.dashboard.dao.UserDAO;
 import com.seniordesigndbgt.dashboard.dao.ViewDAO;
+import com.seniordesigndbgt.dashboard.model.DailyStock;
 import com.seniordesigndbgt.dashboard.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -18,6 +21,8 @@ public class DatabaseTestController {
     private UserDAO _userDao;
     @Autowired
     private ViewDAO _viewDao;
+    @Autowired
+    private DailyStockDAO _dailyStockDao;
 
     @RequestMapping("/newUser/{username}")
     @ResponseBody
@@ -54,6 +59,21 @@ public class DatabaseTestController {
         }
 
         return "username " + user.getUsername() + " DefaultView " + user.getDefaultView() + " views " + size;
+
+    }
+
+    @RequestMapping("/test/showDailyStocks")
+    @ResponseBody
+    public String showStocks(){
+        DailyStock test1 = new DailyStock("DB", LocalTime.now(), 100.01);
+        DailyStock test2 = new DailyStock("DB", LocalTime.now(), 101.01);
+        DailyStock test3 = new DailyStock("DB", LocalTime.now(), 102.01);
+
+        _dailyStockDao.save(test1);
+        _dailyStockDao.save(test2);
+        _dailyStockDao.save(test3);
+
+        return "Stocks: " + test1.getValue() + " " + test2.getValue() + " " + test3.getValue();
 
     }
 }

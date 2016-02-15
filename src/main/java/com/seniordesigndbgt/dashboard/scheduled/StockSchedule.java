@@ -15,7 +15,7 @@ import java.time.LocalTime;
 public class StockSchedule {
 
     @Scheduled(cron = "* 0/5  9-17 * * MON-FRI")
-    public DailyStock getCurrentPrice() {
+    public void getCurrentPrice() {
         DailyStock result = null;
         try {
             HttpResponse<JsonNode> response = Unirest.get("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%27DB%27)&format=json&diagnostics=true&env=http://datatables.org/alltables.env")
@@ -44,8 +44,6 @@ public class StockSchedule {
         } catch (UnirestException e) {
             e.printStackTrace();
         }
-        //Can check if result is null
-        return result;
     }
     /*
     * Get the last trade price of the day and add it to the historical data table

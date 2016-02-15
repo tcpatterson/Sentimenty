@@ -4,12 +4,16 @@ import com.seniordesigndbgt.dashboard.model.DailyStock;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * Created by neel on 2/15/16.
  */
+@Repository
+@Transactional
 public class DailyStockDAO {
     @Autowired
     private SessionFactory _sessionFactory;
@@ -29,4 +33,5 @@ public class DailyStockDAO {
             delete(stock);
         }
     }
+
 }
