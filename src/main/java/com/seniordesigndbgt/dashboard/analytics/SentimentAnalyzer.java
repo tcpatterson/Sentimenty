@@ -44,10 +44,11 @@ public class SentimentAnalyzer {
         return "fail";
     }
 
-    public String getSentiment(Press pressArticle) {
+    public String getSentiment(String one, String two) {
         // String url = pressArticle.getUrl();
         //TODO
         String pressUJrl = "www.google.com";
+        pressUJrl = one;
         HttpResponse<JsonNode> response = null;
         try {
             String url = apiBase + "/url/URLGetTextSentiment?url=" + pressUJrl + "&apikey=" + apiKey + "&outputMode=json&sourceText=cleaned";
