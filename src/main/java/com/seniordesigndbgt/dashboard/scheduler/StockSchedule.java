@@ -5,7 +5,10 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.seniordesigndbgt.dashboard.model.Stock;
+import com.seniordesigndbgt.dashboard.action.StockAction;
+import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
+import com.seniordesigndbgt.dashboard.model.DailyStock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,10 +17,13 @@ import java.time.LocalTime;
 @Component
 public class StockSchedule {
 
-    @Scheduled(fixedRate = 15000)
+    @Autowired
+    private DailyStockDAO _dailyStockDao;
+
+    //@Scheduled(cron = "0/5 9-16 * * MON-FRI")
+    @Scheduled(fixedDelay = 5000)
     public void getCurrentPrice() {
-        System.out.println("test");
-        Gson g = new Gson();
+        DailyStock result = null;
         try {
             HttpResponse<JsonNode> response = Unirest.get("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%27DB%27)&format=json&diagnostics=true&env=http://datatables.org/alltables.env")
                     .asJson();
@@ -35,14 +41,29 @@ public class StockSchedule {
             double price = priceOnly.getAsDouble();
             String symbol = symbolOnly.getAsString();
 
-            System.out.println(price);
-            System.out.println(symbol);
+//            System.out.println(price);
+//            System.out.println(symbol);
             
-            Stock result = new Stock(symbol, LocalTime.now(), price);
+            result = new DailyStock(symbol, LocalTime.now(), price);
 
-            //TODO - Link Stock object with Hibernate
+            _dailyStockDao.save(result);
+
         } catch (UnirestException e) {
             e.printStackTrace();
         }
+    }
+    /*
+    * Get the last trade price of the day and add it to the historical data table
+    * */
+    //@Scheduled(cron = "0 1 17 * * MON-FRI")
+    public void updateHistoricalDatabase() {
+
+    }
+    /*
+     * Clears daily stock table so it can be repopulated with new data
+     */
+    //@Scheduled(cron = "0 57 8 * * MON-FRI")
+    public void clearDailyDatabase(){
+        _dailyStockDao.clearDaily();
     }
 }

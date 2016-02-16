@@ -2,7 +2,9 @@ package com.seniordesigndbgt.dashboard.config;
 
 import javax.sql.DataSource;
 
+import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
 import com.seniordesigndbgt.dashboard.dao.UserDAO;
+import com.seniordesigndbgt.dashboard.model.DailyStock;
 import com.seniordesigndbgt.dashboard.model.User;
 import com.seniordesigndbgt.dashboard.model.View;
 import org.hibernate.SessionFactory;
@@ -50,13 +52,15 @@ public class DatabaseConfig {
         return new UserDAO();
     }
     @Bean
+    public DailyStockDAO dailyStockDAO() { return new DailyStockDAO(); }
+    @Bean
     public HibernateTemplate hibernateTemplate() {
         return new HibernateTemplate(sessionFactory());
     }
     @Bean
     public SessionFactory sessionFactory() {
         return new LocalSessionFactoryBuilder(getDataSource())
-                .addAnnotatedClasses(new Class<?>[]{User.class, View.class})
+                .addAnnotatedClasses(new Class<?>[]{User.class, View.class, DailyStock.class})
                 .buildSessionFactory();
     }
     @Bean

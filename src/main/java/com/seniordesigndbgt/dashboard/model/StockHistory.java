@@ -4,47 +4,47 @@ package com.seniordesigndbgt.dashboard.model;
 import java.util.ArrayList;
 
 public class StockHistory {
-    private ArrayList<Stock> today;
-    private ArrayList<Stock> month;
-    private ArrayList<Stock> oneYear;
-    private ArrayList<Stock> fiveYears;
+    private ArrayList<DailyStock> today;
+    private ArrayList<DailyStock> month;
+    private ArrayList<DailyStock> oneYear;
+    private ArrayList<DailyStock> fiveYears;
 
-    public StockHistory(ArrayList<Stock> today, ArrayList<Stock> month, ArrayList<Stock> oneYear, ArrayList<Stock> fiveYears) {
+    public StockHistory(ArrayList<DailyStock> today, ArrayList<DailyStock> month, ArrayList<DailyStock> oneYear, ArrayList<DailyStock> fiveYears) {
         this.today = today;
         this.month = month;
         this.oneYear = oneYear;
         this.fiveYears = fiveYears;
     }
 
-    public ArrayList<Stock> getToday() {
+    public ArrayList<DailyStock> getToday() {
         return today;
     }
 
-    public void setToday(ArrayList<Stock> today) {
+    public void setToday(ArrayList<DailyStock> today) {
         this.today = today;
     }
 
-    public ArrayList<Stock> getMonth() {
+    public ArrayList<DailyStock> getMonth() {
         return month;
     }
 
-    public void setMonth(ArrayList<Stock> month) {
+    public void setMonth(ArrayList<DailyStock> month) {
         this.month = month;
     }
 
-    public ArrayList<Stock> getOneYear() {
+    public ArrayList<DailyStock> getOneYear() {
         return oneYear;
     }
 
-    public void setOneYear(ArrayList<Stock> oneYear) {
+    public void setOneYear(ArrayList<DailyStock> oneYear) {
         this.oneYear = oneYear;
     }
 
-    public ArrayList<Stock> getFiveYears() {
+    public ArrayList<DailyStock> getFiveYears() {
         return fiveYears;
     }
 
-    public void setFiveYears(ArrayList<Stock> fiveYears) {
+    public void setFiveYears(ArrayList<DailyStock> fiveYears) {
         this.fiveYears = fiveYears;
     }
 }
