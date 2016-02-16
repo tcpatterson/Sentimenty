@@ -20,7 +20,7 @@ public class StockSchedule {
     @Autowired
     private DailyStockDAO _dailyStockDao;
 
-    //@Scheduled(cron = "*/5 9-16 * * MON-FRI")
+    //@Scheduled(cron = "0/5 9-16 * * MON-FRI")
     @Scheduled(fixedDelay = 5000)
     public void getCurrentPrice() {
         DailyStock result = null;
@@ -41,15 +41,13 @@ public class StockSchedule {
             double price = priceOnly.getAsDouble();
             String symbol = symbolOnly.getAsString();
 
-            System.out.println(price);
-            System.out.println(symbol);
+//            System.out.println(price);
+//            System.out.println(symbol);
             
             result = new DailyStock(symbol, LocalTime.now(), price);
 
             _dailyStockDao.save(result);
 
-
-            //TODO - Link DailyStock object with Hibernate
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -57,13 +55,15 @@ public class StockSchedule {
     /*
     * Get the last trade price of the day and add it to the historical data table
     * */
-    //@Scheduled(cron = "0 0 * * MON-FRI")
+    //@Scheduled(cron = "0 1 17 * * MON-FRI")
     public void updateHistoricalDatabase() {
 
     }
-
-    //@Scheduled(cron = "0 0 * * MON-FRI")
+    /*
+     * Clears daily stock table so it can be repopulated with new data
+     */
+    //@Scheduled(cron = "0 57 8 * * MON-FRI")
     public void clearDailyDatabase(){
-
+        _dailyStockDao.clearDaily();
     }
 }
