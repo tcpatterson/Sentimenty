@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -65,9 +66,9 @@ public class DatabaseTestController {
     @RequestMapping("/saveStock")
     @ResponseBody
     public String saveStock(){
-        DailyStock test1 = new DailyStock("test 1", LocalTime.now(), 100.23);
-        DailyStock test2 = new DailyStock("test 2", LocalTime.now(), 101.01);
-        DailyStock test3 = new DailyStock("test 3", LocalTime.now(), 102.01);
+        DailyStock test1 = new DailyStock("test 1", new Timestamp(System.currentTimeMillis()), 100.23);
+        DailyStock test2 = new DailyStock("test 2", new Timestamp(System.currentTimeMillis()), 101.01);
+        DailyStock test3 = new DailyStock("test 3", new Timestamp(System.currentTimeMillis()), 102.01);
 
         _dailyStockDao.save(test1);
         _dailyStockDao.save(test2);
