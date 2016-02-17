@@ -25,4 +25,5 @@ dependencies {
     compile 'org.hibernate:hibernate-core:4.3.6.Final'
     compile 'commons-dbcp:commons-dbcp:1.4'
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'org.jsoup:jsoup:1.7.2'
 }
