@@ -88,6 +88,11 @@ $( document ).ready(function() {
         return a.date - b.date;
       });
 
+      var last = data[data.length-1];
+      var lastClose = last.close;
+
+      d3.select('#close').text(lastClose);
+
       var start = new Date();
       start.setHours(9,0,0,0);
 
