@@ -30,8 +30,7 @@ public class Press {
 
     public Press() {}
 
-    public Press(int id, String source, String url, String title) {
-        this.id = id;
+    public Press(String source, String url, String title) {
         this.source = source;
         this.url = url;
         this.title = title;
