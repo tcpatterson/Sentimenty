@@ -2,10 +2,12 @@ package com.seniordesigndbgt.dashboard.controller;
 
 import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
 import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
+import com.seniordesigndbgt.dashboard.dao.PressDAO;
 import com.seniordesigndbgt.dashboard.dao.UserDAO;
 import com.seniordesigndbgt.dashboard.dao.ViewDAO;
 import com.seniordesigndbgt.dashboard.model.DailyStock;
 import com.seniordesigndbgt.dashboard.model.Twitter;
+import com.seniordesigndbgt.dashboard.model.Press;
 import com.seniordesigndbgt.dashboard.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ public class DatabaseTestController {
     private UserDAO _userDao;
     @Autowired
     private ViewDAO _viewDao;
+    @Autowired
+    private PressDAO _pressDAO;
     @Autowired
     private DailyStockDAO _dailyStockDao;
     @Autowired
@@ -70,9 +74,9 @@ public class DatabaseTestController {
     @RequestMapping("/saveStock")
     @ResponseBody
     public String saveStock(){
-        DailyStock test1 = new DailyStock("test 1", new Timestamp(System.currentTimeMillis()), 100.23);
-        DailyStock test2 = new DailyStock("test 2", new Timestamp(System.currentTimeMillis()), 101.01);
-        DailyStock test3 = new DailyStock("test 3", new Timestamp(System.currentTimeMillis()), 102.01);
+        DailyStock test1 = new DailyStock("test 1", new Timestamp(System.currentTimeMillis()).toLocalDateTime(), 100.23);
+        DailyStock test2 = new DailyStock("test 2", new Timestamp(System.currentTimeMillis()).toLocalDateTime(), 101.01);
+        DailyStock test3 = new DailyStock("test 3", new Timestamp(System.currentTimeMillis()).toLocalDateTime(), 102.01);
 
         _dailyStockDao.save(test1);
         _dailyStockDao.save(test2);
@@ -102,5 +106,12 @@ public class DatabaseTestController {
             r += tweet.getText();
         }
         return r;
+    }
+
+    @RequestMapping("/showPress")
+    @ResponseBody
+    public List showPress(){
+        List<Press> presses = _pressDAO.getAll();
+        return presses;
     }
 }

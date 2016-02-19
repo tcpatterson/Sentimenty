@@ -46,8 +46,7 @@ public class StockSchedule {
 //            System.out.println(symbol);
 
             Timestamp time = new Timestamp(System.currentTimeMillis());
-            System.out.println(time.toString());
-            result = new DailyStock(symbol, time, price);
+            result = new DailyStock(symbol, time.toLocalDateTime(), price);
 
             _dailyStockDao.save(result);
 

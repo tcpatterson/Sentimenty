@@ -1,6 +1,7 @@
 package com.seniordesigndbgt.dashboard.scheduler;
 
 import com.seniordesigndbgt.dashboard.dao.PressDAO;
+import com.seniordesigndbgt.dashboard.model.Press;
 import org.jsoup.Jsoup;
 import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
@@ -18,44 +19,47 @@ import java.io.IOException;
 
 @Component
 public class PressSchedule {
-    //Leave until we make PressDAO
-//    @Autowired
-//    private PressDAO _pressDao;
+
+    @Autowired
+    private PressDAO _pressDao;
 
     @Scheduled(fixedRate = 10000)
     public void checkBloomberg() throws IOException {
         Document doc = Jsoup.connect("http://www.bloomberg.com/search?query=deutsche+bank").get();
         Elements newsHeadlines = doc.select(".search-result-story__headline");
         for(Element e : newsHeadlines) {
-            System.out.println(e.text());
+            String link = e.child(0).attr("href");
+            link = "http://www.bloomberg.com/" + link;
+            String title = e.text();
+            _pressDao.save(new Press("Bloomberg", link, title));
         }
     }
 
-    @Scheduled(fixedRate = 10000)
-    public void checkForbes() throws IOException {
-        Document doc = Jsoup.connect("http://www.forbes.com/search/?q=deutsche+bank").get();
-        Elements newsHeadlines = doc.select(".article");
-        for(Element e : newsHeadlines) {
-            System.out.println(e.text());
-        }
-    }
-
-    @Scheduled(fixedRate = 10000)
-    public void checkNyt() throws IOException {
-        Document doc = Jsoup.connect("http://query.nytimes.com/search/sitesearch/?pgtype=Homepage#/deutsche bank").get();
-        Elements newsHeadlines = doc.select(".story");
-        for(Element e : newsHeadlines) {
-            System.out.println(e.text());
-        }
-    }
-
-    @Scheduled(fixedRate = 10000)
-    public void checkReuters() throws IOException {
-        Document doc = Jsoup.connect("http://www.reuters.com/search/news?blob=deutsche+bank").get();
-        Elements newsHeadlines = doc.select(".search-result-title");
-        for(Element e : newsHeadlines) {
-            System.out.println(e.text());
-        }
-    }
+//    @Scheduled(fixedRate = 10000)
+//    public void checkForbes() throws IOException {
+//        Document doc = Jsoup.connect("http://www.forbes.com/search/?q=deutsche+bank").get();
+//        Elements newsHeadlines = doc.select(".article");
+//        for(Element e : newsHeadlines) {
+//            System.out.println(e.text());
+//        }
+//    }
+//
+//    @Scheduled(fixedRate = 10000)
+//    public void checkNyt() throws IOException {
+//        Document doc = Jsoup.connect("http://query.nytimes.com/search/sitesearch/?pgtype=Homepage#/deutsche bank").get();
+//        Elements newsHeadlines = doc.select(".story");
+//        for(Element e : newsHeadlines) {
+//            System.out.println(e.text());
+//        }
+//    }
+//
+//    @Scheduled(fixedRate = 10000)
+//    public void checkReuters() throws IOException {
+//        Document doc = Jsoup.connect("http://www.reuters.com/search/news?blob=deutsche+bank").get();
+//        Elements newsHeadlines = doc.select(".search-result-title");
+//        for(Element e : newsHeadlines) {
+//            System.out.println(e.text());
+//        }
+//    }
 
 }
