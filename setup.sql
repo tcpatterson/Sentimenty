@@ -25,6 +25,13 @@ CREATE TABLE Modules (
     api_endpoint varchar(30) NOT NULL
 );
 
+DROP TABLE StockHistory IF EXISTS;
+CREATE TABLE StockHistory (
+    dateStock varchar(10) NOT NULL,
+    closePrice decimal(5,2) NOT NULL
+);
+
+
 INSERT INTO users (username, default_view) VALUES ('potato', 'employee');
 INSERT INTO users (username, default_view) VALUES ('bob', 'employee');
 INSERT INTO users (username, default_view) VALUES ('dick', 'employee');
@@ -35,3 +42,6 @@ INSERT INTO views (name, userid, column_one, column_two, column_three) VALUES ('
 INSERT INTO views (name, userid, column_one, column_two, column_three) VALUES ('brotao', 1, '','','');
 INSERT INTO views (name, userid, column_one, column_two, column_three) VALUES ('broto', 2, '','','');
 INSERT INTO views (name, userid, column_one, column_two, column_three) VALUES ('broto', 2, '','','');
+
+--BULK INSERT StockHistory FROM './dbHistoricalParsed.csv' WITH ( FIRSTROW=0, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', TABLOCK);
+LOAD DATA LOCAL INFILE 'dbHistoricalParsed.csv' INTO TABLE 'StockHistory' FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' ()

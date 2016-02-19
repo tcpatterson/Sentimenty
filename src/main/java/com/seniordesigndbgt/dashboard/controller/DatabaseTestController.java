@@ -1,9 +1,11 @@
 package com.seniordesigndbgt.dashboard.controller;
 
 import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
+import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
 import com.seniordesigndbgt.dashboard.dao.UserDAO;
 import com.seniordesigndbgt.dashboard.dao.ViewDAO;
 import com.seniordesigndbgt.dashboard.model.DailyStock;
+import com.seniordesigndbgt.dashboard.model.Twitter;
 import com.seniordesigndbgt.dashboard.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ public class DatabaseTestController {
     private ViewDAO _viewDao;
     @Autowired
     private DailyStockDAO _dailyStockDao;
+    @Autowired
+    private TwitterDAO _twitterDao;
 
     @RequestMapping("/newUser/{username}")
     @ResponseBody
@@ -85,6 +89,17 @@ public class DatabaseTestController {
         String r = "";
         for(DailyStock stock : allStocks) {
             r += stock.getSymbol() + " " + stock.getValue() + " " + stock.getTime() + "\n\n";
+        }
+        return r;
+    }
+
+    @RequestMapping("/showTweets")
+    @ResponseBody
+    public String showTweets(){
+        List<Twitter> allTweets = _twitterDao.getAll();
+        String r = "";
+        for(Twitter tweet : allTweets){
+            r += tweet.getText();
         }
         return r;
     }
