@@ -1,8 +1,12 @@
 package com.seniordesigndbgt.dashboard.scheduler;
 
+import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
+import com.seniordesigndbgt.dashboard.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import twitter4j.*;
+import twitter4j.Twitter;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.IOException;
@@ -10,6 +14,9 @@ import java.util.List;
 
 @Component
 public class TwitterSchedule {
+
+    @Autowired
+    private TwitterDAO _twitterDao;
 
     @Scheduled (fixedDelay = 5000)
     public void gatherTwitter()
@@ -29,12 +36,16 @@ public class TwitterSchedule {
             query.count(100);
             QueryResult result = twitter.search(query);
             for (Status status : result.getTweets()){
+//                if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
+//                    System.out.println("@" + status.getUser().getName() + " - " + status.getText());
+//                    if (status.getGeoLocation() != null) {
+//                        System.out.println(status.getGeoLocation().toString());
+//                    }
+//                    System.out.println(status.getCreatedAt().toString());
+//                }
                 if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
-                    System.out.println("@" + status.getUser().getName() + " - " + status.getText());
-                    if (status.getGeoLocation() != null) {
-                        System.out.println(status.getGeoLocation().toString());
-                    }
-                    System.out.println(status.getCreatedAt().toString());
+                    String tweetText = "@" + status.getUser().getName() + " - " + status.getText();
+                    _twitterDao.save(new Twitter(1, tweetText));
                 }
             }
 

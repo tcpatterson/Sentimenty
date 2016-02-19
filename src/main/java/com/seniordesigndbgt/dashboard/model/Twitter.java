@@ -13,7 +13,7 @@ public class Twitter {
     private long id;
 
     @NotNull
-    @Size(min = 1, max = 170)
+    @Size(min = 1, max = 200)
     @Column(name = "text")
     private String text;
 
