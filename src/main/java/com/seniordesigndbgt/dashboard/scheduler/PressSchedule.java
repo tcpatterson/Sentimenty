@@ -18,9 +18,9 @@ import java.io.IOException;
 
 @Component
 public class PressSchedule {
-
-    @Autowired
-    private PressDAO _pressDao;
+    //Leave until we make PressDAO
+//    @Autowired
+//    private PressDAO _pressDao;
 
     @Scheduled(fixedRate = 10000)
     public void checkBloomberg() throws IOException {
