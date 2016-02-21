@@ -1,20 +1,17 @@
 package com.seniordesigndbgt.dashboard.controller;
 
-import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
-import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
-import com.seniordesigndbgt.dashboard.dao.PressDAO;
-import com.seniordesigndbgt.dashboard.dao.UserDAO;
-import com.seniordesigndbgt.dashboard.dao.ViewDAO;
-import com.seniordesigndbgt.dashboard.model.DailyStock;
-import com.seniordesigndbgt.dashboard.model.Twitter;
-import com.seniordesigndbgt.dashboard.model.Press;
-import com.seniordesigndbgt.dashboard.model.User;
+import com.seniordesigndbgt.dashboard.dao.*;
+import com.seniordesigndbgt.dashboard.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.List;
@@ -32,6 +29,8 @@ public class DatabaseTestController {
     private DailyStockDAO _dailyStockDao;
     @Autowired
     private TwitterDAO _twitterDao;
+    @Autowired
+    private StockHistoryDAO _stockHistoryDao;
 
     @RequestMapping("/newUser/{username}")
     @ResponseBody
@@ -90,9 +89,13 @@ public class DatabaseTestController {
     @ResponseBody
     public String showStock(){
         List<DailyStock> allStocks = _dailyStockDao.getAll();
+        List<StockHistory> allOldStocks = _stockHistoryDao.getAll();
         String r = "";
         for(DailyStock stock : allStocks) {
-            r += stock.getSymbol() + " " + stock.getValue() + " " + stock.getTime() + "\n\n";
+            r += "DAILY: "+stock.getSymbol() + " " + stock.getValue() + " " + stock.getTime() + "\n\n";
+        }
+        for (StockHistory oldStock : allOldStocks){
+            r += "HISTORICAL: "+oldStock.getDateStock()+" "+oldStock.getClosePrice()+"\n\n";
         }
         return r;
     }
@@ -113,5 +116,27 @@ public class DatabaseTestController {
     public List showPress(){
         List<Press> presses = _pressDAO.getAll();
         return presses;
+    }
+
+    @RequestMapping("/backfillStocks")
+    @ResponseBody
+    public void backfillStocks(){
+        String filename = "/home/neel/seniorDesign/dashboard/dbHistorical.csv";
+        BufferedReader br = null;
+        String line = "";
+        String splitBy = ",";
+        try {
+            br = new BufferedReader(new FileReader(filename));
+            while ((line = br.readLine()) != null) {
+                String[] stock = line.split(splitBy);
+                System.out.println( stock[0] + stock[4]);
+                StockHistory s = new StockHistory(stock[0], Double.parseDouble(stock[4]));
+                _stockHistoryDao.save(s);
+            }
+        } catch (FileNotFoundException e ){
+            e.printStackTrace();
+        } catch (IOException f) {
+            f.printStackTrace();
+        }
     }
 }
