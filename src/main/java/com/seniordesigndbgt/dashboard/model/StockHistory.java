@@ -1,50 +1,43 @@
 package com.seniordesigndbgt.dashboard.model;
 
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-
+@Entity
+@Table(name="stockhistory")
 public class StockHistory {
-    private ArrayList<DailyStock> today;
-    private ArrayList<DailyStock> month;
-    private ArrayList<DailyStock> oneYear;
-    private ArrayList<DailyStock> fiveYears;
+    @Id
+    @NotNull
+    @Column(name="date")
+    private String date;
+    @NotNull
+    @Column(name="price")
+    private double price;
 
-    public StockHistory(ArrayList<DailyStock> today, ArrayList<DailyStock> month, ArrayList<DailyStock> oneYear, ArrayList<DailyStock> fiveYears) {
-        this.today = today;
-        this.month = month;
-        this.oneYear = oneYear;
-        this.fiveYears = fiveYears;
+    public StockHistory(){}
+
+    public StockHistory(String date, double price) {
+        this.date = date;
+        this.price = price;
     }
 
-    public ArrayList<DailyStock> getToday() {
-        return today;
+    public String getDateStock() {
+        return date;
     }
 
-    public void setToday(ArrayList<DailyStock> today) {
-        this.today = today;
+    public void setDateStock(String date) {
+        this.date = date;
     }
 
-    public ArrayList<DailyStock> getMonth() {
-        return month;
+    public double getClosePrice() {
+        return price;
     }
 
-    public void setMonth(ArrayList<DailyStock> month) {
-        this.month = month;
-    }
-
-    public ArrayList<DailyStock> getOneYear() {
-        return oneYear;
-    }
-
-    public void setOneYear(ArrayList<DailyStock> oneYear) {
-        this.oneYear = oneYear;
-    }
-
-    public ArrayList<DailyStock> getFiveYears() {
-        return fiveYears;
-    }
-
-    public void setFiveYears(ArrayList<DailyStock> fiveYears) {
-        this.fiveYears = fiveYears;
+    public void setClosePrice(double price) {
+        this.price = price;
     }
 }
