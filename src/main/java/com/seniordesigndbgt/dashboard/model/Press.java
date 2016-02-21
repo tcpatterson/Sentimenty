@@ -25,7 +25,7 @@ public class Press {
 
     @NotNull
     @Size(min = 3, max = 200)
-    @Column(name = "title")
+    @Column(name = "title", unique = true)
     private String title;
 
     public Press() {}

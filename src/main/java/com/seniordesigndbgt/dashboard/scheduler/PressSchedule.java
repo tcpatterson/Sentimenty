@@ -31,7 +31,11 @@ public class PressSchedule {
             String link = e.child(0).attr("href");
             link = "http://www.bloomberg.com/" + link;
             String title = e.text();
-            _pressDao.save(new Press("Bloomberg", link, title));
+            try {
+                _pressDao.save(new Press("Bloomberg", link, title));
+            }catch(Exception error){
+                
+            }
         }
     }
 
