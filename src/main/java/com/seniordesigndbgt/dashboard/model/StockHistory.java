@@ -12,30 +12,32 @@ import java.util.ArrayList;
 public class StockHistory {
     @Id
     @NotNull
-    @Column(name="dateStock")
-    private String dateStock;
+    @Column(name="date")
+    private String date;
     @NotNull
-    @Column(name="closePrice")
-    private double closePrice;
+    @Column(name="price")
+    private double price;
 
-    public StockHistory(String dateStock, double closePrice) {
-        this.dateStock = dateStock;
-        this.closePrice = closePrice;
+    public StockHistory(){}
+
+    public StockHistory(String date, double price) {
+        this.date = date;
+        this.price = price;
     }
 
     public String getDateStock() {
-        return dateStock;
+        return date;
     }
 
-    public void setDateStock(String dateStock) {
-        this.dateStock = dateStock;
+    public void setDateStock(String date) {
+        this.date = date;
     }
 
     public double getClosePrice() {
-        return closePrice;
+        return price;
     }
 
-    public void setClosePrice(double closePrice) {
-        this.closePrice = closePrice;
+    public void setClosePrice(double price) {
+        this.price = price;
     }
 }
