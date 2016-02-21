@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import twitter4j.*;
-import twitter4j.Twitter;
+import com.seniordesigndbgt.dashboard.model.Twitter;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class TwitterSchedule {
                     .setOAuthAccessToken("2861869233-GUXY7NBpokrCdSX3Ca5avMUyMM5fxfvFLqynzpw")
                     .setOAuthAccessTokenSecret("r5LyXwCnFvQMwHe0dZPoIpDw91EfiRI9gndxgsmDVOL0Y");
             TwitterFactory tf = new TwitterFactory(cb.build());
-            Twitter twitter = tf.getInstance();
+            twitter4j.Twitter twitter = tf.getInstance();
 
             Query query = new Query(hashtag);
             query.count(100);
