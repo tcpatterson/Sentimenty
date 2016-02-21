@@ -1,1 +1,0 @@
-BULK INSERT StockHistory FROM './dbHistoricalParsed.csv' WITH ( FIRSTROW=1, FIELDTERMINATOR = ',', ROWTERMINATOR = '\n', TABLOCK );

@@ -121,7 +121,7 @@ public class DatabaseTestController {
     @RequestMapping("/backfillStocks")
     @ResponseBody
     public void backfillStocks(){
-        String filename = "/home/neel/seniorDesign/dashboard/dbHistorical.csv";
+        String filename = "dbHistorical.csv";
         BufferedReader br = null;
         String line = "";
         String splitBy = ",";
