@@ -45,7 +45,7 @@ public class TwitterSchedule {
 //                }
                 if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
                     String tweetText = "@" + status.getUser().getName() + " - " + status.getText();
-                    _twitterDao.save(new Twitter(1, tweetText));
+                   // _twitterDao.save(new Twitter(1, tweetText));
                 }
             }
 
