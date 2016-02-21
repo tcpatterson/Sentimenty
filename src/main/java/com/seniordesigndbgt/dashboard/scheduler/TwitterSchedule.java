@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class TwitterSchedule {
 
-    @Scheduled (fixedDelay = 5000)
+    //@Scheduled (fixedDelay = 5000)
     public void gatherTwitter()
     {
         String hashtag = "deutschebank";

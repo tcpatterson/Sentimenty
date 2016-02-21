@@ -14,9 +14,18 @@ import java.net.URLEncoder;
 
 public class SentimentAnalyzer {
 
-    public SentimentAnalyzer() {}
+    private SentimentAnalyzer() {}
     private final String apiKey = "329f2c9dac59bb494f29ef219b42d84b6896be5c";
     private final String apiBase = "http://gateway-a.watsonplatform.net/calls";
+
+    private static SentimentAnalyzer singleton;
+
+    public static SentimentAnalyzer getInstance(){
+        if(singleton == null)
+            singleton = new SentimentAnalyzer();
+
+        return singleton;
+    }
 
     public String getSentiment(String text) {
         try {
@@ -44,14 +53,12 @@ public class SentimentAnalyzer {
         return "fail";
     }
 
-    public String getSentiment(String one, String two) {
+    public String getSentiment(Press article) {
         // String url = pressArticle.getUrl();
         //TODO
-        String pressUJrl = "www.google.com";
-        pressUJrl = one;
         HttpResponse<JsonNode> response = null;
         try {
-            String url = apiBase + "/url/URLGetTextSentiment?url=" + pressUJrl + "&apikey=" + apiKey + "&outputMode=json&sourceText=cleaned";
+            String url = apiBase + "/url/URLGetTextSentiment?url=" + article.getUrl() + "&apikey=" + apiKey + "&outputMode=json&sourceText=cleaned";
             response = Unirest.get(url)
                     .asJson();
             String jsonString = response.getBody().toString();
