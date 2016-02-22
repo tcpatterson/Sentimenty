@@ -1,7 +1,7 @@
 var bubble_map = new Datamap({
   element: document.getElementById("geo"),
   geographyConfig: {
-    popupOnHover: false,
+    popupOnHover: true,
     highlightOnHover: false
   },
   fills: {
