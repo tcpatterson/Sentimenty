@@ -15,3 +15,8 @@
 .hide {
     display: none;
 }
+
+#mentions {
+    height: 400px;
+    overflow: scroll;
+}
