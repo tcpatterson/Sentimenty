@@ -5,7 +5,8 @@ var margin = {top: 20, right: 30, bottom: 30, left: 30},
 var parseDate = d3.time.format("%I-%M-%S-%m-%d-%Y").parse,
     bisectDate = d3.bisector(function(d) { return d.date; }).left,
     formatValue = d3.format(",.2f"),
-    formatCurrency = function(d) { return "$" + formatValue(d); };
+    formatCurrency = function(d) { return "$" + formatValue(d); },
+    historyDate = d3.time.format("%m/%d/%Y").parse;
 
 var x = d3.time.scale()
     .range([0, width]);
@@ -31,7 +32,6 @@ var svg = d3.select("#stockChart").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var global;
 $( document ).ready(function() {
     $.get( "/stocks", function( data ) {
       global = data;
@@ -49,7 +49,7 @@ $( document ).ready(function() {
                              dayOfYear: 50,
                              dayOfWeek: "FRIDAY",
                              month: "FEBRUARY",
-                             dayOfMonth: 19,
+                             dayOfMonth: 21,
                              year: 2016,
                              monthValue: 2,
                              hour: 18,
@@ -68,7 +68,7 @@ $( document ).ready(function() {
                              dayOfYear: 50,
                              dayOfWeek: "FRIDAY",
                              month: "FEBRUARY",
-                             dayOfMonth: 19,
+                             dayOfMonth: 21,
                              year: 2016,
                              monthValue: 2,
                              hour: 9,
@@ -87,7 +87,7 @@ $( document ).ready(function() {
                            dayOfYear: 50,
                            dayOfWeek: "FRIDAY",
                            month: "FEBRUARY",
-                           dayOfMonth: 19,
+                           dayOfMonth: 21,
                            year: 2016,
                            monthValue: 2,
                            hour: 11,
@@ -106,7 +106,7 @@ $( document ).ready(function() {
                              dayOfYear: 50,
                              dayOfWeek: "FRIDAY",
                              month: "FEBRUARY",
-                             dayOfMonth: 19,
+                             dayOfMonth: 21,
                              year: 2016,
                              monthValue: 2,
                              hour: 12,
@@ -121,7 +121,7 @@ $( document ).ready(function() {
                          value: 12.24
                       }
          ];
-      drawChart(data, start, end);
+      drawChartToday(data, start, end);
     });
 
 });
@@ -139,7 +139,7 @@ $( "#oneDay" ).click(function() {
                                  dayOfYear: 50,
                                  dayOfWeek: "FRIDAY",
                                  month: "FEBRUARY",
-                                 dayOfMonth: 19,
+                                 dayOfMonth: 21,
                                  year: 2016,
                                  monthValue: 2,
                                  hour: 18,
@@ -158,7 +158,7 @@ $( "#oneDay" ).click(function() {
                                  dayOfYear: 50,
                                  dayOfWeek: "FRIDAY",
                                  month: "FEBRUARY",
-                                 dayOfMonth: 19,
+                                 dayOfMonth: 21,
                                  year: 2016,
                                  monthValue: 2,
                                  hour: 9,
@@ -177,7 +177,7 @@ $( "#oneDay" ).click(function() {
                                dayOfYear: 50,
                                dayOfWeek: "FRIDAY",
                                month: "FEBRUARY",
-                               dayOfMonth: 19,
+                               dayOfMonth: 21,
                                year: 2016,
                                monthValue: 2,
                                hour: 11,
@@ -196,7 +196,7 @@ $( "#oneDay" ).click(function() {
                                  dayOfYear: 50,
                                  dayOfWeek: "FRIDAY",
                                  month: "FEBRUARY",
-                                 dayOfMonth: 19,
+                                 dayOfMonth: 21,
                                  year: 2016,
                                  monthValue: 2,
                                  hour: 12,
@@ -211,7 +211,7 @@ $( "#oneDay" ).click(function() {
                              value: 12.24
                           }
              ];
-    drawChart(data, start, end);
+    drawChartToday(data, start, end);
 });
 
 $( "#oneMonth" ).click(function() {
@@ -300,7 +300,7 @@ $( "#oneMonth" ).click(function() {
                   value: 12.24
                }
   ];
-    drawChart(data, start, end);
+    drawChartOld(global[1], start, end, 20);
 });
 
 $( "#oneYear" ).click(function() {
@@ -389,7 +389,7 @@ $( "#oneYear" ).click(function() {
                   value: 12.24
                }
   ];
-    drawChart(data, start, end);
+    drawChartOld(global[1], start, end, 250);
 });
 
 $( "#fiveYears" ).click(function() {
@@ -478,10 +478,10 @@ $( "#fiveYears" ).click(function() {
                   value: 12.24
                }
   ];
-    drawChart(data, start, end);
+    drawChartOld(global[1], start, end, 1200);
 });
 
-function drawChart(data, start, end) {
+function drawChartToday(data, start, end) {
     svg.selectAll("*").remove();
         data.forEach(function(d) {
             d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-"+d.time.monthValue+"-"+d.time.dayOfMonth+"-"+d.time.year+"");
@@ -556,4 +556,81 @@ function drawChart(data, start, end) {
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(formatCurrency(d.close));
         };
+}
+
+function drawChartOld(data, start, end, num) {
+    svg.selectAll("*").remove();
+    data.forEach(function(d) {
+        d.date = historyDate(d.dateStock);
+        d.close = +d.closePrice;
+    });
+
+    data.sort(function(a, b) {
+        return a.date - b.date;
+    });
+
+    var thisLength = data.length;
+
+    data = data.slice(thisLength-num, thisLength-1);
+
+    x.domain([start, end]);
+    y.domain([0,100]);
+
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(90)")
+      .style("text-anchor", "start");
+
+    svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Price ($)");
+
+    svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line);
+
+    var focus = svg.append("g")
+      .attr("class", "focus")
+      .style("display", "none");
+
+    focus.append("circle")
+      .attr("r", 4.5);
+
+    focus.append("text")
+      .attr("x", 9)
+      .attr("dy", ".35em");
+
+    svg.append("rect")
+      .attr("class", "overlay")
+      .attr("width", width)
+      .attr("height", height)
+      .on("mouseover", function() { focus.style("display", null); })
+      .on("mouseout", function() { focus.style("display", "none"); })
+      .on("mousemove", mousemove);
+
+    function mousemove() {
+        var x0 = x.invert(d3.mouse(this)[0]),
+            i = bisectDate(data, x0, 1),
+            d0 = data[i - 1],
+            d1 = data[i];
+            if(!!!d1) {
+              return true;
+            }
+            var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+        focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
+        focus.select("text").text(formatCurrency(d.close));
+    };
 }
