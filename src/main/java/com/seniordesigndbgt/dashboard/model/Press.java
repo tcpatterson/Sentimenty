@@ -29,7 +29,6 @@ public class Press {
     @Column(name = "title", unique = true)
     private String title;
 
-    @Null
     @Size(min = 3, max = 200)
     @Column(name = "sentiment")
     private String sentiment;
