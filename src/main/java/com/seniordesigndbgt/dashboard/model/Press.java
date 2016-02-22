@@ -2,6 +2,7 @@ package com.seniordesigndbgt.dashboard.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
@@ -27,6 +28,10 @@ public class Press {
     @Size(min = 3, max = 200)
     @Column(name = "title", unique = true)
     private String title;
+
+    @Size(min = 3, max = 200)
+    @Column(name = "sentiment")
+    private String sentiment;
 
     public Press() {}
 
@@ -66,5 +71,13 @@ public class Press {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSentiment() {
+        return sentiment;
+    }
+
+    public void setSentiment(String sentiment) {
+        this.sentiment = sentiment;
     }
 }

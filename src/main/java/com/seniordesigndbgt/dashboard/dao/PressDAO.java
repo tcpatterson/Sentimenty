@@ -33,4 +33,8 @@ public class PressDAO {
         return getSession().createQuery("from Press").list();
     }
 
+    public void update(Press press){
+        getSession().update(press);
+    }
+
 }
