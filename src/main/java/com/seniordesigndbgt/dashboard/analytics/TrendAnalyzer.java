@@ -29,7 +29,11 @@ public class TrendAnalyzer {
         //TODO
         //Sort the new hashMap
         //Check for threshold
-        //
+        longFrequencyMap = sortFrequencyMapByValue(longFrequencyMap);
+        shortFrequencyMap = sortFrequencyMapByValue(shortFrequencyMap);
+        //Test sort function
+        printFrequencyMap(shortFrequencyMap);
+
     }
 
     public void refreshLongMap(){
@@ -38,6 +42,14 @@ public class TrendAnalyzer {
 
     public void refreshShortMap(){
         shortFrequencyMap = new LinkedHashMap<String, Integer>();
+    }
+
+    public Map<String, Integer> getLongFrequencyMap() {
+        return longFrequencyMap;
+    }
+
+    public Map<String, Integer> getShortFrequencyMap() {
+        return shortFrequencyMap;
     }
 
     public void updateFrequencyMap(String text){
@@ -66,13 +78,14 @@ public class TrendAnalyzer {
                 shortFrequencyMap.put(currWord, 1);
             }
         }
+
     }
 
-    public static <K, V extends Comparable<? super V>> Map<K, V> sortFrequencyMapByValue(Map<K,V> map) {
+    private static <K, V extends Comparable<? super V>> Map<K, V> sortFrequencyMapByValue(Map<K,V> map) {
         List<Map.Entry<K, V>> list = new LinkedList<Map.Entry<K, V>>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<K, V>>() {
             public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
-                return (o1.getValue()).compareTo(o2.getValue());
+                return (o2.getValue()).compareTo(o1.getValue());
             }
         });
         Map<K, V> result = new LinkedHashMap<K, V>();
@@ -80,6 +93,15 @@ public class TrendAnalyzer {
             result.put(entry.getKey(), entry.getValue());
         }
         return result;
+    }
+
+    private void printFrequencyMap(Map<String,Integer> map){
+        Iterator it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
     }
 
 }
