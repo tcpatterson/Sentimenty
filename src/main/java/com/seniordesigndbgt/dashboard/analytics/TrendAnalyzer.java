@@ -7,9 +7,12 @@ import java.util.*;
 
 public class TrendAnalyzer {
 
-    private String algorithm = "x mentions in y time";
+    private String algorithm = "x mentions in y time, iff x >= threshold z";
     private Map<String, Integer> longFrequencyMap;
     private Map<String, Integer> shortFrequencyMap;
+    private List<Map.Entry<String, Integer>> topThree;
+    private List<Map.Entry<String, Integer>> newTrends;
+    private static final int THRESHOLD = 4;
 
     public TrendAnalyzer() {}
 
@@ -29,12 +32,24 @@ public class TrendAnalyzer {
         //TODO
         //Sort the new hashMap
         //Check for threshold
+        //Only doing short frequency map for now
         longFrequencyMap = sortFrequencyMapByValue(longFrequencyMap);
         shortFrequencyMap = sortFrequencyMapByValue(shortFrequencyMap);
-        //Test sort function
-        printFrequencyMap(shortFrequencyMap);
+//        printFrequencyMap(shortFrequencyMap);
+        topThree = get3MaxValues(shortFrequencyMap);
+        newTrends = new LinkedList<Map.Entry<String, Integer>>();
+        for (int i = 0; i < topThree.size(); i++){
+            if (topThree.get(i).getValue() >= THRESHOLD)
+                newTrends.add(topThree.get(i));
+        }
+
+//        for (int i = 0; i < newTrends.size(); i++){
+//            System.out.println(newTrends.get(i).getKey() + "=" + newTrends.get(i).getValue());
+//        }
 
     }
+
+    
 
     public void refreshLongMap(){
         longFrequencyMap = new LinkedHashMap<String, Integer>();
@@ -51,6 +66,18 @@ public class TrendAnalyzer {
     public Map<String, Integer> getShortFrequencyMap() {
         return shortFrequencyMap;
     }
+
+    public static <K, V extends Comparable<? super V>> List<Map.Entry<K,V>> get3MaxValues(Map<K,V> map){
+        List <Map.Entry<K,V>>  topThree = new LinkedList<Map.Entry<K, V>>();
+        Iterator it = map.entrySet().iterator();
+        for (int i = 0; i < 3; i++) {
+            topThree.add((Map.Entry)it.next());
+        }
+        return topThree;
+    }
+
+
+
 
     public void updateFrequencyMap(String text){
         //Sanitize input
