@@ -9,23 +9,19 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.seniordesigndbgt.dashboard.model.Press;
 
+import java.awt.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 public class SentimentAnalyzer {
 
-    private SentimentAnalyzer() {}
+    public SentimentAnalyzer(List que) {
+        //sentimentQue = que;
+    }
     private final String apiKey = "329f2c9dac59bb494f29ef219b42d84b6896be5c";
     private final String apiBase = "http://gateway-a.watsonplatform.net/calls";
 
-    private static SentimentAnalyzer singleton;
-
-    public static SentimentAnalyzer getInstance(){
-        if(singleton == null)
-            singleton = new SentimentAnalyzer();
-
-        return singleton;
-    }
+    //List sentimentQue
 
     public String getSentiment(String text) {
         try {
