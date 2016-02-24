@@ -22,7 +22,7 @@ public class StockSchedule {
     private DailyStockDAO _dailyStockDao;
 
     //@Scheduled(cron = "0/5 9-16 * * MON-FRI")
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 50000)
     public void getCurrentPrice() {
         DailyStock result = null;
         try {
