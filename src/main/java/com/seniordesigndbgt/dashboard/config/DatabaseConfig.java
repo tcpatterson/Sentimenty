@@ -2,11 +2,8 @@ package com.seniordesigndbgt.dashboard.config;
 
 import javax.sql.DataSource;
 
-import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
-import com.seniordesigndbgt.dashboard.dao.UserDAO;
-import com.seniordesigndbgt.dashboard.model.DailyStock;
-import com.seniordesigndbgt.dashboard.model.User;
-import com.seniordesigndbgt.dashboard.model.View;
+import com.seniordesigndbgt.dashboard.dao.*;
+import com.seniordesigndbgt.dashboard.model.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -52,15 +49,21 @@ public class DatabaseConfig {
         return new UserDAO();
     }
     @Bean
+    public PressDAO pressDAO() { return new PressDAO(); }
+    @Bean
     public DailyStockDAO dailyStockDAO() { return new DailyStockDAO(); }
     @Bean
     public HibernateTemplate hibernateTemplate() {
         return new HibernateTemplate(sessionFactory());
     }
     @Bean
+    public StockHistoryDAO stockHistoryDAO() { return new StockHistoryDAO(); }
+    @Bean
+    public TwitterDAO twitterDAO() { return new TwitterDAO(); }
+    @Bean
     public SessionFactory sessionFactory() {
         return new LocalSessionFactoryBuilder(getDataSource())
-                .addAnnotatedClasses(new Class<?>[]{User.class, View.class, DailyStock.class})
+                .addAnnotatedClasses(new Class<?>[]{User.class, View.class, DailyStock.class, Press.class, StockHistory.class, Twitter.class})
                 .buildSessionFactory();
     }
     @Bean

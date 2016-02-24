@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.time.LocalTime;
 
 @Component
@@ -43,8 +44,9 @@ public class StockSchedule {
 
 //            System.out.println(price);
 //            System.out.println(symbol);
-            
-            result = new DailyStock(symbol, LocalTime.now(), price);
+
+            Timestamp time = new Timestamp(System.currentTimeMillis());
+            result = new DailyStock(symbol, time.toLocalDateTime(), price);
 
             _dailyStockDao.save(result);
 
@@ -62,7 +64,7 @@ public class StockSchedule {
     /*
      * Clears daily stock table so it can be repopulated with new data
      */
-    //@Scheduled(cron = "0 57 8 * * MON-FRI")
+    //@Scheduled(cron = "0 59 8 * * MON-FRI")
     public void clearDailyDatabase(){
         _dailyStockDao.clearDaily();
     }

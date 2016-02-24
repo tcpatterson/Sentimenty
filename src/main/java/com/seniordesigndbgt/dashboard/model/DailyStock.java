@@ -3,6 +3,8 @@ package com.seniordesigndbgt.dashboard.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -19,7 +21,7 @@ public class DailyStock {
     private String symbol;
 
     @Column(name = "timestamp")
-    private LocalTime time;
+    private LocalDateTime time;
 
     @NotNull
     @Column(name = "price")
@@ -27,7 +29,7 @@ public class DailyStock {
 
     public DailyStock() {}
 
-    public DailyStock(String symbol, LocalTime time, double value) {
+    public DailyStock(String symbol, LocalDateTime time, double value) {
         this.symbol = symbol;
         this.time = time;
         this.value = value;
@@ -41,11 +43,11 @@ public class DailyStock {
         this.symbol = symbol;
     }
 
-    public LocalTime getTime() {
+    public LocalDateTime getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(LocalDateTime time) {
         this.time = time;
     }
 

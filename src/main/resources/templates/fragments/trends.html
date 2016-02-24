@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
-<div th:fragment="trends">
-    &copy; 2011 The Good Thymes Virtual Grocery
-</div>
-</body>
+    <body>
+        <div th:fragment="trends">
+            <div>
+                <h4>Current news mentions: <span id="close"></span></h4>
+            </div>
+            <button id="bloomberg">Bloomberg</button>
+            <button id="reuters">Reuters</button>
+            <button id="nyt">NYT</button>
+            <button id="forbes">Forbes</button>
+            <div id="mentions"></div>
+            <link rel="stylesheet" href="/css/trends.css"/>
+            <script src="/js/trends.js"></script>
+        </div>
+    </body>
 </html>

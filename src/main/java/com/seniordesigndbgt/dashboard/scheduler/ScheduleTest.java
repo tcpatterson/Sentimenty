@@ -14,10 +14,10 @@ public class ScheduleTest {
 
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
-        SentimentAnalyzer s = new SentimentAnalyzer();
-        String sent = s.getSentiment("http://www.nouse.co.uk/2016/02/16/deutsche-banks-long-fall-from-grace/", "test");
-        //String sent = s.getSentiment("This is a test of the sentiment api");
-        System.out.println(sent);
+        SentimentAnalyzer s = SentimentAnalyzer.getInstance();
+//        String sent = s.getSentiment("http://www.nouse.co.uk/2016/02/16/deutsche-banks-long-fall-from-grace/", "test");
+//        String sent = s.getSentiment("This is a test of the sentiment api");
+//        System.out.println(sent);
         //System.out.println("The time is now " + dateFormat.format(new Date()));
     }
 
