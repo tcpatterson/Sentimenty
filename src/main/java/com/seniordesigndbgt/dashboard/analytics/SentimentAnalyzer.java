@@ -15,7 +15,7 @@ import java.net.URLEncoder;
 
 public class SentimentAnalyzer {
 
-    public SentimentAnalyzer(List que) {
+    protected SentimentAnalyzer(List que) {
         //sentimentQue = que;
     }
     private final String apiKey = "329f2c9dac59bb494f29ef219b42d84b6896be5c";
