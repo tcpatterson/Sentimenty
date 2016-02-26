@@ -36,455 +36,31 @@ $( document ).ready(function() {
     $.get( "/stocks", function( data ) {
       global = data;
 
-      var start = new Date();
-      start.setHours(9,0,0,0);
-
-      var end = new Date();
-      end.setHours(17,0,0,0);
-
-      //Comment this data variable out during the day to see it on live data
-      data = [{
-                         symbol: "DB",
-                         time: {
-                             dayOfYear: 50,
-                             dayOfWeek: "FRIDAY",
-                             month: "FEBRUARY",
-                             dayOfMonth: 21,
-                             year: 2016,
-                             monthValue: 2,
-                             hour: 18,
-                             minute: 26,
-                             second: 1,
-                             nano: 103000000,
-                             chronology: {
-                                 id: "ISO",
-                                 calendarType: "iso8601"
-                             }
-                           },
-                         value: 17.14
-                      },{
-                         symbol: "DB",
-                         time: {
-                             dayOfYear: 50,
-                             dayOfWeek: "FRIDAY",
-                             month: "FEBRUARY",
-                             dayOfMonth: 21,
-                             year: 2016,
-                             monthValue: 2,
-                             hour: 9,
-                             minute: 1,
-                             second: 1,
-                             nano: 103000000,
-                             chronology: {
-                                 id: "ISO",
-                                 calendarType: "iso8601"
-                             }
-                           },
-                         value: 14.24
-                      },{
-                         symbol: "DB",
-                         time: {
-                           dayOfYear: 50,
-                           dayOfWeek: "FRIDAY",
-                           month: "FEBRUARY",
-                           dayOfMonth: 21,
-                           year: 2016,
-                           monthValue: 2,
-                           hour: 11,
-                           minute: 26,
-                           second: 1,
-                           nano: 103000000,
-                           chronology: {
-                               id: "ISO",
-                               calendarType: "iso8601"
-                           }
-                         },
-                         value: 9.24
-                      },{
-                         symbol: "DB",
-                         time: {
-                             dayOfYear: 50,
-                             dayOfWeek: "FRIDAY",
-                             month: "FEBRUARY",
-                             dayOfMonth: 21,
-                             year: 2016,
-                             monthValue: 2,
-                             hour: 12,
-                             minute: 26,
-                             second: 1,
-                             nano: 103000000,
-                             chronology: {
-                                 id: "ISO",
-                                 calendarType: "iso8601"
-                             }
-                         },
-                         value: 12.24
-                      }
-         ];
-      drawChartToday(data, start, end);
+      drawChartToday(global[0]);
     });
 
 });
 
 $( "#oneDay" ).click(function() {
-    var start = new Date();
-    start.setHours(9,0,0,0);
-
-    var end = new Date();
-    end.setHours(17,0,0,0);
-
-    data = [{
-                             symbol: "DB",
-                             time: {
-                                 dayOfYear: 50,
-                                 dayOfWeek: "FRIDAY",
-                                 month: "FEBRUARY",
-                                 dayOfMonth: 21,
-                                 year: 2016,
-                                 monthValue: 2,
-                                 hour: 18,
-                                 minute: 26,
-                                 second: 1,
-                                 nano: 103000000,
-                                 chronology: {
-                                     id: "ISO",
-                                     calendarType: "iso8601"
-                                 }
-                               },
-                             value: 17.14
-                          },{
-                             symbol: "DB",
-                             time: {
-                                 dayOfYear: 50,
-                                 dayOfWeek: "FRIDAY",
-                                 month: "FEBRUARY",
-                                 dayOfMonth: 21,
-                                 year: 2016,
-                                 monthValue: 2,
-                                 hour: 9,
-                                 minute: 1,
-                                 second: 1,
-                                 nano: 103000000,
-                                 chronology: {
-                                     id: "ISO",
-                                     calendarType: "iso8601"
-                                 }
-                               },
-                             value: 14.24
-                          },{
-                             symbol: "DB",
-                             time: {
-                               dayOfYear: 50,
-                               dayOfWeek: "FRIDAY",
-                               month: "FEBRUARY",
-                               dayOfMonth: 21,
-                               year: 2016,
-                               monthValue: 2,
-                               hour: 11,
-                               minute: 26,
-                               second: 1,
-                               nano: 103000000,
-                               chronology: {
-                                   id: "ISO",
-                                   calendarType: "iso8601"
-                               }
-                             },
-                             value: 9.24
-                          },{
-                             symbol: "DB",
-                             time: {
-                                 dayOfYear: 50,
-                                 dayOfWeek: "FRIDAY",
-                                 month: "FEBRUARY",
-                                 dayOfMonth: 21,
-                                 year: 2016,
-                                 monthValue: 2,
-                                 hour: 12,
-                                 minute: 26,
-                                 second: 1,
-                                 nano: 103000000,
-                                 chronology: {
-                                     id: "ISO",
-                                     calendarType: "iso8601"
-                                 }
-                             },
-                             value: 12.24
-                          }
-             ];
-    drawChartToday(data, start, end);
+    drawChartToday(global[0]);
 });
 
 $( "#oneMonth" ).click(function() {
-    var start = new Date();
-    start.setHours(9,0,0,0);
-    start.setMonth(start.getMonth()-1);
-
-    var end = new Date();
-    end.setHours(17,0,0,0);
-
-    data = [{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 25,
-                      year: 2016,
-                      monthValue: 1,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                    },
-                  value: 17.14
-               },{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 17,
-                      year: 2016,
-                      monthValue: 2,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                    },
-                  value: 14.24
-               },{
-                  symbol: "DB",
-                  time: {
-                    dayOfYear: 50,
-                    dayOfWeek: "FRIDAY",
-                    month: "FEBRUARY",
-                    dayOfMonth: 18,
-                    year: 2016,
-                    monthValue: 2,
-                    hour: 11,
-                    minute: 26,
-                    second: 1,
-                    nano: 103000000,
-                    chronology: {
-                        id: "ISO",
-                        calendarType: "iso8601"
-                    }
-                  },
-                  value: 9.24
-               },{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 19,
-                      year: 2016,
-                      monthValue: 2,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                  },
-                  value: 12.24
-               }
-  ];
-    drawChartOld(global[1], start, end, 20);
+    drawChartOld(global[1], 20);
 });
 
 $( "#oneYear" ).click(function() {
-    var start = new Date();
-    start.setHours(9,0,0,0);
-    start.setFullYear(start.getFullYear()-1);
-
-    var end = new Date();
-    end.setHours(17,0,0,0);
-
-    data = [{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 25,
-                      year: 2015,
-                      monthValue: 2,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                    },
-                  value: 17.14
-               },{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 18,
-                      year: 2015,
-                      monthValue: 6,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                    },
-                  value: 14.24
-               },{
-                  symbol: "DB",
-                  time: {
-                    dayOfYear: 50,
-                    dayOfWeek: "FRIDAY",
-                    month: "FEBRUARY",
-                    dayOfMonth: 18,
-                    year: 2016,
-                    monthValue: 2,
-                    hour: 11,
-                    minute: 26,
-                    second: 1,
-                    nano: 103000000,
-                    chronology: {
-                        id: "ISO",
-                        calendarType: "iso8601"
-                    }
-                  },
-                  value: 9.24
-               },{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 19,
-                      year: 2016,
-                      monthValue: 2,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                  },
-                  value: 12.24
-               }
-  ];
-    drawChartOld(global[1], start, end, 250);
+    drawChartOld(global[1], 250);
 });
 
 $( "#fiveYears" ).click(function() {
-    var start = new Date();
-    start.setHours(9,0,0,0);
-    start.setFullYear(start.getFullYear()-5);
-
-    var end = new Date();
-    end.setHours(17,0,0,0);
-
-    data = [{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 25,
-                      year: 2015,
-                      monthValue: 2,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                    },
-                  value: 17.14
-               },{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 18,
-                      year: 2011,
-                      monthValue: 3,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                    },
-                  value: 14.24
-               },{
-                  symbol: "DB",
-                  time: {
-                    dayOfYear: 50,
-                    dayOfWeek: "FRIDAY",
-                    month: "FEBRUARY",
-                    dayOfMonth: 18,
-                    year: 2016,
-                    monthValue: 2,
-                    hour: 11,
-                    minute: 26,
-                    second: 1,
-                    nano: 103000000,
-                    chronology: {
-                        id: "ISO",
-                        calendarType: "iso8601"
-                    }
-                  },
-                  value: 9.24
-               },{
-                  symbol: "DB",
-                  time: {
-                      dayOfYear: 50,
-                      dayOfWeek: "FRIDAY",
-                      month: "FEBRUARY",
-                      dayOfMonth: 19,
-                      year: 2016,
-                      monthValue: 2,
-                      hour: 11,
-                      minute: 26,
-                      second: 1,
-                      nano: 103000000,
-                      chronology: {
-                          id: "ISO",
-                          calendarType: "iso8601"
-                      }
-                  },
-                  value: 12.24
-               }
-  ];
-    drawChartOld(global[1], start, end, 1200);
+    drawChartOld(global[1], 1200);
 });
 
-function drawChartToday(data, start, end) {
+function drawChartToday(data) {
     svg.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-"+d.time.monthValue+"-"+d.time.dayOfMonth+"-"+d.time.year+"");
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-2-24-2016");
             d.close = +d.value;
         });
 
@@ -496,7 +72,7 @@ function drawChartToday(data, start, end) {
         var lastClose = last.close;
         d3.select('#close').text(lastClose);
 
-        x.domain([start, end]);
+        x.domain([data[0].date, data[data.length - 1].date]);
         y.domain([0,100]);
 
         svg.append("g")
@@ -549,16 +125,17 @@ function drawChartToday(data, start, end) {
                 i = bisectDate(data, x0, 1),
                 d0 = data[i - 1],
                 d1 = data[i];
-                if(!!!d1) {
-                  return true;
-                }
-                var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+            if(!!!d1) {
+              return true;
+            }
+            var d = x0 - d0.date > d1.date - x0 ? d1 : d0;var ds = new Date(d.date);
+            ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getYear();
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
-            focus.select("text").text(formatCurrency(d.close));
+            focus.select("text").text(ds + ": " + formatCurrency(d.close));
         };
 }
 
-function drawChartOld(data, start, end, num) {
+function drawChartOld(data, num) {
     svg.selectAll("*").remove();
     data.forEach(function(d) {
         d.date = historyDate(d.dateStock);
@@ -571,9 +148,13 @@ function drawChartOld(data, start, end, num) {
 
     var thisLength = data.length;
 
+    if(num == 0) {
+        num = thisLength;
+    }
+
     data = data.slice(thisLength-num, thisLength-1);
 
-    x.domain([start, end]);
+    x.domain([data[0].date, data[data.length - 1].date]);
     y.domain([0,100]);
 
     svg.append("g")
@@ -610,8 +191,8 @@ function drawChartOld(data, start, end, num) {
       .attr("r", 4.5);
 
     focus.append("text")
-      .attr("x", 9)
-      .attr("dy", ".35em");
+      .attr("x", 0)
+      .attr("dy", "-2.35em");
 
     svg.append("rect")
       .attr("class", "overlay")
@@ -626,11 +207,13 @@ function drawChartOld(data, start, end, num) {
             i = bisectDate(data, x0, 1),
             d0 = data[i - 1],
             d1 = data[i];
-            if(!!!d1) {
-              return true;
-            }
-            var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+        if(!!!d1) {
+          return true;
+        }
+        var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+        var ds = new Date(d.date);
+        ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getYear();
         focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
-        focus.select("text").text(formatCurrency(d.close));
+        focus.select("text").text(ds + ": " + formatCurrency(d.close));
     };
 }
