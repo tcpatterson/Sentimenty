@@ -13,8 +13,6 @@ import org.junit.Test;
 import org.omg.CORBA.DoubleHolder;
 import com.seniordesigndbgt.dashboard.analytics.SentimentAnalyzer;
 import com.seniordesigndbgt.dashboard.analytics.AnalyzerFactory;
-import org.gradle.testkit.runner.BuildResult;
-import org.gradle.testkit.runner.GradleRunner;
 
 public class SentimentAnalyzerTest extends TestCase{
     private SentimentAnalyzer analyzer;
