@@ -7,6 +7,7 @@ import java.util.*;
 
 public class TrendAnalyzer {
 
+    public String algorithm = "x mentions in y time";
     private String algorithm = "x mentions in y time, iff x >= threshold z";
     private Map<String, Integer> longFrequencyMap;
     private Map<String, Integer> shortFrequencyMap;
@@ -16,14 +17,10 @@ public class TrendAnalyzer {
 
     public TrendAnalyzer() {}
 
-    private static TrendAnalyzer singleton;
+    protected TrendAnalyzer(){
 
-    public static TrendAnalyzer getInstance(){
-        if (singleton == null)
-            singleton = new TrendAnalyzer();
-        return singleton;
     }
-    //TODO Need to separate already analyzed from text that needs analysis
+
     public void analyzeCurrentTrends() {
         //TODO
     }
@@ -48,8 +45,6 @@ public class TrendAnalyzer {
         }
 
     }
-
-
 
     public void refreshLongMap(){
         longFrequencyMap = new LinkedHashMap<String, Integer>();
