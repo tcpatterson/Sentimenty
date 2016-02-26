@@ -1,6 +1,7 @@
 package com.seniordesigndbgt.dashboard.scheduler;
 
-/**
+
+import com.seniordesigndbgt.dashboard.analytics.TrendAnalyzer;
 import com.seniordesigndbgt.dashboard.dao.PressDAO;
 import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
 import com.seniordesigndbgt.dashboard.model.Press;

@@ -7,15 +7,14 @@ import java.util.*;
 
 public class TrendAnalyzer {
 
-    public String algorithm = "x mentions in y time";
-    private String algorithm = "x mentions in y time, iff x >= threshold z";
+    public String algorithm = "x mentions in y time, if x > threshold";
     private Map<String, Integer> longFrequencyMap;
     private Map<String, Integer> shortFrequencyMap;
     private List<Map.Entry<String, Integer>> topThree;
     private List<Map.Entry<String, Integer>> newTrends;
-    private static final int THRESHOLD = 4;
+    private static final int THRESHOLD = 2;
 
-    public TrendAnalyzer() {}
+
 
     protected TrendAnalyzer(){
 
@@ -36,7 +35,7 @@ public class TrendAnalyzer {
         topThree = get3MaxValues(shortFrequencyMap);
         newTrends = new LinkedList<Map.Entry<String, Integer>>();
         for (int i = 0; i < topThree.size(); i++){
-            if (topThree.get(i).getValue() >= THRESHOLD)
+            if (topThree.get(i).getValue() > THRESHOLD)
                 newTrends.add(topThree.get(i));
         }
 
@@ -52,6 +51,10 @@ public class TrendAnalyzer {
 
     public void refreshShortMap(){
         shortFrequencyMap = new LinkedHashMap<String, Integer>();
+    }
+
+    public List<Map.Entry<String, Integer>> getNewTrends(){
+        return newTrends;
     }
 
     public Map<String, Integer> getLongFrequencyMap() {
