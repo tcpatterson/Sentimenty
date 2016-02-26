@@ -27,7 +27,7 @@ public class TwitterDAO {
     }
 
     @SuppressWarnings("unchecked")
-    public List getAll() {
+    public List<Twitter> getAll() {
         return getSession().createQuery("from Twitter").list();
     }
 }

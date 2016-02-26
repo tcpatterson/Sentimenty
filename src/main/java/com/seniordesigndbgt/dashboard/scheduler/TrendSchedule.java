@@ -18,7 +18,7 @@ import java.util.Map;
 @Component
 public class TrendSchedule {
     private PressDAO _pressDao;
-    private TwitterDAO _twitterDao;
+    private TwitterDAO _twitterDao = new TwitterDAO();
     TrendAnalyzer testAnalyzer = AnalyzerFactory.getTrendAnalyzer();
 //    @Scheduled(fixedDelay = 10000)
 //    public void testStringBreak(){
