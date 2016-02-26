@@ -1,5 +1,6 @@
 package com.seniordesigndbgt.dashboard.scheduler;
 
+import com.seniordesigndbgt.dashboard.analytics.AnalyzerFactory;
 import com.seniordesigndbgt.dashboard.dao.PressDAO;
 import com.seniordesigndbgt.dashboard.model.Press;
 import org.jsoup.Jsoup;
@@ -31,7 +32,7 @@ public class PressSchedule {
     public void checkBloomberg() throws IOException {
         Document doc = Jsoup.connect("http://www.bloomberg.com/search?query=deutsche+bank").get();
         Elements newsHeadlines = doc.select(".search-result-story__headline");
-        analyzer = SentimentAnalyzer.getInstance();
+        analyzer = AnalyzerFactory.getSentimentAnalyzer();
         for(Element e : newsHeadlines) {
             String link = e.child(0).attr("href");
             if(!link.contains("www")) {
@@ -98,7 +99,7 @@ public class PressSchedule {
     public void checkReuters() throws IOException {
         Document doc = Jsoup.connect("http://www.reuters.com/search/news?blob=deutsche+bank").get();
         Elements newsHeadlines = doc.select(".search-result-title");
-        analyzer = SentimentAnalyzer.getInstance();
+        analyzer = AnalyzerFactory.getSentimentAnalyzer();
         for(Element e : newsHeadlines) {
             String link = e.child(0).attr("href");
             String title = e.text();
