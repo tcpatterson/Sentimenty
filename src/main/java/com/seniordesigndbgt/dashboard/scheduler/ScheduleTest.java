@@ -1,5 +1,6 @@
 package com.seniordesigndbgt.dashboard.scheduler;
 
+import com.seniordesigndbgt.dashboard.analytics.AnalyzerFactory;
 import com.seniordesigndbgt.dashboard.analytics.SentimentAnalyzer;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class ScheduleTest {
 
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
-        SentimentAnalyzer s = SentimentAnalyzer.getInstance();
+        SentimentAnalyzer s = AnalyzerFactory.getSentimentAnalyzer();
 //        String sent = s.getSentiment("http://www.nouse.co.uk/2016/02/16/deutsche-banks-long-fall-from-grace/", "test");
 //        String sent = s.getSentiment("This is a test of the sentiment api");
 //        System.out.println(sent);
