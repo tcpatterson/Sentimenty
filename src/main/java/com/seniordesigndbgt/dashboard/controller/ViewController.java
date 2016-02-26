@@ -46,12 +46,12 @@ public class ViewController {
         ArrayList<Module> columnOne = new ArrayList<Module>();
         ArrayList<Module> columnTwo = new ArrayList<Module>();
         ArrayList<Module> columnThree = new ArrayList<Module>();
-        Module stockModule = new Module("Stocks from module", "stock");
-        Module trendModule = new Module("Trends from module", "trends");
+        Module stockModule = new Module("DB stock information", "stock");
+        Module trendModule = new Module("Currently trending about DB", "trends");
         Module geoModule = new Module("Geo from module", "geo");
         columnOne.add(stockModule);
         columnTwo.add(trendModule);
-        columnThree.add(geoModule);
+        //columnThree.add(geoModule);
         View preferred = new View(current, current.getDefaultView(), columnOne, columnTwo, columnThree);
         modelMap.put("view", preferred);
         return "index";
