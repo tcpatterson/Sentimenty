@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.omg.CORBA.DoubleHolder;
 
+import java.util.List;
+import java.util.Map;
+
 public class TrendAnalyzerTest extends TestCase{
 
     TrendAnalyzer ta = new TrendAnalyzer();
@@ -21,17 +24,17 @@ public class TrendAnalyzerTest extends TestCase{
     public void testFindNewTrends() throws Exception {
         assertTrue(ta.getNewTrends() == null);
         ta.findNewTrends();
-        List <Map.Entry<String,Integer>> newTrendsComparator = ta.getNewTrends();
+        List<Map.Entry<String,Integer>> newTrendsComparator = ta.getNewTrends();
         int countComparator = 4;
         for (Map.Entry<String, Integer> entry : newTrendsComparator){
-            assertEquals(entry.getValue, countComparator--);
+            assertEquals(countComparator--, (int)entry.getValue());
         }
     }
 
     @org.junit.Test
     public void testRefreshShortMap() throws Exception {
         ta.refreshShortMap();
-        assertTrue(ta.getShortFrequencyMap().getEntrySet() == null);
+        assertTrue(ta.getShortFrequencyMap().entrySet() == null);
     }
 
     @org.junit.Test
@@ -48,7 +51,7 @@ public class TrendAnalyzerTest extends TestCase{
         List<Map.Entry<String,Integer>> topThree = ta.get3MaxValues(ta.getShortFrequencyMap());
         int countCheck = 4;
         for ( Map.Entry<String, Integer> entry : topThree){
-            assertEquals(entry.getValue(), countCheck--);
+            assertEquals((int)entry.getValue(), countCheck--);
         }
     }
 
@@ -58,7 +61,7 @@ public class TrendAnalyzerTest extends TestCase{
         List<Map.Entry<String,Integer>> topThree = ta.get3MaxValues(ta.getShortFrequencyMap());
         int countCheck = 8;
         for ( Map.Entry<String, Integer> entry : topThree){
-            assertEquals(entry.getValue(), countCheck);
+            assertEquals(countCheck, (int) entry.getValue());
             countCheck -= 2;
         }
     }

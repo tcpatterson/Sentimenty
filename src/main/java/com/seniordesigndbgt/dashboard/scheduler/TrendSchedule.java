@@ -1,6 +1,7 @@
 package com.seniordesigndbgt.dashboard.scheduler;
 
 
+import com.seniordesigndbgt.dashboard.analytics.AnalyzerFactory;
 import com.seniordesigndbgt.dashboard.analytics.TrendAnalyzer;
 import com.seniordesigndbgt.dashboard.dao.PressDAO;
 import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class TrendSchedule {
     private PressDAO _pressDao;
     private TwitterDAO _twitterDao;
-    TrendAnalyzer testAnalyzer = new TrendAnalyzer();
+    TrendAnalyzer testAnalyzer = AnalyzerFactory.getTrendAnalyzer();
 //    @Scheduled(fixedDelay = 10000)
 //    public void testStringBreak(){
 //        String testSource = "This should split up into this, that, and the other other other other this this up up.";

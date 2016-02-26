@@ -36,10 +36,13 @@ public class SentimentAnalyzerTest extends TestCase{
         JsonElement jElementNeg = new JsonParser().parse(negRes);
         JsonElement jElementPos = new JsonParser().parse(posRes);
         JsonObject jObject = jElementNeg.getAsJsonObject();
-        JsonPrimitive jsonPrimitive = jObject.getAsJsonPrimitive("score");
-        Double n = jsonPrimitive.getAsDouble();
+        JsonPrimitive jPrimitive = jObject.getAsJsonPrimitive("score");
+        Double n = jPrimitive.getAsDouble();
         assertTrue("n between -1 and 0", n<0.00 && n>-1.00);
         jObject = jElementPos.getAsJsonObject();
+        jPrimitive = jObject.getAsJsonPrimitive("score");
+        n = jPrimitive.getAsDouble();
+        assertTrue("n between -1 and 1", n<0.00 && n>1.00);
     }
 
     @Test
