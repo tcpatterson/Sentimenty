@@ -43,13 +43,13 @@ public class TrendAnalyzer {
                 newTrends.add(topThree.get(i));
         }
 
-//        for (int i = 0; i < newTrends.size(); i++){
-//            System.out.println(newTrends.get(i).getKey() + "=" + newTrends.get(i).getValue());
-//        }
+        for (int i = 0; i < newTrends.size(); i++){
+            System.out.println(newTrends.get(i).getKey() + "=" + newTrends.get(i).getValue());
+        }
 
     }
 
-    
+
 
     public void refreshLongMap(){
         longFrequencyMap = new LinkedHashMap<String, Integer>();
@@ -105,6 +105,7 @@ public class TrendAnalyzer {
                 shortFrequencyMap.put(currWord, 1);
             }
         }
+        printFrequencyMap(shortFrequencyMap);
 
     }
 
