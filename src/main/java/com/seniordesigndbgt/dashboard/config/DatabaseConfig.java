@@ -63,7 +63,7 @@ public class DatabaseConfig {
     @Bean
     public SessionFactory sessionFactory() {
         return new LocalSessionFactoryBuilder(getDataSource())
-                .addAnnotatedClasses(new Class<?>[]{User.class, View.class, DailyStock.class, Press.class, StockHistory.class, Twitter.class})
+                .addAnnotatedClasses(new Class<?>[]{User.class, View.class, DailyStock.class, Press.class, StockHistory.class, Twitter.class, Trend.class})
                 .buildSessionFactory();
     }
     @Bean
