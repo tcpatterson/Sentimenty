@@ -48,10 +48,7 @@ public class TrendAnalyzer {
 
     public Map<String, Integer> updateFrequencyMap(String text, Map<String,Integer> map){
         //Sanitize input
-        String removeCharacters = ".,!?"; //Remove these characters from the text
-        for (int i = 0; i < removeCharacters.length(); i++){
-            text = text.replace(String.valueOf(removeCharacters.charAt(i)), "");
-        }
+        text = sanitizeInput(text);
         String[] splitArray = text.split(" ");
 
 
@@ -66,6 +63,18 @@ public class TrendAnalyzer {
 //        printFrequencyMap(map);
         return map;
 
+    }
+    /**
+     * Gets rid of punctuation and articles
+     * List of articles is incomplete*/
+    public String sanitizeInput(String text){
+        text = text.toLowerCase();
+        String[] toRemove = {".",",","!","?","in","the","to","a","an","as","and","has","of","or",
+                "for","up","with","on","off","into"};
+        for (int i = 0; i < toRemove.length; i++){
+            text = text.replace(toRemove[i], "");
+        }
+        return text;
     }
 
     /*
