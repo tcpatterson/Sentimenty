@@ -1,124 +1,83 @@
 package com.seniordesigndbgt.dashboard.analytics;
 
-import com.seniordesigndbgt.dashboard.model.Press;
-
-import java.text.BreakIterator;
 import java.util.*;
 
 public class TrendAnalyzer {
 
     public String algorithm = "x mentions in y time, if x > threshold";
-    private Map<String, Integer> longFrequencyMap;
-    private Map<String, Integer> shortFrequencyMap;
-    private List<Map.Entry<String, Integer>> topThree;
-    private List<Map.Entry<String, Integer>> newTrends;
+    private static Map<String, Integer> frequencyMap;
+    private List<Map.Entry<String,Integer>> trends;
     private static final int THRESHOLD = 2;
+    private static final int NUM_OF_KEYWORDS = 5;
 
 
-
-    protected TrendAnalyzer(){
-
+    public TrendAnalyzer() {
+        this.frequencyMap = new LinkedHashMap<String, Integer>();
     }
 
-    public void analyzeCurrentTrends() {
+    public List<Map.Entry<String, Integer>> findNewTrends() {
         //TODO
+        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>();
+        return list;
     }
 
-    public void findNewTrends() {
-        //TODO
-        //Sort the new hashMap
-        //Check for threshold
-        //Only doing short frequency map for now
-        longFrequencyMap = sortFrequencyMapByValue(longFrequencyMap);
-        shortFrequencyMap = sortFrequencyMapByValue(shortFrequencyMap);
-//        printFrequencyMap(shortFrequencyMap);
-        topThree = get3MaxValues(shortFrequencyMap);
-        newTrends = new LinkedList<Map.Entry<String, Integer>>();
-        for (int i = 0; i < topThree.size(); i++){
-            if (topThree.get(i).getValue() > THRESHOLD)
-                newTrends.add(topThree.get(i));
+    public List<String> findKeywords(String text){
+        List<Map.Entry<String,Integer>> allWords = updateTrends(updateFrequencyMap(text,
+                new LinkedHashMap<String, Integer>()));
+//        System.out.println(allWords.size());
+        List<String> keyWords = new LinkedList<String>();
+        for (int i = 0; i < NUM_OF_KEYWORDS; i++){
+            keyWords.add(allWords.get(i).getKey());
         }
-
-        for (int i = 0; i < newTrends.size(); i++){
-            System.out.println(newTrends.get(i).getKey() + "=" + newTrends.get(i).getValue());
-        }
-
+        return keyWords;
     }
-
-    public void refreshLongMap(){
-        longFrequencyMap = new LinkedHashMap<String, Integer>();
-    }
-
     public void refreshShortMap(){
-        shortFrequencyMap = new LinkedHashMap<String, Integer>();
+        frequencyMap = new LinkedHashMap<String, Integer>();
     }
 
-    public List<Map.Entry<String, Integer>> getNewTrends(){
-        return newTrends;
+    public Map<String, Integer> getFrequencyMap() {
+        return frequencyMap;
     }
 
-    public Map<String, Integer> getLongFrequencyMap() {
-        return longFrequencyMap;
-    }
-
-    public Map<String, Integer> getShortFrequencyMap() {
-        return shortFrequencyMap;
-    }
-
-    public static <K, V extends Comparable<? super V>> List<Map.Entry<K,V>> get3MaxValues(Map<K,V> map){
-        List <Map.Entry<K,V>>  topThree = new LinkedList<Map.Entry<K, V>>();
-        Iterator it = map.entrySet().iterator();
-        for (int i = 0; i < 3; i++) {
-            topThree.add((Map.Entry)it.next());
-        }
-        return topThree;
-    }
-
-
-
-
-    public void updateFrequencyMap(String text){
+    public Map<String, Integer> updateFrequencyMap(String text, Map<String,Integer> map){
         //Sanitize input
         String removeCharacters = ".,!?"; //Remove these characters from the text
         for (int i = 0; i < removeCharacters.length(); i++){
             text = text.replace(String.valueOf(removeCharacters.charAt(i)), "");
         }
-
         String[] splitArray = text.split(" ");
 
 
         for (String currWord : splitArray) {
-//            System.out.println(currWord);
-            if (longFrequencyMap.containsKey(currWord)) {
-                int currCount = longFrequencyMap.get(currWord);
-                longFrequencyMap.put(currWord, currCount + 1);
+            if (map.containsKey(currWord)) {
+                int currCount = map.get(currWord);
+                map.put(currWord, currCount + 1);
             } else {
-                longFrequencyMap.put(currWord, 1);
-            }
-
-            if (shortFrequencyMap.containsKey(currWord)) {
-                int currCount = shortFrequencyMap.get(currWord);
-                shortFrequencyMap.put(currWord, currCount + 1);
-            } else {
-                shortFrequencyMap.put(currWord, 1);
+                map.put(currWord, 1);
             }
         }
-        printFrequencyMap(shortFrequencyMap);
+//        printFrequencyMap(map);
+        return map;
 
     }
 
-    private static <K, V extends Comparable<? super V>> Map<K, V> sortFrequencyMapByValue(Map<K,V> map) {
+    /*
+    * Takes map data, sorts it into List, returns List
+    * */
+    private static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> updateTrends(Map<K,V> map) {
         List<Map.Entry<K, V>> list = new LinkedList<Map.Entry<K, V>>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<K, V>>() {
             public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
                 return (o2.getValue()).compareTo(o1.getValue());
             }
         });
-        Map<K, V> result = new LinkedHashMap<K, V>();
+        return list;
+
+        /*Map<K, V> result = new LinkedHashMap<K, V>();
         for (Map.Entry<K, V> entry : list) {
             result.put(entry.getKey(), entry.getValue());
         }
-        return result;
+        return result;*/
     }
 
     private void printFrequencyMap(Map<String,Integer> map){

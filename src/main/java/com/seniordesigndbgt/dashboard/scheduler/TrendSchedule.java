@@ -19,24 +19,11 @@ import java.util.Map;
 public class TrendSchedule {
     private PressDAO _pressDao;
     private TwitterDAO _twitterDao = new TwitterDAO();
-    TrendAnalyzer testAnalyzer = AnalyzerFactory.getTrendAnalyzer();
-//    @Scheduled(fixedDelay = 10000)
-//    public void testStringBreak(){
-//        String testSource = "This should split up into this, that, and the other other other other this this up up.";
-//        testAnalyzer.refreshShortMap();
-//        testAnalyzer.refreshLongMap();
-//        testAnalyzer.updateFrequencyMap(testSource);
-//        testAnalyzer.findNewTrends();
-//
-//    }
-    @Scheduled(fixedDelay = 2000)
-    public void getTrendFromArticles(){
-        //get all text, updateFrequencyMap, findNewTrends()
-        //Should probably print out frequency map for each update call, to get feel for threshold
-//        List<Press> articles = _pressDao.getAll();
-        List<Twitter> tweets = _twitterDao.getAll();
-        for (Twitter tweet : tweets){
-            testAnalyzer.updateFrequencyMap(tweet.getText());
-        }
+    @Scheduled(fixedDelay = 10000)
+    public void testStringBreak() {
+        String testSource = "This should split up into this, that, and the other other other other this this up up.";
+        TrendAnalyzer ta = new TrendAnalyzer();
+        for (String word : ta.findKeywords(testSource))
+            System.out.println(word);
     }
 }
