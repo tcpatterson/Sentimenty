@@ -20,8 +20,9 @@ public class TrendAnalyzer {
         List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>();
         return list;
     }
-
-    public List<String> findKeywords(String text){
+    /**
+    * Finds the top constant number of keywords, returned as a comma separated string*/
+    public String findKeywords(String text){
         List<Map.Entry<String,Integer>> allWords = updateTrends(updateFrequencyMap(text,
                 new LinkedHashMap<String, Integer>()));
 //        System.out.println(allWords.size());
@@ -29,7 +30,13 @@ public class TrendAnalyzer {
         for (int i = 0; i < NUM_OF_KEYWORDS; i++){
             keyWords.add(allWords.get(i).getKey());
         }
-        return keyWords;
+        String keyWordsString = "";
+        for (String word : keyWords) {
+            keyWordsString += word;
+            keyWordsString += ",";
+        }
+        keyWordsString = keyWordsString.substring(0,keyWordsString.length()-1);
+        return keyWordsString;
     }
     public void refreshShortMap(){
         frequencyMap = new LinkedHashMap<String, Integer>();

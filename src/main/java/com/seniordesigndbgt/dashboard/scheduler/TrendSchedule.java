@@ -23,7 +23,5 @@ public class TrendSchedule {
     public void testStringBreak() {
         String testSource = "This should split up into this, that, and the other other other other this this up up.";
         TrendAnalyzer ta = new TrendAnalyzer();
-        for (String word : ta.findKeywords(testSource))
-            System.out.println(word);
     }
 }
