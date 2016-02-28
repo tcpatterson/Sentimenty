@@ -128,10 +128,15 @@ function drawChartToday(data) {
             if(!!!d1) {
               return true;
             }
-            var d = x0 - d0.date > d1.date - x0 ? d1 : d0;var ds = new Date(d.date);
-            ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getYear();
+            var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+            var ds = new Date(d.date);
+
+            var per = i/data.length;
+            var xoff = per*-80;
+            ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getFullYear();
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(ds + ": " + formatCurrency(d.close));
+            focus.select("text").attr("x", xoff);
         };
 }
 
@@ -212,8 +217,12 @@ function drawChartOld(data, num) {
         }
         var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
         var ds = new Date(d.date);
-        ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getYear();
+        ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getFullYear();
+
+        var per = i/data.length;
+        var xoff = per*-80;
         focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
         focus.select("text").text(ds + ": " + formatCurrency(d.close));
+        focus.select("text").attr("x", xoff);
     };
 }
