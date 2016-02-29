@@ -69,8 +69,8 @@ public class TrendAnalyzer {
      * List of articles is incomplete*/
     public String sanitizeInput(String text){
         text = text.toLowerCase();
-        String[] toRemove = {".",",","!","?","in","the","to","a","an","as","and","has","of","or",
-                "for","up","with","on","off","into"};
+        String[] toRemove = {".",",","!","?"," in "," the "," to "," a "," an "," as "," and "," has "," of "," or ",
+                " for "," up "," with "," on "," off "," into "};
         for (int i = 0; i < toRemove.length; i++){
             text = text.replace(toRemove[i], "");
         }
