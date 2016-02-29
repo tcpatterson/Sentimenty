@@ -1,6 +1,8 @@
 package com.seniordesigndbgt.dashboard.scheduler;
 
+import com.seniordesigndbgt.dashboard.action.PressAction;
 import com.seniordesigndbgt.dashboard.analytics.AnalyzerFactory;
+import com.seniordesigndbgt.dashboard.analytics.TrendAnalyzer;
 import com.seniordesigndbgt.dashboard.dao.PressDAO;
 import com.seniordesigndbgt.dashboard.model.Press;
 import org.jsoup.Jsoup;
@@ -25,6 +27,8 @@ public class PressSchedule {
     private PressDAO _pressDao;
 
     private SentimentAnalyzer analyzer;
+
+    TrendAnalyzer ta = new TrendAnalyzer();
 
     private static final int RATE = 1000000;
 
@@ -107,9 +111,11 @@ public class PressSchedule {
                 Press article = new Press("Reuters", link, title);
                 _pressDao.save(article);
                 article.setSentiment(analyzer.getSentiment(article));
+                String bodyContent = PressAction.getBodyContent(article);
+                article.setKeywords(ta.findKeywords(bodyContent).toString());
                 _pressDao.update(article);
             }catch(Exception error){
-
+                System.out.println(error);
             }
         }
     }

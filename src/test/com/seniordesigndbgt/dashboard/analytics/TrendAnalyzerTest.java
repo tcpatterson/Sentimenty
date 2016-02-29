@@ -3,71 +3,35 @@ package com.seniordesigndbgt.dashboard.analytics;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import junit.framework.TestCase;
+import com.seniordesigndbgt.dashboard.action.PressAction;
+import com.seniordesigndbgt.dashboard.model.Press;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.CORBA.DoubleHolder;
+import static org.junit.Assert.*;
 
 import java.util.List;
 import java.util.Map;
 
-public class TrendAnalyzerTest extends TestCase{
+public class TrendAnalyzerTest {
 
     TrendAnalyzer ta = new TrendAnalyzer();
-    @org.junit.Before
+
+    @Before
     public void setUp() throws Exception {
-        ta.updateFrequencyMap("one two two three three three four four four four ");
     }
 
-    @org.junit.Test
-    public void testFindNewTrends() throws Exception {
-        assertTrue(ta.getNewTrends() == null);
-        ta.findNewTrends();
-        List<Map.Entry<String,Integer>> newTrendsComparator = ta.getNewTrends();
-        int countComparator = 4;
-        for (Map.Entry<String, Integer> entry : newTrendsComparator){
-            assertEquals(countComparator--, (int)entry.getValue());
-        }
-    }
-
-    @org.junit.Test
-    public void testRefreshShortMap() throws Exception {
-        ta.refreshShortMap();
-        assertTrue(ta.getShortFrequencyMap().entrySet() == null);
-    }
-
-    @org.junit.Test
-    public void testGetShortFrequencyMap() throws Exception {
-        Map<String, Integer> freqMap = ta.getShortFrequencyMap();
-        assertTrue(freqMap.containsKey("one"));
-        assertTrue(freqMap.containsKey("two"));
-        assertTrue(freqMap.containsKey("three"));
-        assertTrue(freqMap.containsKey("four"));
-    }
-
-    @org.junit.Test
-    public void testGet3MaxValues() throws Exception {
-        List<Map.Entry<String,Integer>> topThree = ta.get3MaxValues(ta.getShortFrequencyMap());
-        int countCheck = 4;
-        for ( Map.Entry<String, Integer> entry : topThree){
-            assertEquals((int)entry.getValue(), countCheck--);
-        }
-    }
-
-    @org.junit.Test
-    public void testUpdateFrequencyMap() throws Exception {
-        ta.updateFrequencyMap("one two two three three three four four four four ");
-        List<Map.Entry<String,Integer>> topThree = ta.get3MaxValues(ta.getShortFrequencyMap());
-        int countCheck = 8;
-        for ( Map.Entry<String, Integer> entry : topThree){
-            assertEquals(countCheck, (int) entry.getValue());
-            countCheck -= 2;
-        }
-    }
-
-    @org.junit.After
+    @After
     public void tearDown() throws Exception {
-        ta.refreshShortMap();
+    }
+
+    @Test
+    public void testFindKeywords() throws Exception {
+        Press article = new Press("Reuters", "http://www.reuters.com/article/us-deutsche-bank-bafin-idUSKCN0VY2O4", "German regulator ends Deutsche Bank probes over fixing scandals");
+        String body = PressAction.getBodyContent(article);
+        List<String> keywords = ta.findKeywords(body);
+        System.out.println(keywords);
+        assertTrue("size", keywords.size() >= 0);
     }
 }
