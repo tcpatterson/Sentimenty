@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.seniordesigndbgt.dashboard.model.Press;
-import junit.framework.TestCase;
 import org.aspectj.runtime.reflect.Factory;
 import org.junit.After;
 import org.junit.Before;
@@ -13,8 +12,9 @@ import org.junit.Test;
 import org.omg.CORBA.DoubleHolder;
 import com.seniordesigndbgt.dashboard.analytics.SentimentAnalyzer;
 import com.seniordesigndbgt.dashboard.analytics.AnalyzerFactory;
+import static org.junit.Assert.*;
 
-public class SentimentAnalyzerTest extends TestCase{
+public class SentimentAnalyzerTest {
     private SentimentAnalyzer analyzer;
     @Before
     public void setUp() throws Exception {
