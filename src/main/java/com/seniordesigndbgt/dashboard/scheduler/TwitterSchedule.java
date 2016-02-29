@@ -50,7 +50,7 @@ public class TwitterSchedule {
                     String author = status.getUser().getName();
                     TrendAnalyzer ta = new TrendAnalyzer();
                     String keywords = ta.findKeywords(tweetText);
-                    Twitter t = new Twitter(author, tweetText, keywords);
+                    Twitter t = new Twitter(author, tweetText);
                     _twitterDao.save(t);
                 }
             }
@@ -58,7 +58,7 @@ public class TwitterSchedule {
             e.printStackTrace();
         }
     }
-    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 10000)
     public void testKeywordDatabase(){
         List<Twitter> twitters = _twitterDao.getAll();
         for (Twitter tweet : twitters){

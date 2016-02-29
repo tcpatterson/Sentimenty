@@ -29,7 +29,7 @@ public class TrendDAO {
     }
 
     @SuppressWarnings("unchecked")
-    public List getAll() {
+    public List<Trend> getAll() {
         return getSession().createQuery("from Trend").list();
     }
 
