@@ -33,6 +33,9 @@ public class Press {
     @Column(name = "sentiment")
     private String sentiment;
 
+    @Column(name = "keywords")
+    private String keywords;
+
     public Press() {}
 
     public Press(String source, String url, String title) {
@@ -79,5 +82,13 @@ public class Press {
 
     public void setSentiment(String sentiment) {
         this.sentiment = sentiment;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 }

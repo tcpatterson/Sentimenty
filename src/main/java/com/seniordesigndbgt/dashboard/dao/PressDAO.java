@@ -29,7 +29,7 @@ public class PressDAO {
     }
 
     @SuppressWarnings("unchecked")
-    public List getAll() {
+    public List <Press> getAll() {
         return getSession().createQuery("from Press").list();
     }
 

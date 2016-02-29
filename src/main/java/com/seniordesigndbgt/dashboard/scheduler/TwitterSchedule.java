@@ -1,5 +1,6 @@
 package com.seniordesigndbgt.dashboard.scheduler;
 
+import com.seniordesigndbgt.dashboard.analytics.TrendAnalyzer;
 import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
 import com.seniordesigndbgt.dashboard.model.*;
 import com.seniordesigndbgt.dashboard.model.Twitter;
@@ -34,7 +35,7 @@ public class TwitterSchedule {
             twitter4j.Twitter twitter = tf.getInstance();
 
             Query query = new Query(hashtag);
-            query.count(100);
+            query.count(10);
             QueryResult result = twitter.search(query);
             for (Status status : result.getTweets()){
 //                if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
@@ -45,14 +46,23 @@ public class TwitterSchedule {
 //                    System.out.println(status.getCreatedAt().toString());
 //                }
                 if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
-                    String tweetText = "@" + status.getUser().getName() + " - " + status.getText();
-                    _twitterDao.save(new Twitter(1, tweetText));
+                    String tweetText = status.getText();
+                    String author = status.getUser().getName();
+                    TrendAnalyzer ta = new TrendAnalyzer();
+                    String keywords = ta.findKeywords(tweetText);
+                    Twitter t = new Twitter(author, tweetText);
+                    _twitterDao.save(t);
                 }
             }
-
-
         } catch (TwitterException e){
             e.printStackTrace();
+        }
+    }
+//    @Scheduled(fixedDelay = 10000)
+    public void testKeywordDatabase(){
+        List<Twitter> twitters = _twitterDao.getAll();
+        for (Twitter tweet : twitters){
+            System.out.println(tweet.toString());
         }
     }
 }

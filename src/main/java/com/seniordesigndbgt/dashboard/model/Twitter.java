@@ -17,10 +17,18 @@ public class Twitter {
     @Column(name = "text")
     private String text;
 
-    public Twitter(long id, String text) {
-        this.id = id;
+
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "author")
+    private String author;
+
+    public Twitter(String author, String text) {
+        this.author = author;
         this.text = text;
     }
+
+    public Twitter() {}
 
     public long getId() {
         return id;
@@ -36,5 +44,14 @@ public class Twitter {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("@"+author+" - ");
+        sb.append(text);
+
+        return sb.toString();
     }
 }

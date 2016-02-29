@@ -1,5 +1,13 @@
 package com.seniordesigndbgt.dashboard.analytics;
 
+import com.seniordesigndbgt.dashboard.dao.PressDAO;
+import com.seniordesigndbgt.dashboard.dao.TrendDAO;
+import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
+import com.seniordesigndbgt.dashboard.model.Press;
+import com.seniordesigndbgt.dashboard.model.Trend;
+import com.seniordesigndbgt.dashboard.model.Twitter;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.*;
 
 public class TrendAnalyzer {
@@ -9,19 +17,61 @@ public class TrendAnalyzer {
     private List<Map.Entry<String,Integer>> trends;
     private static final int THRESHOLD = 2;
     private static final int NUM_OF_KEYWORDS = 5;
+    @Autowired
+    private PressDAO _pressDao;
+    @Autowired
+    private TwitterDAO _twitterDao;
+    @Autowired
+    private TrendDAO _trendDao;
+
 
 
     public TrendAnalyzer() {
         this.frequencyMap = new LinkedHashMap<String, Integer>();
     }
 
-    public List<Map.Entry<String, Integer>> findNewTrends() {
-        //TODO
-        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>();
-        return list;
-    }
+    public void findNewTrends() {
+        System.out.println("\nStart");
+    //Get press keywords
+        List<Press> pressList = _pressDao.getAll();
+        String allKeywords = "";
+        for (Press article : pressList) {
+            if (article.getKeywords() != null) {
+                String[] articleKeywordSplit = article.getKeywords().split(",");
+                allKeywords += article.getKeywords() + " ";
+                for (String keyword : articleKeywordSplit) {
+                    allKeywords += keyword + " ";
+                }
+            }
+        }
+        allKeywords = allKeywords.replace(",", " ");
 
-    public List<String> findKeywords(String text){
+
+
+        String keyString = findKeywords(allKeywords);
+        System.out.println("all keywords: " + keyString);
+        String[] keywordSplit = keyString.split(",");
+        List<Trend> trends = new ArrayList<Trend>();
+        for (String keyword : keywordSplit) {
+            String mentions = "";
+            for (Press article : pressList) {
+                if (article.getKeywords() != null && article.getKeywords().contains(keyword)) {
+                    mentions += article.getId() + ", ";
+                }
+            }
+            trends.add(new Trend(keyword, mentions));
+        }
+        for (Trend trend : trends) {
+            _trendDao.save(trend);
+        }
+        for (Trend databaseTrend : _trendDao.getAll()) {
+            System.out.println(databaseTrend.getMentions());
+        }
+
+    }
+    /**
+    * Finds the top constant number of keywords, returned as a comma separated string*/
+    public String findKeywords(String text){
         List<Map.Entry<String,Integer>> allWords = updateTrends(updateFrequencyMap(text,
                 new LinkedHashMap<String, Integer>()));
 //        System.out.println(allWords.size());
@@ -29,7 +79,13 @@ public class TrendAnalyzer {
         for (int i = 0; i < NUM_OF_KEYWORDS; i++){
             keyWords.add(allWords.get(i).getKey());
         }
-        return keyWords;
+        String keyWordsString = "";
+        for (String word : keyWords) {
+            keyWordsString += word;
+            keyWordsString += ",";
+        }
+        keyWordsString = keyWordsString.substring(0,keyWordsString.length()-1);
+        return keyWordsString;
     }
     public void refreshShortMap(){
         frequencyMap = new LinkedHashMap<String, Integer>();
@@ -41,10 +97,7 @@ public class TrendAnalyzer {
 
     public Map<String, Integer> updateFrequencyMap(String text, Map<String,Integer> map){
         //Sanitize input
-        String removeCharacters = ".,!?"; //Remove these characters from the text
-        for (int i = 0; i < removeCharacters.length(); i++){
-            text = text.replace(String.valueOf(removeCharacters.charAt(i)), "");
-        }
+        text = sanitizeInput(text);
         String[] splitArray = text.split(" ");
 
 
@@ -59,6 +112,18 @@ public class TrendAnalyzer {
 //        printFrequencyMap(map);
         return map;
 
+    }
+    /**
+     * Gets rid of punctuation and articles
+     * List of articles is incomplete*/
+    public String sanitizeInput(String text){
+        text = text.toLowerCase();
+        String[] toRemove = {".",",","!","?"," in "," the "," to "," a "," an "," as "," and "," has "," of "," or ",
+                " for "," up "," with "," on "," off "," into "," it "," have "," by "};
+        for (int i = 0; i < toRemove.length; i++){
+            text = text.replace(toRemove[i], "");
+        }
+        return text;
     }
 
     /*

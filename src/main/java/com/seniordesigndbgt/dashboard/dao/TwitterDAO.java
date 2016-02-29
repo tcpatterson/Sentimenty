@@ -22,12 +22,22 @@ public class TwitterDAO {
         return _sessionFactory.getCurrentSession();
     }
 
-    public void save(Twitter tweet) {
-        getSession().save(tweet);
+    public void save(Twitter twitter) {
+        getSession().save(twitter);
+    }
+
+
+    public void delete(Twitter twitter) {
+        getSession().delete(twitter);
     }
 
     @SuppressWarnings("unchecked")
     public List<Twitter> getAll() {
         return getSession().createQuery("from Twitter").list();
     }
+
+    public void update(Twitter twitter){
+        getSession().update(twitter);
+    }
+
 }
