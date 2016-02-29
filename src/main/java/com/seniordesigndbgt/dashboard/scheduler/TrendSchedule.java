@@ -36,13 +36,15 @@ public class TrendSchedule {
         for (String keyword : keyList) {
             String mentions = "";
             for (Press article : pressList) {
-                if (article.getKeywords().contains(keyword)) {
+                if (article.getKeywords() != null && article.getKeywords().contains(keyword)) {
                     mentions += article.getId() + ", ";
                 }
             }
             trends.add(new Trend(keyword, mentions));
         }
-        System.out.println(trends);
+        for (Trend trend : trends) {
+            System.out.println(trend.getTrendTitle() + "   " + trend.getMentions());
+        }
     }
 
     @Scheduled(fixedDelay = 100000)
