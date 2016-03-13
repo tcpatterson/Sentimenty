@@ -3,16 +3,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
         <div th:fragment="stock">
-            <div>
-                <h4>Current price: <span id="close"></span><span id="arrow">&#x2191;</span></h4>
+            <div id="current-price">
+                <h3><span id="close"></span></h3>USD
+                <span id="arrow"></span>
             </div>
             <div id="stockChart"></div>
-            <button id="oneDay">1 Day</button>
-            <button id="oneMonth">1 Month</button>
-            <button id="oneYear">1 Year</button>
-            <button id="fiveYears">5 Years</button>
-            <input type="radio" id="dbStock" name="sym" checked="checked"/>DB
-            <input type="radio" id="dowStock" name="sym"/>DOW
+            <div class="range">
+                <button id="oneDay">1 Day</button>
+                <button id="oneMonth">1 Month</button>
+                <button id="oneYear">1 Year</button>
+                <button id="fiveYears">5 Years</button>
+            </div>
+            <br/>
+            <div class="ticker">
+                <button id="DB_ticker">Deutsche Bank</button>
+                <button id="DOW_ticker">Dow Jones</button>
+            </div>
             <link rel="stylesheet" href="/css/stock.css"/>
             <script src="/vendor/d3/d3.min.js"></script>
             <script src="/js/stock.js"></script>

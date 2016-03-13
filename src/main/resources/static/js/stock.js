@@ -15,19 +15,20 @@ var y = d3.scale.linear()
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()
+    .ticks(d3.time.hours, 1)
     .scale(x)
     .orient("bottom");
 
 var yAxis = d3.svg.axis()
     .scale(y)
-    .orient("left");
+    .orient("right");
 
 var line = d3.svg.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.close); });
 
 var svg = d3.select("#stockChart").append("svg")
-    .attr("width", width + margin.left + margin.right)
+    .attr("width", 340)
     .attr("height", height + margin.top + margin.bottom + 50)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -42,18 +43,34 @@ $( document ).ready(function() {
 });
 
 $( "#oneDay" ).click(function() {
+    xAxis = d3.svg.axis()
+        .ticks(d3.time.hours, 1)
+        .scale(x)
+        .orient("bottom");
     drawChartToday(global[0]);
 });
 
 $( "#oneMonth" ).click(function() {
+    xAxis = d3.svg.axis()
+        .ticks(d3.time.days, 5)
+        .scale(x)
+        .orient("bottom");
     drawChartOld(global[1], 20);
 });
 
 $( "#oneYear" ).click(function() {
+    xAxis = d3.svg.axis()
+        .ticks(d3.time.months, 3)
+        .scale(x)
+        .orient("bottom");
     drawChartOld(global[1], 250);
 });
 
 $( "#fiveYears" ).click(function() {
+    xAxis = d3.svg.axis()
+        .ticks(d3.time.months, 6)
+        .scale(x)
+        .orient("bottom");
     drawChartOld(global[1], 1200);
 });
 
@@ -69,8 +86,14 @@ function drawChartToday(data) {
         });
 
         var last = data[data.length-1];
+        var secondToLastClose = data[data.length-2].close;
         var lastClose = last.close;
         d3.select('#close').text(lastClose);
+        if(lastClose >= secondToLastClose ) {
+            d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-up green")
+        } else {
+            d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-down red")
+        }
 
         x.domain([data[0].date, data[data.length - 1].date]);
         y.domain([0,100]);
@@ -83,15 +106,17 @@ function drawChartToday(data) {
           .attr("y", 0)
           .attr("x", 9)
           .attr("dy", ".35em")
-          .attr("transform", "rotate(90)")
+          .attr("transform", "rotate(45)")
           .style("text-anchor", "start");
 
         svg.append("g")
           .attr("class", "y axis")
+          .attr("transform", "translate(" + width + " ,0)")
           .call(yAxis)
         .append("text")
           .attr("transform", "rotate(-90)")
-          .attr("y", 6)
+          .attr("y", 30)
+          .attr("x", -50)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           .text("Price ($)");
@@ -132,7 +157,7 @@ function drawChartToday(data) {
             var ds = new Date(d.date);
 
             var per = i/data.length;
-            var xoff = per*-80;
+            var xoff = per*-110;
             ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getFullYear();
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(ds + ": " + formatCurrency(d.close));
@@ -162,6 +187,11 @@ function drawChartOld(data, num) {
     x.domain([data[0].date, data[data.length - 1].date]);
     y.domain([0,100]);
 
+    xAxis.tickFormat(function(d) {
+        var d = new Date(""+d+"");
+        return d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+    });
+
     svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -170,15 +200,17 @@ function drawChartOld(data, num) {
       .attr("y", 0)
       .attr("x", 9)
       .attr("dy", ".35em")
-      .attr("transform", "rotate(90)")
+      .attr("transform", "rotate(45)")
       .style("text-anchor", "start");
 
     svg.append("g")
       .attr("class", "y axis")
+      .attr("transform", "translate(" + width + " ,0)")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", 30)
+      .attr("x", -50)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("Price ($)");
@@ -220,7 +252,7 @@ function drawChartOld(data, num) {
         ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getFullYear();
 
         var per = i/data.length;
-        var xoff = per*-80;
+        var xoff = per*-110;
         focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
         focus.select("text").text(ds + ": " + formatCurrency(d.close));
         focus.select("text").attr("x", xoff);
