@@ -4,14 +4,37 @@
     <body>
         <div th:fragment="trends">
             <div>
-                <h4>Current news mentions: <span id="close"></span></h4>
             </div>
-            <button id="bloomberg">Bloomberg</button>
-            <button id="reuters">Reuters</button>
-            <button id="nyt">NYT</button>
-            <button id="forbes">Forbes</button>
-            <div id="mentions"></div>
+            <div class="trend">
+                <button id="bloomberg">Bloomberg</button>
+                <button id="reuters">Reuters</button>
+                <button id="nyt">NYT</button>
+                <button id="forbes">Forbes</button>
+            </div>
+            <script id="clientTemplate" type="text/html">
+                <div class="mention ${source}">
+                    <div id="mention-sentiment">
+                        <span class="glyphicon glyphicon-triangle-${arrow} ${color}"></span><br/>
+                        <p>${sentiment.score}</p>
+                    </div>
+                    <div id="mention-content">
+                        <a target="_blank" href="${url}">${title}</a>
+                    </div>
+                </div>
+            </script>
+            <div id="mentions">
+                <!--<div class="mention bloomberg">-->
+                    <!--<div id="mention-sentiment">-->
+                        <!--<span class="glyphicon glyphicon-triangle-bottom"></span><br/>-->
+                        <!--<p>0.1045</p>-->
+                    <!--</div>-->
+                    <!--<div id="mention-content">-->
+                        <!--<a target="_blank" href="www.google.com">This is a test</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
             <link rel="stylesheet" href="/css/trends.css"/>
+            <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
             <script src="/js/trends.js"></script>
         </div>
     </body>

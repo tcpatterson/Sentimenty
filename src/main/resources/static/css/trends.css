@@ -20,3 +20,28 @@
     height: 400px;
     overflow: scroll;
 }
+
+.trend button {
+    width: 24%;
+    height: 25px;
+}
+
+#mention-sentiment {
+    display: inline-block;
+    text-align: center;
+}
+
+#mention-content {
+    display: inline;
+    width: 80%;
+    float: right;
+}
+
+#mention-content a {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#mention-sentiment .glyphicon {
+    font-size: 20px;
+}
