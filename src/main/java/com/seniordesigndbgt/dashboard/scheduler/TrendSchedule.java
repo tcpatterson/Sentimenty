@@ -26,7 +26,7 @@ public class TrendSchedule {
 
     @Scheduled(fixedDelay = 10000)
     public void getTrends() {
-        System.out.println("\nStart");
+        //System.out.println("\nStart");
         List<Press> pressList = _pressDao.getAll();
         String allKeywords = "";
         for (Press article : pressList) {
@@ -40,7 +40,7 @@ public class TrendSchedule {
         }
         allKeywords = allKeywords.replace(",", " ");
         String keyString = ta.findKeywords(allKeywords);
-        System.out.println("all keywords: " + keyString);
+        //System.out.println("all keywords: " + keyString);
         String[] keywordSplit = keyString.split(",");
         List<Trend> trends = new ArrayList<Trend>();
         for (String keyword : keywordSplit) {
@@ -54,7 +54,7 @@ public class TrendSchedule {
         }
         for (Trend trend : trends) {
 
-            System.out.println(trend.getTrendTitle() + "   " + trend.getMentions());
+            //System.out.println(trend.getTrendTitle() + "   " + trend.getMentions());
         }
 //        ta.findNewTrends();
     }
@@ -63,6 +63,6 @@ public class TrendSchedule {
     public void testStringBreak() {
         String testSource = "This should split up into this, that, and the other other other other this this up up.";
         TrendAnalyzer ta = new TrendAnalyzer();
-        System.out.println(ta.findKeywords(testSource));
+        //System.out.println(ta.findKeywords(testSource));
     }
 }

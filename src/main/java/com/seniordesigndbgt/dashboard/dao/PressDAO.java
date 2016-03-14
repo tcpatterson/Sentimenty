@@ -41,6 +41,10 @@ public class PressDAO {
         return getSession().createQuery("from Press WHERE timestamp = DATE_SUB(CURDATE(), INTERVAL 1 DAY)").list();
     }
 
+    public List <Press> search(String term) {
+        return getSession().createQuery("from Press where title LIKE '%" + term + "%'").list();
+    }
+
     public void update(Press press){
         getSession().update(press);
     }
