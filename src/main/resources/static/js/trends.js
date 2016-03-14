@@ -2,13 +2,23 @@ $( document ).ready(function() {
     $.get( "/showPress", function( data ) {
       data.forEach(function(d) {
         var jsonn = JSON.parse(d.sentiment);
-        var sent = jsonn.type;
-        var score = jsonn.score;
-        $("#mentions").append('<div class="mention ' + sent + ' ' + d.source + '"><a target="_blank" href="' + d.url + '">'+ d.title +'</a><br><p>' + score + '</p></div>')
+        d.sentiment = jsonn;
+        if(d.sentiment.score){
+            d.sentiment.score = d.sentiment.score.substring(0,6);
+        } else {
+            d.sentiment.score = "0.00";
+        }
+        if(d.sentiment.score < 0 ) {
+            d.arrow = "bottom";
+            d.color = "red";
+        } else {
+            d.arrow = "top";
+            d.color = "green";
+        }
       });
+      $("#clientTemplate").tmpl(data).appendTo( "#mentions" );
     });
 });
-
 
 $("#reuters").click(function() {
     $(".mention").addClass("hide");

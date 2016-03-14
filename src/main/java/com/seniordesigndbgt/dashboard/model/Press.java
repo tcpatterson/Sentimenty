@@ -4,6 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Entity
@@ -36,12 +39,21 @@ public class Press {
     @Column(name = "keywords")
     private String keywords;
 
+    @Column(name = "timestamp", columnDefinition="DATETIME")
+    private Date time;
+
+    @Column(name = "age")
+    private int age;
+
+
     public Press() {}
 
-    public Press(String source, String url, String title) {
+    public Press(String source, String url, String title, Date time) {
         this.source = source;
         this.url = url;
         this.title = title;
+        this.time = time;
+        this.age = 0;
     }
 
     public int getId() {
@@ -90,5 +102,13 @@ public class Press {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

@@ -33,6 +33,14 @@ public class PressDAO {
         return getSession().createQuery("from Press").list();
     }
 
+    public List <Press> getToday() {
+        return getSession().createQuery("from Press WHERE age = 0").list();
+    }
+
+    public List <Press> getYesterday() {
+        return getSession().createQuery("from Press WHERE timestamp = DATE_SUB(CURDATE(), INTERVAL 1 DAY)").list();
+    }
+
     public void update(Press press){
         getSession().update(press);
     }

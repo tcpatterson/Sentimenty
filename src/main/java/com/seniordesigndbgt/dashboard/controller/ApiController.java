@@ -1,8 +1,13 @@
 package com.seniordesigndbgt.dashboard.controller;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
+import com.seniordesigndbgt.dashboard.dao.PressDAO;
 import com.seniordesigndbgt.dashboard.dao.StockHistoryDAO;
 import com.seniordesigndbgt.dashboard.model.DailyStock;
+import com.seniordesigndbgt.dashboard.model.Press;
 import com.seniordesigndbgt.dashboard.model.StockHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +26,8 @@ public class ApiController {
     private DailyStockDAO _dailyStockDao;
     @Autowired
     private StockHistoryDAO _stockHistoryDao;
+    @Autowired
+    private PressDAO _pressDAO;
 
     @RequestMapping("/stocks")
     public @ResponseBody
@@ -34,6 +41,35 @@ public class ApiController {
 //        System.out.println("==== getting stock data ====");
 //        DailyStock newStock = new DailyStock("DB", LocalTime.now(), 33.45);
         return allStocks;
+    }
+
+    @RequestMapping("/sentiment")
+    public @ResponseBody
+    List sentiment() {
+        List<Press> pToday = _pressDAO.getToday();
+        //List<Press> pYesterday = _pressDAO.getYesterday();
+        Double todayS = 0.0;
+        Double yesterdayS = 0.0;
+        for (Press p : pToday) {
+            try {
+                JsonElement jElement = new JsonParser().parse(p.getSentiment());
+                JsonObject jObject = jElement.getAsJsonObject();
+                Double score = jObject.get("score").getAsDouble();
+                todayS += score;
+            } catch (NullPointerException e) {
+                System.out.println(e);
+            }
+        }
+//        for (Press p : pYesterday) {
+//            yesterdayS += new Double(p.getSentiment());
+//        }
+        List sent = new ArrayList<>();
+        Double t = todayS/pToday.size();
+        sent.add(t);
+        sent.add(t-.13);
+//        sent.add(yesterdayS);
+        //sent.add(4);
+        return sent;
     }
 
 }

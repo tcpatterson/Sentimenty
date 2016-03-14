@@ -57,6 +57,7 @@
             <div class="portlet" th:each="module  : ${view.columnThree}">
                 <div class="portlet-header" th:text="${module.title}"></div>
                 <div class="portlet-content">
+                    <div th:include="fragments/sentiment :: ${module.apiEndpoint}"></div>
                 </div>
             </div>
         </div>

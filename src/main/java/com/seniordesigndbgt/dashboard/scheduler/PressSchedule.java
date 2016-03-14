@@ -19,6 +19,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
 
 @Component
 public class PressSchedule {
@@ -44,7 +47,9 @@ public class PressSchedule {
             }
             String title = e.text();
             try {
-                Press article = new Press("Bloomberg", link, title);
+                Date d = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+                //Timestamp time = new Timestamp(System.currentTimeMillis());
+                Press article = new Press("Bloomberg", link, title, d);
                 _pressDao.save(article);
                 String sent = analyzer.getSentiment(article);
                 article.setSentiment(sent);
@@ -108,7 +113,9 @@ public class PressSchedule {
             String link = e.child(0).attr("href");
             String title = e.text();
             try {
-                Press article = new Press("Reuters", link, title);
+                Date d = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+                //Timestamp time = new Timestamp(System.currentTimeMillis());
+                Press article = new Press("Reuters", link, title, d);
                 _pressDao.save(article);
                 article.setSentiment(analyzer.getSentiment(article));
                 String bodyContent = PressAction.getBodyContent(article);
