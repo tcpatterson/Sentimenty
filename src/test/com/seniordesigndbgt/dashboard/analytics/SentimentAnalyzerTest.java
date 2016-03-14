@@ -12,10 +12,6 @@ import org.junit.Test;
 import org.omg.CORBA.DoubleHolder;
 import com.seniordesigndbgt.dashboard.analytics.SentimentAnalyzer;
 import com.seniordesigndbgt.dashboard.analytics.AnalyzerFactory;
-
-import java.util.Calendar;
-import java.util.Date;
-
 import static org.junit.Assert.*;
 
 public class SentimentAnalyzerTest {
@@ -52,8 +48,8 @@ public class SentimentAnalyzerTest {
     //testing for articles
     @Test
     public void testGetSentimentArticle() throws Exception {
-        Press badArticle = new Press("badArticle", "http://www.bloomberg.com/news/articles/2016-02-25/ex-deutsche-bank-trader-zhou-admitted-to-mismarking-cmbs-trades", "The Big Bad Wolf", new Date(Calendar.getInstance().getTimeInMillis()));
-        Press goodArticle = new Press("goodArticle", "http://www.bloomberg.com/news/audio/2016-02-23/silverstein-balance-sheets-are-best-drivers-of-performance-now", "Fluffy Bunnies", new Date(Calendar.getInstance().getTimeInMillis()));
+        Press badArticle = new Press("badArticle", "http://www.bloomberg.com/news/articles/2016-02-25/ex-deutsche-bank-trader-zhou-admitted-to-mismarking-cmbs-trades", "The Big Bad Wolf");
+        Press goodArticle = new Press("goodArticle", "http://www.bloomberg.com/news/audio/2016-02-23/silverstein-balance-sheets-are-best-drivers-of-performance-now", "Fluffy Bunnies");
         String negRes = analyzer.getSentiment(badArticle);
         String posRes = analyzer.getSentiment(goodArticle);
         JsonElement jElementNeg = new JsonParser().parse(negRes);

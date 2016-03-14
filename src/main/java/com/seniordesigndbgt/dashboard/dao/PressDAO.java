@@ -34,7 +34,7 @@ public class PressDAO {
     }
 
     public List <Press> getToday() {
-        return getSession().createQuery("from Press WHERE ").list();
+        return getSession().createQuery("from Press WHERE age = 0").list();
     }
 
     public List <Press> getYesterday() {

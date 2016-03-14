@@ -2,8 +2,12 @@ package com.seniordesigndbgt.dashboard.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Entity
 @Table(name="press")
@@ -35,9 +39,12 @@ public class Press {
     @Column(name = "keywords")
     private String keywords;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "timestamp", columnDefinition="DATETIME")
     private Date time;
+
+    @Column(name = "age")
+    private int age;
+
 
     public Press() {}
 
@@ -46,6 +53,7 @@ public class Press {
         this.url = url;
         this.title = title;
         this.time = time;
+        this.age = 0;
     }
 
     public int getId() {
