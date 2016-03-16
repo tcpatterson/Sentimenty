@@ -5,8 +5,15 @@ import com.seniordesigndbgt.dashboard.dao.TrendDAO;
 import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
 import com.seniordesigndbgt.dashboard.model.Press;
 import com.seniordesigndbgt.dashboard.model.Trend;
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTaggerME;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.SystemEnvironmentPropertySource;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 public class TrendAnalyzer {
@@ -73,10 +80,36 @@ public class TrendAnalyzer {
     public String findKeywords(String text){
         List<Map.Entry<String,Integer>> allWords = sortTrends(updateFrequencyMap(text,
                 new LinkedHashMap<String, Integer>()));
-//        System.out.println(allWords.size());
+        //You've got a sorted map of word:count, now check for nouns
+
+        //Gotta convert to string array because dumb OpenNLP
+        String[] allWordsArray = new String[allWords.size()];
+        for (int i = 0; i < allWords.size(); i++){
+            allWordsArray[i] = allWords.get(i).getKey();
+        }
+        InputStream modelIn;
+        POSModel model = null;
+        try {
+            modelIn = new FileInputStream("en-pos-maxent.bin");
+            model = new POSModel(modelIn);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        POSTaggerME tagger = new POSTaggerME(model);
+        String[] tagged = tagger.tag(allWordsArray);
+        List<Map.Entry<String,Integer>> nounsAndCounts = new LinkedList<Map.Entry<String, Integer>>();
+        //Check if the words are nouns
+        for (int i = 0; i < tagged.length; i++){
+            if (tagged[i].equals("NN") || tagged[i].equals("NNS") ||
+                    tagged[i].equals("NNP") || tagged[i].equals("NNPS")){
+                nounsAndCounts.add(allWords.get(i));
+            }
+        }
+
         List<String> keyWords = new LinkedList<String>();
         for (int i = 0; i < NUM_OF_KEYWORDS; i++){
-            keyWords.add(allWords.get(i).getKey());
+            if ( i < nounsAndCounts.size())
+                keyWords.add(nounsAndCounts.get(i).getKey());
         }
         String keyWordsString = "";
         for (String word : keyWords) {
@@ -84,6 +117,7 @@ public class TrendAnalyzer {
             keyWordsString += ",";
         }
         keyWordsString = keyWordsString.substring(0,keyWordsString.length()-1);
+        System.out.println(keyWordsString);
         return keyWordsString;
     }
     public void refreshShortMap(){
@@ -117,10 +151,10 @@ public class TrendAnalyzer {
      * List of articles is incomplete*/
     public String sanitizeInput(String text){
         text = text.toLowerCase();
-        String[] toRemove = {".",",","!","?"," in "," the "," to "," a "," an "," as "," and "," has "," of "," or ",
-                " for "," up "," with "," on "," off "," into "," it "," have "," by "};
-        for (int i = 0; i < toRemove.length; i++){
-            text = text.replace(toRemove[i], "");
+        String[] stopList = {"*",".",",","!","?"," in "," the "," to "," a "," an "," as "," and "," has "," of "," or ",
+                " for "," up "," with "," on "," off "," into "," it "," have "," by ", " deutsche ", " bank "};
+        for (int i = 0; i < stopList.length; i++){
+            text = text.replace(stopList[i], "");
         }
         return text;
     }

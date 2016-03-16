@@ -50,7 +50,7 @@ public class TwitterSchedule {
                     String author = status.getUser().getName();
                     TrendAnalyzer ta = new TrendAnalyzer();
                     String keywords = ta.findKeywords(tweetText);
-                    Twitter t = new Twitter(author, tweetText);
+                    Twitter t = new Twitter(author, tweetText, keywords);
                     _twitterDao.save(t);
                 }
             }
