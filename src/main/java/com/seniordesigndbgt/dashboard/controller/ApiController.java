@@ -12,6 +12,8 @@ import com.seniordesigndbgt.dashboard.model.StockHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.Table;
@@ -37,9 +39,6 @@ public class ApiController {
         List<List> allStocks = new ArrayList<>();
         allStocks.add(todayStocks);
         allStocks.add(oldStocks);
-
-//        System.out.println("==== getting stock data ====");
-//        DailyStock newStock = new DailyStock("DB", LocalTime.now(), 33.45);
         return allStocks;
     }
 
@@ -70,6 +69,13 @@ public class ApiController {
 //        sent.add(yesterdayS);
         //sent.add(4);
         return sent;
+    }
+
+    @RequestMapping(value = "/search")
+    public @ResponseBody
+    List search(@RequestParam("query") String query) {
+        List<Press> p = _pressDAO.search(query);
+        return p;
     }
 
 }

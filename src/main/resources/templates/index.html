@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"/>
         <script th:src="@{/js/index.js}"/>
     </head>
     <body>
@@ -29,12 +30,14 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Customize</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right">
-                        <input type="text" class="form-control" placeholder="Search..."/>
+                    <form class="navbar-form navbar-right" onsubmit="formSubmit();">
+                        <input type="text" class="form-control" id="searchTerm" placeholder="Search..."/>
+                        <a href="#" class="btn btn-default" id="openBtn">Search</a>
                     </form>
                 </div>
             </div>
         </nav>
+
         <div class="column">
             <div class="portlet" th:each="module  : ${view.columnOne}">
                 <div class="portlet-header" th:text="${module.title}"></div>
@@ -61,5 +64,22 @@
                 </div>
             </div>
         </div>
+
+        <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3>Search results for: <span class="resultsTerm"></span></h3>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn" data-dismiss="modal">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/search.js}"/>
     </body>
 </html>
