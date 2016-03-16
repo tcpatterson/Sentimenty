@@ -5,7 +5,6 @@ import com.seniordesigndbgt.dashboard.dao.TrendDAO;
 import com.seniordesigndbgt.dashboard.dao.TwitterDAO;
 import com.seniordesigndbgt.dashboard.model.Press;
 import com.seniordesigndbgt.dashboard.model.Trend;
-import com.seniordesigndbgt.dashboard.model.Twitter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
@@ -72,7 +71,7 @@ public class TrendAnalyzer {
     /**
     * Finds the top constant number of keywords, returned as a comma separated string*/
     public String findKeywords(String text){
-        List<Map.Entry<String,Integer>> allWords = updateTrends(updateFrequencyMap(text,
+        List<Map.Entry<String,Integer>> allWords = sortTrends(updateFrequencyMap(text,
                 new LinkedHashMap<String, Integer>()));
 //        System.out.println(allWords.size());
         List<String> keyWords = new LinkedList<String>();
@@ -129,7 +128,7 @@ public class TrendAnalyzer {
     /*
     * Takes map data, sorts it into List, returns List
     * */
-    private static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> updateTrends(Map<K,V> map) {
+    private static <K, V extends Comparable<? super V>> List<Map.Entry<K, V>> sortTrends(Map<K,V> map) {
         List<Map.Entry<K, V>> list = new LinkedList<Map.Entry<K, V>>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<K, V>>() {
             public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
@@ -137,12 +136,6 @@ public class TrendAnalyzer {
             }
         });
         return list;
-
-        /*Map<K, V> result = new LinkedHashMap<K, V>();
-        for (Map.Entry<K, V> entry : list) {
-            result.put(entry.getKey(), entry.getValue());
-        }
-        return result;*/
     }
 
     private void printFrequencyMap(Map<String,Integer> map){
