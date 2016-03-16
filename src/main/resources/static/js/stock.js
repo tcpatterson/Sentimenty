@@ -96,7 +96,7 @@ function drawChartToday(data) {
         }
 
         x.domain([data[0].date, data[data.length - 1].date]);
-        y.domain([0,100]);
+        y.domain([0,70]);
 
         svg.append("g")
           .attr("class", "x axis")
@@ -185,7 +185,7 @@ function drawChartOld(data, num) {
     data = data.slice(thisLength-num, thisLength-1);
 
     x.domain([data[0].date, data[data.length - 1].date]);
-    y.domain([0,100]);
+    y.domain([0,70]);
 
     xAxis.tickFormat(function(d) {
         var d = new Date(""+d+"");
