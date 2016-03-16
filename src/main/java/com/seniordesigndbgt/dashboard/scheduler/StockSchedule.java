@@ -26,24 +26,18 @@ public class StockSchedule {
     public void getCurrentPrice() {
         DailyStock result = null;
         try {
-            HttpResponse<JsonNode> response = Unirest.get("http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%27DB%27)&format=json&diagnostics=true&env=http://datatables.org/alltables.env")
-                    .asJson();
-            String jsonString = response.getBody().toString();
+            HttpResponse<String> response = Unirest.get("http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol=DB&callback=cb").asString();
+            String r = response.getBody();
+            r = r.substring(3, r.length()-1);
 
+            String jsonString = r;
             //Walk through query to get to quote data
             JsonElement jElement = new JsonParser().parse(jsonString);
             JsonObject jObject = jElement.getAsJsonObject();
-            jObject = jObject.getAsJsonObject("query");
-            jObject = jObject.getAsJsonObject("results");
-            jObject = jObject.getAsJsonObject("quote");
             //Get selected quote data
-            JsonPrimitive priceOnly = jObject.getAsJsonPrimitive("LastTradePriceOnly");
-            JsonPrimitive symbolOnly = jObject.getAsJsonPrimitive("symbol");
+            JsonPrimitive priceOnly = jObject.getAsJsonPrimitive("LastPrice");
             double price = priceOnly.getAsDouble();
-            String symbol = symbolOnly.getAsString();
-
-//            System.out.println(price);
-//            System.out.println(symbol);
+            String symbol = "DB";
 
             Timestamp time = new Timestamp(System.currentTimeMillis());
             result = new DailyStock(symbol, time.toLocalDateTime(), price);

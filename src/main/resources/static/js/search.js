@@ -7,9 +7,29 @@ $('#modal-content').on('shown.bs.modal', function () {
         $(".resultsTerm").text(term);
         term = "";
         data.forEach(function(d) {
-            $(".modal-body").append(d.title);
-            $(".modal-body").append("<br/>");
-        });
+            var jsonn = JSON.parse(d.sentiment);
+            d.sentiment = jsonn;
+            if(d.sentiment && d.sentiment.score){
+                d.sentiment.score = d.sentiment.score.substring(0,6);
+            } else {
+                d.sentiment = {
+                    score: 1
+                };
+                d.sentiment.score = "0.00";
+            }
+            if(d.sentiment.score < 0 ) {
+                d.arrow = "bottom";
+                d.color = "red";
+            } else {
+                d.arrow = "top";
+                d.color = "green";
+            }
+          });
+        $("#clientTemplate").tmpl(data).appendTo( ".modal-body" );
+//        data.forEach(function(d) {
+//            $(".modal-body").append(d.title);
+//            $(".modal-body").append("<br/>");
+//        });
       });
 });
 
