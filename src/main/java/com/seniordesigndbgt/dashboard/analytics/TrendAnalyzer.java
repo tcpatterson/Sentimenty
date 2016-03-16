@@ -117,7 +117,7 @@ public class TrendAnalyzer {
             keyWordsString += ",";
         }
         keyWordsString = keyWordsString.substring(0,keyWordsString.length()-1);
-        System.out.println(keyWordsString);
+//        System.out.println(keyWordsString);
         return keyWordsString;
     }
     public void refreshShortMap(){

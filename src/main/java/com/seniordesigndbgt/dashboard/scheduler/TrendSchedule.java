@@ -32,7 +32,7 @@ public class TrendSchedule {
         for (Press article : pressList) {
             if (article.getKeywords() != null) {
                 String[] articleKeywordSplit = article.getKeywords().split(",");
-                allKeywords += article.getKeywords() + " ";
+//                allKeywords += article.getKeywords() + " ";
                 for (String keyword : articleKeywordSplit) {
                     allKeywords += keyword + " ";
                 }

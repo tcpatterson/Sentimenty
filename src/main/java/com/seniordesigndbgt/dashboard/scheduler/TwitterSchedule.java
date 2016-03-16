@@ -58,11 +58,5 @@ public class TwitterSchedule {
             e.printStackTrace();
         }
     }
-//    @Scheduled(fixedDelay = 10000)
-    public void testKeywordDatabase(){
-        List<Twitter> twitters = _twitterDao.getAll();
-        for (Twitter tweet : twitters){
-            System.out.println(tweet.toString());
-        }
-    }
+
 }
