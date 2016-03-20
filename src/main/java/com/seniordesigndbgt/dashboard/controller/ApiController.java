@@ -82,8 +82,31 @@ public class ApiController {
     public @ResponseBody
     List percentSentiment() {
         List<Press> pToday = _pressDAO.getToday();
-//        allStocks.add(todayStocks);
-        return null;
+        Double pos = 0.0;
+        int posCount = 0;
+        Double neg = 0.0;
+        int negCount = 0;
+        int nullCount = 0;
+        for (Press p : pToday) {
+            try {
+                JsonElement jElement = new JsonParser().parse(p.getSentiment());
+                JsonObject jObject = jElement.getAsJsonObject();
+                Double score = jObject.get("score").getAsDouble();
+                if(score > 0){
+                    posCount++;
+                }else{
+                    negCount++;
+                }
+            } catch (NullPointerException e) {
+                nullCount++;
+            }
+        }
+        List sent = new ArrayList<>();
+        pos = (double)posCount/(pToday.size() - nullCount) * 100.0;
+        neg = (double)negCount/(pToday.size() - nullCount) * 100.0;
+        sent.add(pos);
+        sent.add(neg);
+        return sent;
     }
 
 }
