@@ -20,7 +20,7 @@ $( document ).ready(function() {
 //    });
     $.get( "/trends", function( data ) {
         data.forEach(function(d){
-            //Get the whole list 
+
         })
     })
 });

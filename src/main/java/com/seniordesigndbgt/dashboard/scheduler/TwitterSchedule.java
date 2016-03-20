@@ -20,7 +20,7 @@ public class TwitterSchedule {
     @Autowired
     private TwitterDAO _twitterDao;
 
-    @Scheduled (fixedDelay = 5000)
+//    @Scheduled (fixedDelay = 30000)
     public void gatherTwitter()
     {
         String hashtag = "deutschebank";
