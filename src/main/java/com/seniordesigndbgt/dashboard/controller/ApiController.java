@@ -46,9 +46,11 @@ public class ApiController {
     public @ResponseBody
     List sentiment() {
         List<Press> pToday = _pressDAO.getToday();
-        //List<Press> pYesterday = _pressDAO.getYesterday();
+        List<Press> pYesterday = _pressDAO.getYesterday();
         Double todayS = 0.0;
         Double yesterdayS = 0.0;
+        int nullCountT = 0;
+        int nullCountY = 0;
         for (Press p : pToday) {
             try {
                 JsonElement jElement = new JsonParser().parse(p.getSentiment());
@@ -56,18 +58,24 @@ public class ApiController {
                 Double score = jObject.get("score").getAsDouble();
                 todayS += score;
             } catch (NullPointerException e) {
-                System.out.println(e);
+                nullCountT++;
             }
         }
-//        for (Press p : pYesterday) {
-//            yesterdayS += new Double(p.getSentiment());
-//        }
+        for (Press p : pYesterday) {
+            try {
+                JsonElement jElement = new JsonParser().parse(p.getSentiment());
+                JsonObject jObject = jElement.getAsJsonObject();
+                Double score = jObject.get("score").getAsDouble();
+                yesterdayS += score;
+            } catch (NullPointerException e) {
+                nullCountY++;
+            }
+        }
         List sent = new ArrayList<>();
-        Double t = todayS/pToday.size();
-        sent.add(t);
-        sent.add(t-.13);
-//        sent.add(yesterdayS);
-        //sent.add(4);
+        todayS = todayS/(pToday.size()- nullCountT);
+        yesterdayS = yesterdayS/(pYesterday.size()- nullCountY);
+        sent.add(todayS);
+        sent.add(todayS-yesterdayS);
         return sent;
     }
 
