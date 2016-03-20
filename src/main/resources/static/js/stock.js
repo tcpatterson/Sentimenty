@@ -77,7 +77,7 @@ $( "#fiveYears" ).click(function() {
 function drawChartToday(data) {
     svg.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-16-2016");
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-16-16");
             d.close = +d.value;
         });
 
@@ -119,12 +119,20 @@ function drawChartToday(data) {
           .attr("x", -50)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
-          .text("Price ($)");
+          .text("Price (USD)");
 
         svg.append("path")
           .datum(data)
           .attr("class", "line")
           .attr("d", line);
+
+        svg.append("text")
+          .attr("x", (width / 2))
+          .attr("y", 0 - (margin.top / 2))
+          .classed('title', true)
+          .attr("text-anchor", "middle")
+          .style("font-size", "12px")
+          .text("One Day Stock Performance");
 
         var focus = svg.append("g")
           .attr("class", "focus")
@@ -182,14 +190,27 @@ function drawChartOld(data, num) {
         num = thisLength;
     }
 
+    var titleText = "";
+
+    if (num == 20) {
+        titleText = "One Month Stock Performance";
+    } else if (num == 250) {
+        titleText = "One Year Stock Performance";
+    } else if (num == 1200) {
+        titleText = "Five Year Stock Performance";
+    }
+
     data = data.slice(thisLength-num, thisLength-1);
 
     x.domain([data[0].date, data[data.length - 1].date]);
-    y.domain([0,70]);
+    y.domain([
+        d3.min(data, function(d) { return d.close; }),
+        d3.max(data, function(d) { return d.close; })
+    ]);
 
     xAxis.tickFormat(function(d) {
         var d = new Date(""+d+"");
-        return d.getDate() + "/" + (d.getMonth()+1) + "/" + d.getFullYear();
+        return (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear().toString().substring(2,4);
     });
 
     svg.append("g")
@@ -213,7 +234,7 @@ function drawChartOld(data, num) {
       .attr("x", -50)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Price ($)");
+      .text("Price (USD)");
 
     svg.append("path")
       .datum(data)
@@ -230,6 +251,14 @@ function drawChartOld(data, num) {
     focus.append("text")
       .attr("x", 0)
       .attr("dy", "-2.35em");
+
+    svg.append("text")
+      .attr("x", (width / 2))
+      .attr("y", 0 - (margin.top / 2))
+      .classed('title', true)
+      .attr("text-anchor", "middle")
+      .style("font-size", "12px")
+      .text(titleText);
 
     svg.append("rect")
       .attr("class", "overlay")
