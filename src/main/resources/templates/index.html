@@ -42,7 +42,7 @@
             <div class="portlet" th:each="module  : ${view.columnOne}">
                 <div class="portlet-header" th:text="${module.title}"></div>
                 <div class="portlet-content">
-                    <div th:include="fragments/stock :: ${module.apiEndpoint}"></div>
+                    <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
             <div class="portlet" th:each="module  : ${view.columnTwo}">
                 <div class="portlet-header" th:text="${module.title}"></div>
                 <div class="portlet-content">
-                    <div th:include="fragments/trends :: ${module.apiEndpoint}"></div>
+                    <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <div class="portlet" th:each="module  : ${view.columnThree}">
                 <div class="portlet-header" th:text="${module.title}"></div>
                 <div class="portlet-content">
-                    <div th:include="fragments/sentiment :: ${module.apiEndpoint}"></div>
+                    <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
                 </div>
             </div>
         </div>
