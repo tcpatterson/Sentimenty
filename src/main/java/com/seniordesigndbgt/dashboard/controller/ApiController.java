@@ -6,9 +6,11 @@ import com.google.gson.JsonParser;
 import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
 import com.seniordesigndbgt.dashboard.dao.PressDAO;
 import com.seniordesigndbgt.dashboard.dao.StockHistoryDAO;
+import com.seniordesigndbgt.dashboard.dao.TrendDAO;
 import com.seniordesigndbgt.dashboard.model.DailyStock;
 import com.seniordesigndbgt.dashboard.model.Press;
 import com.seniordesigndbgt.dashboard.model.StockHistory;
+import com.seniordesigndbgt.dashboard.model.Trend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.Table;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -30,13 +33,15 @@ public class ApiController {
     private StockHistoryDAO _stockHistoryDao;
     @Autowired
     private PressDAO _pressDAO;
+    @Autowired
+    private TrendDAO _trendDAO;
 
     @RequestMapping("/stocks")
     public @ResponseBody
     List stock() {
         List<DailyStock> todayStocks = _dailyStockDao.getAll();
         List<StockHistory> oldStocks = _stockHistoryDao.getAll();
-        List<List> allStocks = new ArrayList<>();
+        List<List> allStocks = new ArrayList<List>();
         allStocks.add(todayStocks);
         allStocks.add(oldStocks);
         return allStocks;
@@ -71,7 +76,7 @@ public class ApiController {
                 nullCountY++;
             }
         }
-        List sent = new ArrayList<>();
+        List sent = new ArrayList<Double>();
         todayS = todayS/(pToday.size()- nullCountT);
         yesterdayS = yesterdayS/(pYesterday.size()- nullCountY);
         sent.add(todayS);
@@ -115,6 +120,36 @@ public class ApiController {
         sent.add(pos);
         sent.add(neg);
         return sent;
+    }
+
+    @RequestMapping("/trends")
+    public @ResponseBody
+    List trend() {
+        List<Trend> currentTrends = _trendDAO.getAll();
+        List<String> title = new ArrayList<String>();
+        List<List> mentions = new ArrayList<List>();
+        for (Trend t : currentTrends) {
+            title.add(t.getTrendTitle());
+            String mentionsString = t.getMentions();
+            String[] mentionsIds = mentionsString.split(",");
+            LinkedList<Press> mentionsPerTrend = new LinkedList<Press>();
+            for (String s : mentionsIds) {
+                System.out.println(s);
+                s = s.replace(" ","");
+                System.out.println(s);
+                if (s.equals(""))
+                    continue;
+                if (!((s.isEmpty()) || s.equals(" ") || s.equals(""))) {
+                    int mentionID = Integer.parseInt(s);
+                    mentionsPerTrend.add(_pressDAO.getByID(mentionID).get(0));
+                }
+            }
+            mentions.add(mentionsPerTrend);
+        }
+        List<List> result = new LinkedList<List>();
+        result.add(title);
+        result.add(mentions);
+        return result;
     }
 
 }

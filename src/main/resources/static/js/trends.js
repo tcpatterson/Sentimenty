@@ -21,14 +21,24 @@ $( document ).ready(function() {
       });
       $("#clientTemplate").tmpl(data).appendTo( "#mentions" );
     });
+    var numOfTrendsToDisplay = 5;
+    $.get( "/trends", function( data ) {
+        for (var i = 0; i < numOfTrendsToDisplay; i++){
+            $("<button onclick=console.log($(this).text())>" + data[0][i] +
+                "</button>").addClass("trendButton").appendTo(".trend")
+        }
+    })
 });
 
-$("#reuters").click(function() {
-    $(".mention").addClass("hide");
-    $(".Reuters").removeClass("hide");
+$(".trendButton").click(function(){
+    console.log($(this).text());
 });
-
-$("#bloomberg").click(function() {
-    $(".mention").addClass("hide");
-    $(".Bloomberg").removeClass("hide");
-});
+//$("#reuters").click(function() {
+//    $(".mention").addClass("hide");
+//    $(".Reuters").removeClass("hide");
+//});
+//
+//$("#bloomberg").click(function() {
+//    $(".mention").addClass("hide");
+//    $(".Bloomberg").removeClass("hide");
+//});

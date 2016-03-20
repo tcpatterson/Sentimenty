@@ -20,7 +20,7 @@ public class TwitterSchedule {
     @Autowired
     private TwitterDAO _twitterDao;
 
-   // @Scheduled (fixedDelay = 5000)
+//    @Scheduled (fixedDelay = 30000)
     public void gatherTwitter()
     {
         String hashtag = "deutschebank";
@@ -50,7 +50,7 @@ public class TwitterSchedule {
                     String author = status.getUser().getName();
                     TrendAnalyzer ta = new TrendAnalyzer();
                     String keywords = ta.findKeywords(tweetText);
-                    Twitter t = new Twitter(author, tweetText);
+                    Twitter t = new Twitter(author, tweetText, keywords);
                     _twitterDao.save(t);
                 }
             }
@@ -58,11 +58,5 @@ public class TwitterSchedule {
             e.printStackTrace();
         }
     }
-//    @Scheduled(fixedDelay = 10000)
-    public void testKeywordDatabase(){
-        List<Twitter> twitters = _twitterDao.getAll();
-        for (Twitter tweet : twitters){
-            System.out.println(tweet.toString());
-        }
-    }
+
 }

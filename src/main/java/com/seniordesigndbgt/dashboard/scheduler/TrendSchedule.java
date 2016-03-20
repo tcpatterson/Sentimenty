@@ -20,7 +20,9 @@ public class TrendSchedule {
 
     @Autowired
     private PressDAO _pressDao;
+    @Autowired
     private TwitterDAO _twitterDao;
+    @Autowired
     private TrendDAO _trendDao;
     TrendAnalyzer ta = new TrendAnalyzer();
 
@@ -32,7 +34,7 @@ public class TrendSchedule {
         for (Press article : pressList) {
             if (article.getKeywords() != null) {
                 String[] articleKeywordSplit = article.getKeywords().split(",");
-                allKeywords += article.getKeywords() + " ";
+//                allKeywords += article.getKeywords() + " ";
                 for (String keyword : articleKeywordSplit) {
                     allKeywords += keyword + " ";
                 }
@@ -42,7 +44,6 @@ public class TrendSchedule {
         String keyString = ta.findKeywords(allKeywords);
         //System.out.println("all keywords: " + keyString);
         String[] keywordSplit = keyString.split(",");
-        List<Trend> trends = new ArrayList<Trend>();
         for (String keyword : keywordSplit) {
             String mentions = "";
             for (Press article : pressList) {
@@ -50,13 +51,10 @@ public class TrendSchedule {
                     mentions += article.getId() + ", ";
                 }
             }
-            trends.add(new Trend(keyword, mentions));
+            Trend t = new Trend(keyword, mentions);
+            _trendDao.save(t);
+            System.out.println(_trendDao.getAll().size());
         }
-        for (Trend trend : trends) {
-
-            //System.out.println(trend.getTrendTitle() + "   " + trend.getMentions());
-        }
-//        ta.findNewTrends();
     }
 
 //    @Scheduled(fixedDelay = 10000)

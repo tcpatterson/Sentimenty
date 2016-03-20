@@ -42,6 +42,8 @@ public class Press {
     @Column(name = "timestamp")
     private Date time;
 
+//    @Column(name = "age")
+//    private int age;
 
     public Press() {}
 
@@ -50,6 +52,7 @@ public class Press {
         this.url = url;
         this.title = title;
         this.time = time;
+//        this.age = 0;
     }
 
     public int getId() {

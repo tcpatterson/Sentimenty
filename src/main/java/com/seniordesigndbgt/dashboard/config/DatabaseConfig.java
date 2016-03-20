@@ -61,6 +61,8 @@ public class DatabaseConfig {
     @Bean
     public TwitterDAO twitterDAO() { return new TwitterDAO(); }
     @Bean
+    public TrendDAO trendDAO() { return new TrendDAO(); }
+    @Bean
     public SessionFactory sessionFactory() {
         return new LocalSessionFactoryBuilder(getDataSource())
                 .addAnnotatedClasses(new Class<?>[]{User.class, View.class, DailyStock.class, Press.class, StockHistory.class, Twitter.class, Trend.class, Jive.class, Module.class})
