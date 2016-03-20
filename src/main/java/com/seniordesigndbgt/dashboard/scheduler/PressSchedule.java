@@ -6,22 +6,19 @@ import com.seniordesigndbgt.dashboard.analytics.TrendAnalyzer;
 import com.seniordesigndbgt.dashboard.dao.PressDAO;
 import com.seniordesigndbgt.dashboard.model.Press;
 import org.jsoup.Jsoup;
-import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.seniordesigndbgt.dashboard.analytics.SentimentAnalyzer;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 
 @Component
 public class PressSchedule {
@@ -47,9 +44,8 @@ public class PressSchedule {
             }
             String title = e.text();
             try {
-                Date d = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-                //Timestamp time = new Timestamp(System.currentTimeMillis());
-                Press article = new Press("Bloomberg", link, title, d);
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                Press article = new Press("Bloomberg", link, title, Calendar.getInstance().getTime());
                 _pressDao.save(article);
                 String sent = analyzer.getSentiment(article);
                 article.setSentiment(sent);
@@ -113,9 +109,8 @@ public class PressSchedule {
             String link = e.child(0).attr("href");
             String title = e.text();
             try {
-                Date d = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
-                //Timestamp time = new Timestamp(System.currentTimeMillis());
-                Press article = new Press("Reuters", link, title, d);
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                Press article = new Press("Reuters", link, title,  Calendar.getInstance().getTime());
                 _pressDao.save(article);
                 article.setSentiment(analyzer.getSentiment(article));
                 String bodyContent = PressAction.getBodyContent(article);
