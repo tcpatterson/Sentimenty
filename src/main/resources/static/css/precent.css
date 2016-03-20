@@ -1,0 +1,57 @@
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: none;
+  stroke: steelblue;
+}
+
+.range button {
+  width: 24%;
+  height: 25px;
+}
+
+.ticker button {
+  width: 49.1%;
+  height: 25px;
+}
+
+#current-price h3 {
+    display: inline;
+}
+
+#arrow.glyphicon {
+    font-size: 20px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
