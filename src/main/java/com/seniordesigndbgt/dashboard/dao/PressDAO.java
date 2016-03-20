@@ -46,7 +46,7 @@ public class PressDAO {
     }
 
     public List<Press> getByID(int id) {
-        return getSession().createQuery("from Press WHERE id = "+"\""+id+"\""+";").list();
+        return getSession().createQuery("from Press WHERE id = "+id).list();
     }
 
 }

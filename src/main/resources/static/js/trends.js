@@ -18,10 +18,11 @@ $( document ).ready(function() {
 //      });
 //      $("#clientTemplate").tmpl(data).appendTo( "#mentions" );
 //    });
+    var numOfTrendsToDisplay = 4;
     $.get( "/trends", function( data ) {
-        data.forEach(function(d){
-
-        })
+        for (var i = 0; i < numOfTrendsToDisplay; i++){
+            $(".trend").append("<button>" + data[0][i] + "</button>")
+        }
     })
 });
 

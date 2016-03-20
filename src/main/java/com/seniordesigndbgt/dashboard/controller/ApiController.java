@@ -89,7 +89,12 @@ public class ApiController {
             String[] mentionsIds = mentionsString.split(",");
             LinkedList<Press> mentionsPerTrend = new LinkedList<Press>();
             for (String s : mentionsIds) {
-                if (!(s.isEmpty()) || !s.equals(" ")) {
+                System.out.println(s);
+                s = s.replace(" ","");
+                System.out.println(s);
+                if (s.equals(""))
+                    continue;
+                if (!((s.isEmpty()) || s.equals(" ") || s.equals(""))) {
                     int mentionID = Integer.parseInt(s);
                     mentionsPerTrend.add(_pressDAO.getByID(mentionID).get(0));
                 }
