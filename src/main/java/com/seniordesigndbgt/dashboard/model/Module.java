@@ -24,11 +24,23 @@ public class Module {
     @Column(name = "url")
     private String apiEndpoint;
 
+    @NotNull
+    @Size(min = 3, max = 200)
+    @Column(name = "fragment")
+    private String fragment;
+
     public Module() {}
+
+    public Module(String title, String apiEndpoint, String fragment) {
+        this.title = title;
+        this.apiEndpoint = apiEndpoint;
+        this.fragment = fragment;
+    }
 
     public Module(String title, String apiEndpoint) {
         this.title = title;
         this.apiEndpoint = apiEndpoint;
+        this.fragment = "fragments/" + apiEndpoint;
     }
 
     public int getId() {
@@ -53,5 +65,13 @@ public class Module {
 
     public void setApiEndpoint(String apiEndpoint) {
         this.apiEndpoint = apiEndpoint;
+    }
+
+    public String getFragment() {
+        return fragment;
+    }
+
+    public void setFragment(String fragment) {
+        this.fragment = fragment;
     }
 }
