@@ -34,11 +34,15 @@ public class PressDAO {
     }
 
     public List <Press> getToday() {
-        return getSession().createQuery("from Press WHERE age = 0").list();
+        return getSession().createQuery("from Press WHERE timestamp between CURDATE() and CURDATE()+1").list();
     }
 
     public List <Press> getYesterday() {
-        return getSession().createQuery("from Press WHERE timestamp = DATE_SUB(CURDATE(), INTERVAL 1 DAY)").list();
+        return getSession().createQuery("from Press WHERE timestamp between CURDATE() and CURDATE()-1").list();
+    }
+
+    public List <Press> search(String term) {
+        return getSession().createQuery("from Press where title LIKE '%" + term + "%'").list();
     }
 
     public void update(Press press){

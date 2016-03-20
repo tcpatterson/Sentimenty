@@ -2,11 +2,11 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
-        <div th:fragment="stock">
+        <div th:fragment="percent">
             <div id="current-price">
                 <h3><span id="close"></span></h3>USD
                 <span id="arrow"></span>
-            </div><br/>
+            </div>
             <div id="stockChart"></div>
             <div class="range">
                 <button id="oneDay">1 Day</button>
@@ -14,9 +14,10 @@
                 <button id="oneYear">1 Year</button>
                 <button id="fiveYears">5 Years</button>
             </div>
-            <link rel="stylesheet" href="/css/stock.css"/>
+            <br/>
+            <link rel="stylesheet" href="/css/percent.css"/>
             <script src="/vendor/d3/d3.min.js"></script>
-            <script src="/js/stock.js"></script>
+            <script src="/js/percent.js"></script>
         </div>
     </body>
 </html>

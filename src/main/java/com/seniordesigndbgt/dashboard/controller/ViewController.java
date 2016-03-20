@@ -21,12 +21,12 @@ public class ViewController {
         ArrayList<Module> columnOne = new ArrayList<Module>();
         ArrayList<Module> columnTwo = new ArrayList<Module>();
         ArrayList<Module> columnThree = new ArrayList<Module>();
-        Module stockModule = new Module("Stocks from module", "/stocks");
-        Module trendModule = new Module("Trends from module", "/trends");
-        Module geoModule = new Module("Geo from module", "/geo");
-        Module sentiment = new Module("Sentiment from moudule", "/sentiment");
-        Module press = new Module ("Press from module", "/press");
-        Module earnings = new Module ("Earnings from module", "/earnings");
+        Module stockModule = new Module("Stocks from module", "/stocks", "fragments/stocks");
+        Module trendModule = new Module("Trends from module", "/trends", "fragments/stocks");
+        Module geoModule = new Module("Geo from module", "/geo", "fragments/stocks");
+        Module sentiment = new Module("Sentiment from moudule", "/sentiment", "fragments/stocks");
+        Module press = new Module ("Press from module", "/press", "fragments/stocks");
+        Module earnings = new Module ("Earnings from module", "/earnings", "fragments/stocks");
         columnOne.add(stockModule);
         columnOne.add(sentiment);
         columnOne.add(press);

@@ -14,6 +14,8 @@ import com.seniordesigndbgt.dashboard.model.Trend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.Table;
@@ -42,9 +44,6 @@ public class ApiController {
         List<List> allStocks = new ArrayList<List>();
         allStocks.add(todayStocks);
         allStocks.add(oldStocks);
-
-//        System.out.println("==== getting stock data ====");
-//        DailyStock newStock = new DailyStock("DB", LocalTime.now(), 33.45);
         return allStocks;
     }
 
@@ -52,9 +51,11 @@ public class ApiController {
     public @ResponseBody
     List sentiment() {
         List<Press> pToday = _pressDAO.getToday();
-        //List<Press> pYesterday = _pressDAO.getYesterday();
+        List<Press> pYesterday = _pressDAO.getYesterday();
         Double todayS = 0.0;
         Double yesterdayS = 0.0;
+        int nullCountT = 0;
+        int nullCountY = 0;
         for (Press p : pToday) {
             try {
                 JsonElement jElement = new JsonParser().parse(p.getSentiment());
@@ -62,18 +63,62 @@ public class ApiController {
                 Double score = jObject.get("score").getAsDouble();
                 todayS += score;
             } catch (NullPointerException e) {
-                System.out.println(e);
+                nullCountT++;
             }
         }
-//        for (Press p : pYesterday) {
-//            yesterdayS += new Double(p.getSentiment());
-//        }
+        for (Press p : pYesterday) {
+            try {
+                JsonElement jElement = new JsonParser().parse(p.getSentiment());
+                JsonObject jObject = jElement.getAsJsonObject();
+                Double score = jObject.get("score").getAsDouble();
+                yesterdayS += score;
+            } catch (NullPointerException e) {
+                nullCountY++;
+            }
+        }
         List sent = new ArrayList<Double>();
-        Double t = todayS/pToday.size();
-        sent.add(t);
-        sent.add(t-.13);
-//        sent.add(yesterdayS);
-        //sent.add(4);
+        todayS = todayS/(pToday.size()- nullCountT);
+        yesterdayS = yesterdayS/(pYesterday.size()- nullCountY);
+        sent.add(todayS);
+        sent.add(todayS-yesterdayS);
+        return sent;
+    }
+
+    @RequestMapping(value = "/search")
+    public @ResponseBody
+    List search(@RequestParam("query") String query) {
+        List<Press> p = _pressDAO.search(query);
+        return p;
+    }
+
+    @RequestMapping("/percentSentiment")
+    public @ResponseBody
+    List percentSentiment() {
+        List<Press> pToday = _pressDAO.getToday();
+        Double pos = 0.0;
+        int posCount = 0;
+        Double neg = 0.0;
+        int negCount = 0;
+        int nullCount = 0;
+        for (Press p : pToday) {
+            try {
+                JsonElement jElement = new JsonParser().parse(p.getSentiment());
+                JsonObject jObject = jElement.getAsJsonObject();
+                Double score = jObject.get("score").getAsDouble();
+                if(score > 0){
+                    posCount++;
+                }else{
+                    negCount++;
+                }
+            } catch (NullPointerException e) {
+                nullCount++;
+            }
+        }
+        List sent = new ArrayList<>();
+        pos = (double)posCount/(pToday.size() - nullCount) * 100.0;
+        neg = (double)negCount/(pToday.size() - nullCount) * 100.0;
+        sent.add(pos);
+        sent.add(neg);
         return sent;
     }
 

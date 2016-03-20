@@ -3,9 +3,12 @@ $( document ).ready(function() {
       data.forEach(function(d) {
         var jsonn = JSON.parse(d.sentiment);
         d.sentiment = jsonn;
-        if(d.sentiment.score){
+        if(d.sentiment && d.sentiment.score){
             d.sentiment.score = d.sentiment.score.substring(0,6);
         } else {
+            d.sentiment = {
+                score: 1
+            };
             d.sentiment.score = "0.00";
         }
         if(d.sentiment.score < 0 ) {

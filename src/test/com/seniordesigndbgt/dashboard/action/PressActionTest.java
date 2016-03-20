@@ -6,8 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -29,8 +30,8 @@ public class PressActionTest {
 
     @Test
     public void testGetBodyContent() throws Exception {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Press article = new Press("Reuters", "http://www.reuters.com/article/us-deutsche-bank-bafin-idUSKCN0VY2O4",
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        Press article = new Press("Reuters", "http://www.reuters.com/article/us-deutsche-bank-bafin-idUSKCN0VY2O4", "German regulator ends Deutsche Bank probes over fixing scandals",  Calendar.getInstance().getTime());
                 "German regulator ends Deutsche Bank probes over fixing scandals", new java.sql.Date(new java.util.Date().getTime()));
         String body = PressAction.getBodyContent(article);
         System.out.println(body);
