@@ -15,18 +15,20 @@ public class Trend {
     @Column(name = "id")
     private int id;
 
+    @NotNull
     @Size(min = 3, max = 200)
-    @Column(name = "title")
-    private String title;
+    @Column(name = "trendTitle")
+    private String trendTitle;
 
-    @Size(min = 3, max = 200)
+    @NotNull
+    @Size(min = 3, max = 500)
     @Column(name = "mentions")
     private String mentions;
 
     public Trend() {}
 
     public Trend(String trendTitle, String mentions) {
-        this.title = trendTitle;
+        this.trendTitle = trendTitle;
         this.mentions = mentions;
     }
 
@@ -39,11 +41,11 @@ public class Trend {
     }
 
     public String getTrendTitle() {
-        return title;
+        return trendTitle;
     }
 
     public void setTrendTitle(String trendTitle) {
-        this.title = trendTitle;
+        this.trendTitle = trendTitle;
     }
 
     public String getMentions() {

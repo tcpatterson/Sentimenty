@@ -23,15 +23,9 @@ public class Twitter {
     @Column(name = "author")
     private String author;
 
-    @NotNull
-    @Size(min = 1, max = 200)
-    @Column(name = "keyword")
-    private String keyword;
-
-    public Twitter(String author, String text, String keyword) {
+    public Twitter(String author, String text) {
         this.author = author;
         this.text = text;
-        this.keyword = keyword;
     }
 
     public Twitter() {}
@@ -50,22 +44,6 @@ public class Twitter {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     @Override
