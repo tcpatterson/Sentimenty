@@ -78,4 +78,12 @@ public class ApiController {
         return p;
     }
 
+    @RequestMapping("/percentSentiment")
+    public @ResponseBody
+    List percentSentiment() {
+        List<Press> pToday = _pressDAO.getToday();
+//        allStocks.add(todayStocks);
+        return null;
+    }
+
 }
