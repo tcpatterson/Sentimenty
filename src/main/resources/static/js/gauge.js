@@ -174,9 +174,22 @@ function onDocumentReady() {
 	function updateReadings() {
 		// just pump in random data here...
 		$.get( "/sentiment", function( data ) {
-          var today = data[0];
-          today = today * 50 + 50;
-          powerGauge.update(today);
+            var today = data[0];
+            today = today * 50 + 50;
+            var yesterday = data[1];
+            if(yesterday == "NaN") {
+                yesterday = 0;
+            }
+            yesterday = yesterday * 50 + 50;
+            var change = today-yesterday;
+            $("#sentiment-today").text(String(today).substring(0,7));
+            $("#sentiment-yesterday .val").text(String(change).substring(0,7));
+            if(change < 0) {
+              $("#sentiment-yesterday .change").addClass("glyphicon glyphicon-menu-down red");
+            } else {
+              $("#sentiment-yesterday .change").addClass("glyphicon glyphicon-menu-up green");
+            }
+            powerGauge.update(today);
         });
 	}
 

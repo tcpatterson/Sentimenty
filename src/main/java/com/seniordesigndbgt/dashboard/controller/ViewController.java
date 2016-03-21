@@ -48,11 +48,11 @@ public class ViewController {
         ArrayList<Module> columnThree = new ArrayList<Module>();
         Module stockModule = new Module("DB stock information", "stock");
         Module trendModule = new Module("Currently trending about DB", "trends");
-        Module sentimentModule = new Module("Current sentiment", "sentiment");
+        //Module sentimentModule = new Module("Current sentiment", "sentiment");
         Module gaugeModule = new Module("Current gauge", "gauge");
         columnOne.add(stockModule);
         columnTwo.add(trendModule);
-        columnThree.add(sentimentModule);
+        //columnThree.add(sentimentModule);
         columnThree.add(gaugeModule);
         View preferred = new View(current, current.getDefaultView(), columnOne, columnTwo, columnThree);
         modelMap.put("view", preferred);

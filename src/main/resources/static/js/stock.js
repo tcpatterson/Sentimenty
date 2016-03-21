@@ -77,7 +77,7 @@ $( "#fiveYears" ).click(function() {
 function drawChartToday(data) {
     svg.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-16-16");
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-21-16");
             d.close = +d.value;
         });
 
