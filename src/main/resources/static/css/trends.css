@@ -40,6 +40,8 @@
 #mention-content a {
     font-size: 12px;
     font-weight: bold;
+    color: blue;
+    text-decoration: underline;
 }
 
 #mention-sentiment .glyphicon {
