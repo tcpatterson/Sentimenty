@@ -45,6 +45,10 @@ public class PressDAO {
         return getSession().createQuery("from Press where title LIKE '%" + term + "%'").list();
     }
 
+    public List <Press> getById(int id) {
+        return getSession().createQuery("from Press where id = " + id + "").list();
+    }
+
     public void update(Press press){
         getSession().update(press);
     }

@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+    var allArticles;
     $.get( "/showPress", function( data ) {
       data.forEach(function(d) {
         var jsonn = JSON.parse(d.sentiment);
@@ -22,7 +23,14 @@ $( document ).ready(function() {
         d.time = date;
       });
       $("#clientTemplate").tmpl(data).appendTo( "#mentions" );
+
+      $.get("/trend", function ( trendMentionList ) {
+                  trendMentionList[0]//This is the list of trend titles
+                  trendMentionList[1]//This is the list of article mentions
+
+      })
     });
+
 });
 
 $("#reuters").click(function() {
