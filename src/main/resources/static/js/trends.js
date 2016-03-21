@@ -21,6 +21,7 @@ $( document ).ready(function() {
       });
       $("#clientTemplate").tmpl(data).appendTo( "#mentions" );
     });
+    $.get("/trend")
 });
 
 $("#reuters").click(function() {
