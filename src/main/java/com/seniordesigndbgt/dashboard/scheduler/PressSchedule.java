@@ -49,6 +49,8 @@ public class PressSchedule {
                 _pressDao.save(article);
                 String sent = analyzer.getSentiment(article);
                 article.setSentiment(sent);
+                String bodyContent = PressAction.getBodyContent(article);
+                article.setKeywords(ta.findKeywords(bodyContent).toString());
                 _pressDao.update(article);
             }catch(Exception error){
                 System.out.println(error.toString());

@@ -18,13 +18,19 @@ public class PressAction {
         String source = article.getSource();
         Document doc = Jsoup.connect(url).get();
         String text = "";
+        Elements body = null;
         switch (source) {
             case "Reuters":
-                Elements body = doc.select("#articleText");
+                body = doc.select("#articleText");
                 text = body.text();
+                if(text.isEmpty()){
+                    body = doc.select("#postcontent");
+                    text = body.text();
+                }
                 break;
             case "Bloomberg":
-                text = "";
+                body = doc.select("div.article-body__content");
+                text = body.text();
                 break;
         }
         return text;
