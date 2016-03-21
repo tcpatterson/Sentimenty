@@ -125,25 +125,28 @@ public class ApiController {
     @RequestMapping("/trends")
     public @ResponseBody
     List trend() {
-        List<Trend> currentTrends = _trendDao.getAll();
+        List<Trend> currentTrends = _trendDao.getMostRecent();
         List<String> title = new ArrayList<String>();
         List<List> mentions = new ArrayList<List>();
+        List<Press> mentionsPerTrend = new LinkedList<Press>();
         for (Trend t : currentTrends) {
             title.add(t.getTrendTitle());
             String mentionsString = t.getMentions();
             String[] mentionsIds = mentionsString.split(",");
-            LinkedList<Press> mentionsPerTrend = new LinkedList<Press>();
             for (String s : mentionsIds) {
-                System.out.println(s);
                 s = s.replace(" ","");
-                System.out.println(s);
                 if (s.equals(""))
                     continue;
                 int mentionID = Integer.parseInt(s);
                 mentionsPerTrend.add(_pressDAO.getById(mentionID).get(0));
             }
+            System.out.println(mentionsPerTrend.size());
+            LinkedList<Press> mentionsCopy = new LinkedList<Press>(mentionsPerTrend);
+            mentions.add(mentionsCopy);
+            mentionsPerTrend.clear();
         }
         List<List> result = new LinkedList<List>();
+
         result.add(title);
         result.add(mentions);
         return result;

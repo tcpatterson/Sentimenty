@@ -15,6 +15,7 @@ public class TrendDAO {
 
     @Autowired
     private SessionFactory _sessionFactory;
+    private static final int NUMBER_OF_TRENDS = 4;
 
     private Session getSession() {
         return _sessionFactory.getCurrentSession();
@@ -31,6 +32,10 @@ public class TrendDAO {
     @SuppressWarnings("unchecked")
     public List<Trend> getAll() {
         return getSession().createQuery("from Trend").list();
+    }
+
+    public List<Trend> getMostRecent(){
+        return getSession().createQuery("from Trend").list().subList(0, NUMBER_OF_TRENDS);
     }
 
     public void update(Trend trend){

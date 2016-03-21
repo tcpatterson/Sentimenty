@@ -16,7 +16,7 @@ public class TrendAnalyzer {
     private static Map<String, Integer> frequencyMap;
     private List<Map.Entry<String,Integer>> trends;
     private static final int THRESHOLD = 2;
-    private static final int NUM_OF_KEYWORDS = 5;
+    private static final int NUM_OF_KEYWORDS = 4;
     @Autowired
     private PressDAO _pressDao;
     @Autowired
@@ -119,7 +119,7 @@ public class TrendAnalyzer {
     public String sanitizeInput(String text){
         text = text.toLowerCase();
         String[] toRemove = {".",",","!","?"," in "," the "," to "," a "," an "," as "," and "," has "," of "," or ",
-                " for "," up "," with "," on "," off "," into "," it "," have "," by "};
+                " for "," up "," with "," on "," off "," into "," it "," have "," by "," is "," this "};
         for (int i = 0; i < toRemove.length; i++){
             text = text.replace(toRemove[i], "");
         }
