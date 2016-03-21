@@ -3,16 +3,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
         <div th:fragment="percent">
-            <div id="current-price">
-                <h3><span id="close"></span></h3>USD
-                <span id="arrow"></span>
-            </div>
-            <div id="stockChart"></div>
-            <div class="range">
-                <button id="oneDay">1 Day</button>
-                <button id="oneMonth">1 Month</button>
-                <button id="oneYear">1 Year</button>
-                <button id="fiveYears">5 Years</button>
+            <div id="current">
+                <div id="good"></div>
+                <div id="bad"></div>
             </div>
             <br/>
             <link rel="stylesheet" href="/css/percent.css"/>

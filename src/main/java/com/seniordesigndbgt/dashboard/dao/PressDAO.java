@@ -38,7 +38,7 @@ public class PressDAO {
     }
 
     public List <Press> getYesterday() {
-        return getSession().createQuery("from Press WHERE timestamp between CURDATE() and CURDATE()-1").list();
+        return getSession().createQuery("from Press WHERE timestamp between CURDATE()-1 and CURDATE()").list();
     }
 
     public List <Press> search(String term) {

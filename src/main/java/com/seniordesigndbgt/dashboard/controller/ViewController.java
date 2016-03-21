@@ -49,9 +49,11 @@ public class ViewController {
         Module stockModule = new Module("DB stock information", "stock");
         Module trendModule = new Module("Currently trending about DB", "trends");
         Module sentimentModule = new Module("Current sentiment", "sentiment");
+        Module percentSentimentModule = new Module("Percent Makeup of Sentiment", "percent");
         columnOne.add(stockModule);
         columnTwo.add(trendModule);
         columnThree.add(sentimentModule);
+        columnThree.add(percentSentimentModule);
         View preferred = new View(current, current.getDefaultView(), columnOne, columnTwo, columnThree);
         modelMap.put("view", preferred);
         return "index";
