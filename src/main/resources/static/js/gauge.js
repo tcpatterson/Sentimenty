@@ -115,7 +115,7 @@ var gauge = function(container, configuration) {
 //				.attr('class', 'label')
 //				.attr('transform', centerTx);
 //		lg.selectAll('text')
-//				.data(ticks)
+//				.data([0,1])
 //			.enter().append('text')
 //				.attr('transform', function(d) {
 //					var ratio = scale(d);
