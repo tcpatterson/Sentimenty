@@ -19,6 +19,8 @@ $( document ).ready(function() {
             d.arrow = "top";
             d.color = "green";
         }
+        var date = new Date(d.time);
+        d.time = date;
       });
       $("#clientTemplate").tmpl(data).appendTo( "#mentions" );
 

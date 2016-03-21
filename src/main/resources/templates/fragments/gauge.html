@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="gauge">
+    <div id="power-gauge"></div>
+    <div class="sent-container">
+        <div id="sentiment-today"></div>
+        <div id="sentiment-yesterday">
+            <span class="change"></span><br/>
+            <span class="val"></span>
+        </div>
+    </div>
+    <link rel="stylesheet" href="/css/gauge.css"/>
+    <link rel="stylesheet" href="/css/sentiment.css"/>
+    <script src="/js/gauge.js"></script>
+</div>
+</body>
+</html>
