@@ -173,14 +173,18 @@ function onDocumentReady() {
 
 	function updateReadings() {
 		// just pump in random data here...
-		powerGauge.update(75);
+		$.get( "/sentiment", function( data ) {
+          var today = data[0];
+          today = today * 50 + 50;
+          powerGauge.update(today);
+        });
 	}
 
 	// every few seconds update reading values
 	updateReadings();
 	setInterval(function() {
 		updateReadings();
-	}, 5 * 1000);
+	}, 10 * 1000);
 }
 
 if ( !window.isLoaded ) {
