@@ -26,12 +26,12 @@ $( document ).ready(function() {
 
   $.get("/trends", function ( trendMentionList ) {
     for (var i = 0; i < NUM_OF_TRENDS_TO_DISPLAY; i++){
-        $("<button>"+trendMentionList[0][i]+"</button>").addClass("trendButton").addClass(""+i).appendTo(".trend")
+        $("<button>"+trendMentionList[0][i]+"</button>").addClass("trendButton").addClass("trend"+i).appendTo(".trend")
     }
 
     var showList = trendMentionList[1];
-    for (var i = 0; i < trendMentionList[1]; i++ ){//List of List of Press
-        for (var j = 0; j < trendMentionList[1][i]; j++){//List of Press
+    for (var i = 0; i < trendMentionList[1].length; i++ ){//List of List of Press
+        for (var j = 0; j < trendMentionList[1][i].length; j++){//List of Press
             var apiArticle = trendMentionList[1][i][j]
             frontendArticle = apiArticle
             var parsedSentiment = JSON.parse(frontendArticle.sentiment)
@@ -56,10 +56,27 @@ $( document ).ready(function() {
             var date = new Date(frontendArticle.time)
             frontendArticle.time = date
             showList[i][j] = frontendArticle
+            $(showList[i][j]).addClass("article"+i)//Links articles to trend number
+            $(showList[i][j]).addClass("hide")
         }
     }
+    for ( var i = 0; i < showList.length; i++){
+        $("#clientTemplate").tmpl(showList[i]).appendTo("#mentions")
+    }
+    $(".article0").removeClass("hide")
+    $(".trend0").click(function(){
+        $(".article1").addClass("hide")
+        $(".article2").addClass("hide")
+        $(".article3").addClass("hide")
+        $(".article0").removeClass("hide")
+    })
+    $(".trend1").click(function(){
+            $(".article0").addClass("hide")
+            $(".article2").addClass("hide")
+            $(".article3").addClass("hide")
+            $(".article1").removeClass("hide")
+    })
 
-    $('#clientTemplate').tmpl(showList).appendTo("#mentions")
   })
 });
 
