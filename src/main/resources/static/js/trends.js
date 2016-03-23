@@ -56,36 +56,29 @@ $( document ).ready(function() {
             var date = new Date(frontendArticle.time)
             frontendArticle.time = date
             showList[i][j] = frontendArticle
-            $(showList[i][j]).addClass("article"+i)//Links articles to trend number
-            $(showList[i][j]).addClass("hide")
+            $(showList[i][j]).attr("trendNo", ""+i)
         }
     }
     for ( var i = 0; i < showList.length; i++){
         $("#clientTemplate").tmpl(showList[i]).appendTo("#mentions")
     }
-    $(".article0").removeClass("hide")
+    $(".article0").removeClass("hide")//Start off showing trend 1
+
     $(".trend0").click(function(){
-        $(".article1").addClass("hide")
-        $(".article2").addClass("hide")
-        $(".article3").addClass("hide")
+        $(".mention").addClass("hide");
         $(".article0").removeClass("hide")
     })
     $(".trend1").click(function(){
-            $(".article0").addClass("hide")
-            $(".article2").addClass("hide")
-            $(".article3").addClass("hide")
-            $(".article1").removeClass("hide")
+        $(".mention").addClass("hide");
+        $(".article1").removeClass("hide")
     })
-
+    $(".trend2").click(function(){
+        $(".mention").addClass("hide");
+        $(".article2").removeClass("hide")
+    })
+    $(".trend3").click(function(){
+        $(".mention").addClass("hide");
+        $(".article3").removeClass("hide")
+    })
   })
-});
-
-$("#reuters").click(function() {
-    $(".mention").addClass("hide");
-    $(".Reuters").removeClass("hide");
-});
-
-$("#bloomberg").click(function() {
-    $(".mention").addClass("hide");
-    $(".Bloomberg").removeClass("hide");
 });
