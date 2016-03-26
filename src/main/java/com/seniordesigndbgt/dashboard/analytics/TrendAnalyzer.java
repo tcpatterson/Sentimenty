@@ -87,6 +87,7 @@ public class TrendAnalyzer {
         keyWordsString = keyWordsString.substring(0,keyWordsString.length()-1);
         return keyWordsString;
     }
+
     public void refreshShortMap(){
         frequencyMap = new LinkedHashMap<String, Integer>();
     }
