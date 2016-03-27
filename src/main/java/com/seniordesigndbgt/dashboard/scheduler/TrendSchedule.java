@@ -20,7 +20,9 @@ public class TrendSchedule {
 
     @Autowired
     private PressDAO _pressDao;
+    @Autowired
     private TwitterDAO _twitterDao;
+    @Autowired
     private TrendDAO _trendDao;
     TrendAnalyzer ta = new TrendAnalyzer();
 
@@ -50,7 +52,7 @@ public class TrendSchedule {
                     mentions += article.getId() + ", ";
                 }
             }
-            trends.add(new Trend(keyword, mentions));
+            _trendDao.save(new Trend(keyword, mentions));
         }
         for (Trend trend : trends) {
 
