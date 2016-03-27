@@ -7,11 +7,18 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.seniordesigndbgt.dashboard.action.StockAction;
 import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
+import com.seniordesigndbgt.dashboard.dao.StockHistoryDAO;
 import com.seniordesigndbgt.dashboard.model.DailyStock;
+import com.seniordesigndbgt.dashboard.model.StockHistory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalTime;
 
@@ -20,9 +27,11 @@ public class StockSchedule {
 
     @Autowired
     private DailyStockDAO _dailyStockDao;
+    @Autowired
+    private StockHistoryDAO _stockHistoryDao;
 
     //@Scheduled(cron = "0/5 9-16 * * MON-FRI")
-    @Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 50000)
     public void getCurrentPrice() {
         DailyStock result = null;
         try {
@@ -49,10 +58,38 @@ public class StockSchedule {
         }
     }
     /*
+     * Populate historical stock data
+     */
+    @PostConstruct
+    public void backfillStocks(){
+        if (_stockHistoryDao.getAll().size() == 0) {
+            String filename = "dbHistorical.csv";
+            BufferedReader br = null;
+            String line = "";
+            String splitBy = ",";
+            try {
+                br = new BufferedReader(new FileReader(filename));
+                while ((line = br.readLine()) != null) {
+                    String[] stock = line.split(splitBy);
+                    //System.out.println( stock[0] + stock[4]);
+                    StockHistory s = new StockHistory(stock[0], Double.parseDouble(stock[4]));
+                    _stockHistoryDao.save(s);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException f) {
+                f.printStackTrace();
+            }
+        }
+    }
+    /*
     * Get the last trade price of the day and add it to the historical data table
     * */
     //@Scheduled(cron = "0 1 17 * * MON-FRI")
+    @Scheduled(fixedDelay = 5000)
     public void updateHistoricalDatabase() {
+        DailyStock ds = _dailyStockDao.getLatest();
+        System.out.println(ds.getValue());
 
     }
     /*

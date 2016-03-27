@@ -38,5 +38,7 @@ public class DailyStockDAO {
         }
     }
 
+    public DailyStock getLatest() { return (DailyStock) getSession().createQuery("from DailyStock").list().get(0); }
+
 
 }

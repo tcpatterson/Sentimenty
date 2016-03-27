@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.Table;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -43,24 +39,6 @@ public class ApiController {
     @RequestMapping("/stocks")
     public @ResponseBody
     List stock() {
-        String filename = "dbHistorical.csv";
-        BufferedReader br = null;
-        String line = "";
-        String splitBy = ",";
-        try {
-            br = new BufferedReader(new FileReader(filename));
-            while ((line = br.readLine()) != null) {
-                String[] stock = line.split(splitBy);
-                //System.out.println( stock[0] + stock[4]);
-                StockHistory s = new StockHistory(stock[0], Double.parseDouble(stock[4]));
-                _stockHistoryDao.save(s);
-            }
-        } catch (FileNotFoundException e ){
-            e.printStackTrace();
-        } catch (IOException f) {
-            f.printStackTrace();
-        }
-
         List<DailyStock> todayStocks = _dailyStockDao.getAll();
         List<StockHistory> oldStocks = _stockHistoryDao.getAll();
         List<List> allStocks = new ArrayList<List>();
