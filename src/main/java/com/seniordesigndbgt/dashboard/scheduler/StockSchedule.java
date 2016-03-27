@@ -86,10 +86,12 @@ public class StockSchedule {
     * Get the last trade price of the day and add it to the historical data table
     * */
     //@Scheduled(cron = "0 1 17 * * MON-FRI")
-    @Scheduled(fixedDelay = 5000)
+//    @Scheduled(fixedDelay = 5000)
     public void updateHistoricalDatabase() {
         DailyStock ds = _dailyStockDao.getLatest();
-        System.out.println(ds.getValue());
+//        System.out.println(ds.convertTimetoHistoricalDate());
+        _stockHistoryDao.save(new StockHistory(ds.convertTimetoHistoricalDate(), ds.getValue()));
+//        System.out.println("Saved todays close price as historical data");
 
     }
     /*
