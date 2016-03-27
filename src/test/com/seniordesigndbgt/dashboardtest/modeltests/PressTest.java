@@ -1,4 +1,4 @@
-package com.seniordesigndbgt.dashboard.model;
+package com.seniordesigndbgt.dashboardtest.modeltests;
 
 import org.junit.Test;
 

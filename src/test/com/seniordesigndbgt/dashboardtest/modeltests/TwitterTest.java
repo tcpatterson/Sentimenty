@@ -1,4 +1,4 @@
-package com.seniordesigndbgt.dashboard.model;
+package com.seniordesigndbgt.dashboardtest.modeltests;
 
 import org.junit.Test;
 
@@ -14,18 +14,9 @@ public class TwitterTest {
 
     }
 
-    @Test
-    public void testSetId() throws Exception {
-
-    }
 
     @Test
     public void testGetText() throws Exception {
-
-    }
-
-    @Test
-    public void testSetText() throws Exception {
 
     }
 
