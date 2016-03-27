@@ -1,5 +1,6 @@
-package com.seniordesigndbgt.dashboard.action;
+package com.seniordesigndbgt.dashboardtest.actiontests;
 
+import com.seniordesigndbgt.dashboard.action.PressAction;
 import com.seniordesigndbgt.dashboard.analytics.TrendAnalyzer;
 import com.seniordesigndbgt.dashboard.model.Press;
 import org.junit.After;

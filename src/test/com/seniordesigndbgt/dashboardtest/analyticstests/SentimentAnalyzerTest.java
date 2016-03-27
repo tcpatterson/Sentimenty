@@ -1,4 +1,4 @@
-package com.seniordesigndbgt.dashboard.analytics;
+package com.seniordesigndbgt.dashboardtest.analyticstests;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

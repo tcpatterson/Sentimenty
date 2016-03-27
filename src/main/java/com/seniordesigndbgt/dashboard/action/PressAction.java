@@ -19,7 +19,7 @@ public class PressAction {
         Document doc = Jsoup.connect(url).get();
         String text = "";
         Elements body = null;
-        switch (source) {
+       /* switch (source) {
             case "Reuters":
                 body = doc.select("#articleText");
                 text = body.text();
@@ -33,6 +33,7 @@ public class PressAction {
                 text = body.text();
                 break;
         }
+        */
         return text;
     }
 }
