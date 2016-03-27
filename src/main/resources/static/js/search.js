@@ -27,11 +27,7 @@ $('#modal-content').on('shown.bs.modal', function () {
             var date = new Date(d.time);
             d.time = date;
           });
-        $("#clientTemplate").tmpl(data).appendTo( ".modal-body" );
-//        data.forEach(function(d) {
-//            $(".modal-body").append(d.title);
-//            $(".modal-body").append("<br/>");
-//        });
+        $("#searchTemplate").tmpl(data).appendTo( ".modal-body" );
       });
 });
 

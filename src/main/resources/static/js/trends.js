@@ -37,9 +37,9 @@ $( document ).ready(function() {
             var parsedSentiment = JSON.parse(frontendArticle.sentiment)
             frontendArticle.sentiment = parsedSentiment
             if ( frontendArticle.sentiment && frontendArticle.sentiment.score ){
-                var sentScore = parseInt(frontendArticle.sentiment.score)
+                var sentScore = frontendArticle.sentiment.score
                 sentScore = 50*sentScore+50
-                frontendArticle.sentiment.score = "" + sentScore
+                frontendArticle.sentiment.score = String(sentScore).substring(0,5);
             } else {
                 frontendArticle.sentiment = {
                     score: 1
@@ -54,7 +54,8 @@ $( document ).ready(function() {
                 frontendArticle.color = "green"
             }
             var date = new Date(frontendArticle.time)
-            frontendArticle.time = date
+            frontendArticle.time = "" + (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear()
+            frontendArticle.title = frontendArticle.title.substring(0,60);
             showList[i][j] = frontendArticle
             $(showList[i][j]).attr("trendNo", ""+i)
         }

@@ -77,7 +77,7 @@ $( "#fiveYears" ).click(function() {
 function drawChartToday(data) {
     svg.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-21-16");
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-27-16");
             d.close = +d.value;
         });
 
@@ -96,7 +96,10 @@ function drawChartToday(data) {
         }
 
         x.domain([data[0].date, data[data.length - 1].date]);
-        y.domain([0,70]);
+        y.domain([
+            d3.min(data, function(d) { return d.close; }) -5,
+            d3.max(data, function(d) { return d.close; }) +5
+        ]);
 
         svg.append("g")
           .attr("class", "x axis")
@@ -115,7 +118,7 @@ function drawChartToday(data) {
           .call(yAxis)
         .append("text")
           .attr("transform", "rotate(-90)")
-          .attr("y", 30)
+          .attr("y", 40)
           .attr("x", -50)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
@@ -230,7 +233,7 @@ function drawChartOld(data, num) {
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 30)
+      .attr("y", 40)
       .attr("x", -50)
       .attr("dy", ".71em")
       .style("text-anchor", "end")

@@ -91,6 +91,15 @@ public class ApiController {
         return p;
     }
 
+    @RequestMapping("/mentions")
+    public @ResponseBody
+    List totalMentions() {
+        List<Integer> mentions = new ArrayList<Integer>();
+        int size = _pressDAO.getAll().size();
+        mentions.add(size);
+        return mentions;
+    }
+
     @RequestMapping("/percentSentiment")
     public @ResponseBody
     List percentSentiment() {

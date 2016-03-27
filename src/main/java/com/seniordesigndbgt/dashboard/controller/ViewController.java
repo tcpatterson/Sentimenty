@@ -47,10 +47,12 @@ public class ViewController {
         ArrayList<Module> columnTwo = new ArrayList<Module>();
         ArrayList<Module> columnThree = new ArrayList<Module>();
         Module stockModule = new Module("DB stock information", "stock");
+        Module totalMentionModule = new Module("Totals mentions", "mentions");
         Module trendModule = new Module("Currently trending about DB", "trends");
         Module gaugeModule = new Module("Current gauge", "gauge");
         Module percentSentimentModule = new Module("Percent Makeup of Sentiment", "percent");
         columnOne.add(stockModule);
+        columnOne.add(totalMentionModule);
         columnTwo.add(trendModule);
         columnThree.add(gaugeModule);
         columnThree.add(percentSentimentModule);
