@@ -1,9 +1,10 @@
-package com.seniordesigndbgt.dashboard.analytics;
+package com.seniordesigndbgt.dashboardtest.analyticstests;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.seniordesigndbgt.dashboard.action.PressAction;
+import com.seniordesigndbgt.dashboard.analytics.TrendAnalyzer;
 import com.seniordesigndbgt.dashboard.model.Press;
 import org.junit.After;
 import org.junit.Before;

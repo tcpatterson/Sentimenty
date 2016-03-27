@@ -36,7 +36,7 @@ public class ApiController {
     List stock() {
         List<DailyStock> todayStocks = _dailyStockDao.getAll();
         List<StockHistory> oldStocks = _stockHistoryDao.getAll();
-        List<List> allStocks = new ArrayList<>();
+        List<List> allStocks = new ArrayList<List>();
         allStocks.add(todayStocks);
         allStocks.add(oldStocks);
         return allStocks;
@@ -71,7 +71,7 @@ public class ApiController {
                 nullCountY++;
             }
         }
-        List sent = new ArrayList<>();
+        List sent = new ArrayList<List>();
         todayS = todayS/(pToday.size()- nullCountT);
         yesterdayS = yesterdayS/(pYesterday.size()- nullCountY);
         sent.add(todayS);
@@ -109,7 +109,7 @@ public class ApiController {
                 nullCount++;
             }
         }
-        List sent = new ArrayList<>();
+        List sent = new ArrayList<List>();
         pos = (double)posCount/(pToday.size() - nullCount) * 100.0;
         neg = (double)negCount/(pToday.size() - nullCount) * 100.0;
         sent.add(pos);
