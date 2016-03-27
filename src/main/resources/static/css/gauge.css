@@ -8,8 +8,8 @@ body {
 }
 
 #power-gauge g.pointer {
-    fill: #e85116;
-    stroke: #b64011;
+    fill: black;
+    stroke: black;
 }
 
 #power-gauge g.label text {
