@@ -21,7 +21,7 @@ public class StockHistoryTest {
 
     @Test
     public void testGetClosePrice() throws Exception {
-        Double val = 18.30;
+        double val = 18.30;
         StockHistory his = new StockHistory();
         his.setClosePrice(val);
         assertEquals(val, his.getClosePrice(), 0.0);
