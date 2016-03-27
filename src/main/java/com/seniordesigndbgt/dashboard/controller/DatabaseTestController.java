@@ -117,26 +117,4 @@ public class DatabaseTestController {
         List<Press> presses = _pressDAO.getAll();
         return presses;
     }
-
-    @RequestMapping("/backfillStocks")
-    @ResponseBody
-    public void backfillStocks(){
-        String filename = "dbHistorical.csv";
-        BufferedReader br = null;
-        String line = "";
-        String splitBy = ",";
-        try {
-            br = new BufferedReader(new FileReader(filename));
-            while ((line = br.readLine()) != null) {
-                String[] stock = line.split(splitBy);
-                //System.out.println( stock[0] + stock[4]);
-                StockHistory s = new StockHistory(stock[0], Double.parseDouble(stock[4]));
-                _stockHistoryDao.save(s);
-            }
-        } catch (FileNotFoundException e ){
-            e.printStackTrace();
-        } catch (IOException f) {
-            f.printStackTrace();
-        }
-    }
 }

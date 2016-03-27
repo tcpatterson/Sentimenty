@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name="dailystock")
@@ -49,6 +50,11 @@ public class DailyStock {
 
     public void setTime(LocalDateTime time) {
         this.time = time;
+    }
+
+    public String convertTimetoHistoricalDate() {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return time.format(format);
     }
 
     public double getValue() {
