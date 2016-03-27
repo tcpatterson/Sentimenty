@@ -97,8 +97,8 @@ function drawChartToday(data) {
 
         x.domain([data[0].date, data[data.length - 1].date]);
         y.domain([
-            d3.min(data, function(d) { return d.close; }),
-            d3.max(data, function(d) { return d.close; })
+            d3.min(data, function(d) { return d.close; }) -5,
+            d3.max(data, function(d) { return d.close; }) +5
         ]);
 
         svg.append("g")
