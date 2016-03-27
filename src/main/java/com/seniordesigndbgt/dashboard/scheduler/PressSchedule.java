@@ -35,21 +35,29 @@ public class PressSchedule {
     @Scheduled(fixedRate = RATE)
     public void checkBloomberg() throws IOException {
         Document doc = Jsoup.connect("http://www.bloomberg.com/search?query=deutsche+bank").get();
-        Elements newsHeadlines = doc.select(".search-result-story__headline");
+        Elements newsHeadlines = doc.select(".search-result-story");
         analyzer = AnalyzerFactory.getSentimentAnalyzer();
         for(Element e : newsHeadlines) {
-            String link = e.child(0).attr("href");
+            String timestamp = e.child(0).select(".metadata-timestamp").first().child(0).attr("datetime");
+            String thumbnail;
+            String link = e.select(".search-result-story__headline").first().child(0).attr("href");
+            try {
+                thumbnail = e.select(".search-result-story__thumbnail__image").first().attr("src");
+            } catch ( NullPointerException ex) {
+                thumbnail = "http://assets.bwbx.io/business/public/images/logos/BB-Logo-H1-c318357b96.svg";
+            }
             if(!link.contains("www")) {
                 link = "http://www.bloomberg.com/" + link;
             }
-            String title = e.text();
+            String title = e.select(".search-result-story__headline").first().text();
             try {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
-                Press article = new Press("Bloomberg", link, title, Calendar.getInstance().getTime());
+                Press article = new Press("Bloomberg", link, title, Calendar.getInstance().getTime(), thumbnail);
                 _pressDao.save(article);
                 String sent = analyzer.getSentiment(article);
                 article.setSentiment(sent);
                 String bodyContent = PressAction.getBodyContent(article);
+                article.setBody(bodyContent.substring(0, 150));
                 article.setKeywords(ta.findKeywords(bodyContent).toString());
                 _pressDao.update(article);
             }catch(Exception error){
@@ -110,12 +118,15 @@ public class PressSchedule {
         for(Element e : newsHeadlines) {
             String link = e.child(0).attr("href");
             String title = e.text();
+            String timestamp = "March 22, 2016 04:57am EDT";
+            String thumbnail = "http://s4.reutersmedia.net/resources_v2/images/rcom-logo-hdr.png";
             try {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
-                Press article = new Press("Reuters", link, title,  Calendar.getInstance().getTime());
+                Press article = new Press("Reuters", link, title,  Calendar.getInstance().getTime(), thumbnail);
                 _pressDao.save(article);
                 article.setSentiment(analyzer.getSentiment(article));
                 String bodyContent = PressAction.getBodyContent(article);
+                article.setBody(bodyContent.substring(0, 150));
                 article.setKeywords(ta.findKeywords(bodyContent).toString());
                 _pressDao.update(article);
             }catch(Exception error){
