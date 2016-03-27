@@ -149,7 +149,6 @@ public class ApiController {
                 int mentionID = Integer.parseInt(s);
                 mentionsPerTrend.add(_pressDAO.getById(mentionID).get(0));
             }
-            System.out.println(mentionsPerTrend.size());
             LinkedList<Press> mentionsCopy = new LinkedList<Press>(mentionsPerTrend);
             mentions.add(mentionsCopy);
             mentionsPerTrend.clear();

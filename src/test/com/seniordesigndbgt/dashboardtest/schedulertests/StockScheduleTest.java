@@ -1,4 +1,4 @@
-package com.seniordesigndbgt.dashboard.scheduler;
+package com.seniordesigndbgt.dashboardtest.schedulertests;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
