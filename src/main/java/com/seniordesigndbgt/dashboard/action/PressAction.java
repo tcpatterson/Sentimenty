@@ -19,8 +19,8 @@ public class PressAction {
         Document doc = Jsoup.connect(url).get();
         String text = "";
         Elements body = null;
-       /* switch (source) {
-            case "Reuters":
+        switch (source.charAt(0)) {
+            case 'R':
                 body = doc.select("#articleText");
                 text = body.text();
                 if(text.isEmpty()){
@@ -28,12 +28,11 @@ public class PressAction {
                     text = body.text();
                 }
                 break;
-            case "Bloomberg":
+            case 'B':
                 body = doc.select("div.article-body__content");
                 text = body.text();
                 break;
         }
-        */
         return text;
     }
 }
