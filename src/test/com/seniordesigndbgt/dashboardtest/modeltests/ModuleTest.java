@@ -1,5 +1,6 @@
 package com.seniordesigndbgt.dashboardtest.modeltests;
 
+import junit.framework.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -14,18 +15,9 @@ public class ModuleTest {
 
     }
 
-    @Test
-    public void testSetId() throws Exception {
-
-    }
 
     @Test
     public void testGetTitle() throws Exception {
-
-    }
-
-    @Test
-    public void testSetTitle() throws Exception {
 
     }
 

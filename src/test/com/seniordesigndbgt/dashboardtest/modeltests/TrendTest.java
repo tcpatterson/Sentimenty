@@ -1,7 +1,8 @@
 package com.seniordesigndbgt.dashboardtest.modeltests;
 
-import org.junit.Test;
 
+import org.junit.Test;
+import com.seniordesigndbgt.dashboard.model.Trend;
 import static org.junit.Assert.*;
 
 /**
@@ -9,33 +10,28 @@ import static org.junit.Assert.*;
  */
 public class TrendTest {
 
+
     @Test
     public void testGetId() throws Exception {
-
+        Trend trend = new Trend();
+        trend.setId(100);
+        assertEquals(100, trend.getId());
     }
 
-    @Test
-    public void testSetId() throws Exception {
-
-    }
 
     @Test
     public void testGetTrendTitle() throws Exception {
-
+        Trend trend = new Trend();
+        trend.setTrendTitle("Positive trend");
+        assertEquals("Positive trend", trend.getTrendTitle());
     }
 
-    @Test
-    public void testSetTrendTitle() throws Exception {
-
-    }
 
     @Test
     public void testGetMentions() throws Exception {
-
+        Trend trend = new Trend();
+        trend.setMentions("Kel liked this");
+        assertEquals("Kel liked this", trend.getMentions());
     }
 
-    @Test
-    public void testSetMentions() throws Exception {
-
-    }
 }
