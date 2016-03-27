@@ -1,7 +1,5 @@
 package com.seniordesigndbgt.dashboardtest.daotests;
 
-import org.junit.Test;
-
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 import com.seniordesigndbgt.dashboard.model.DailyStock;
 import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
 
