@@ -45,7 +45,8 @@ body {
 }
 
 #arrow.glyphicon {
-    font-size: 20px;
+    font-size: 25px;
+    vertical-align: text-bottom;
 }
 
 .green {
@@ -54,4 +55,13 @@ body {
 
 .red {
     color: red;
+}
+
+#close {
+    font-size: 38px;
+    font-weight: 500;
+}
+
+#current-price {
+    font-size: 20px;
 }

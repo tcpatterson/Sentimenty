@@ -17,15 +17,20 @@ public class Twitter {
     @Column(name = "text")
     private String text;
 
+    @NotNull
+    @Size(min=1, max = 750)
+    @Column(name="url")
+    private String url;
 
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "author")
+    @Column(name="author")
     private String author;
 
-    public Twitter(String author, String text) {
+    public Twitter(String author, String text, String url) {
         this.author = author;
         this.text = text;
+        this.url = url;
     }
 
     public Twitter() {}
@@ -45,6 +50,9 @@ public class Twitter {
     public void setText(String text) {
         this.text = text;
     }
+
+    public String getUrl() { return url; }
+
 
     @Override
     public String toString(){

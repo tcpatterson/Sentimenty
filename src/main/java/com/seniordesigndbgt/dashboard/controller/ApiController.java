@@ -3,14 +3,8 @@ package com.seniordesigndbgt.dashboard.controller;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
-import com.seniordesigndbgt.dashboard.dao.PressDAO;
-import com.seniordesigndbgt.dashboard.dao.StockHistoryDAO;
-import com.seniordesigndbgt.dashboard.dao.TrendDAO;
-import com.seniordesigndbgt.dashboard.model.DailyStock;
-import com.seniordesigndbgt.dashboard.model.Press;
-import com.seniordesigndbgt.dashboard.model.StockHistory;
-import com.seniordesigndbgt.dashboard.model.Trend;
+import com.seniordesigndbgt.dashboard.dao.*;
+import com.seniordesigndbgt.dashboard.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +29,8 @@ public class ApiController {
     private PressDAO _pressDAO;
     @Autowired
     private TrendDAO _trendDao;
+    @Autowired
+    private TwitterDAO _twitterDao;
 
     @RequestMapping("/stocks")
     public @ResponseBody
@@ -89,6 +85,15 @@ public class ApiController {
     List search(@RequestParam("query") String query) {
         List<Press> p = _pressDAO.search(query);
         return p;
+    }
+
+    @RequestMapping("/mentions")
+    public @ResponseBody
+    List totalMentions() {
+        List<Integer> mentions = new ArrayList<Integer>();
+        int size = _pressDAO.getAll().size();
+        mentions.add(size);
+        return mentions;
     }
 
     @RequestMapping("/percentSentiment")
@@ -148,6 +153,17 @@ public class ApiController {
         result.add(title);
         result.add(mentions);
         return result;
+    }
+
+    @RequestMapping("/twitter")
+    @ResponseBody
+    public List twitter() {
+        int numOfTwitters = 250;
+        List<Twitter> twitterList = _twitterDao.getAll();
+        if (twitterList.size() > numOfTwitters)
+            return twitterList.subList(0,numOfTwitters);
+        else
+            return twitterList;
     }
 
 }

@@ -147,7 +147,7 @@ public class TrendAnalyzer {
     public String sanitizeInput(String text){
         text = text.toLowerCase();
         String[] stopList = {".",",","!","?"," in "," the "," to "," a "," an "," as "," and "," has "," of "," or ",
-                " for "," up "," with "," on "," off "," into "," it "," have "," by ","is ","this ", "said ", "that ", "deustche", "bank ",
+                " for "," up "," with "," on "," off "," into "," it "," have "," by ","is ","this ", "said ", "that ", "deutsche", "bank ",
                 " at "};
         for (int i = 0; i < stopList.length; i++){
             text = text.replace(stopList[i], "");

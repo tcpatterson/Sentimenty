@@ -11,6 +11,23 @@
             <span class="val"></span>
         </div>
     </div>
+
+    <script id="searchTemplate" type="text/html">
+        <div class="mention">
+            <div><img src="${thumbnail}"/></div>
+            <div class="mention-sentiment">
+                <span class="glyphicon glyphicon-triangle-${arrow} ${color}"></span><br/>
+                <p>${sentiment.score}</p>
+            </div>
+            <div class="mention-content">
+                <a target="_blank" href="${url}">${title}</a>
+                <p>${time}</p>
+            </div>
+            ${body}
+        </div>
+    </script>
+
+
     <link rel="stylesheet" href="/css/gauge.css"/>
     <link rel="stylesheet" href="/css/sentiment.css"/>
     <script src="/js/gauge.js"></script>

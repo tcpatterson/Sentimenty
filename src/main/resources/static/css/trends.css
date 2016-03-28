@@ -26,24 +26,24 @@
     height: 25px;
 }
 
-#mention-sentiment {
+.mention-sentiment {
     display: inline-block;
     text-align: center;
 }
 
-#mention-content {
+.mention-content {
     display: inline;
     width: 80%;
     float: right;
 }
 
-#mention-content a {
+.mention-content a {
     font-size: 12px;
     font-weight: bold;
     color: blue;
     text-decoration: underline;
 }
 
-#mention-sentiment .glyphicon {
+.mention-sentiment .glyphicon {
     font-size: 20px;
 }

@@ -1,32 +1,10 @@
 $( document ).ready(function() {
-//    $.get( "/showPress", function( data ) {
-//      data.forEach(function(d) {
-//        var jsonn = JSON.parse(d.sentiment);
-//        d.sentiment = jsonn;
-//        if(d.sentiment && d.sentiment.score){
-//            d.sentiment.score = d.sentiment.score.substring(0,6);
-//        } else {
-//            d.sentiment = {
-//                score: 1
-//            };
-//            d.sentiment.score = "0.00";
-//        }
-//        if(d.sentiment.score < 0 ) {
-//            d.arrow = "bottom";
-//            d.color = "red";
-//        } else {
-//            d.arrow = "top";
-//            d.color = "green";
-//        }
-//        var date = new Date(d.time);
-//        d.time = date;
-//      });
-//      $("#clientTemplate").tmpl(data).appendTo( "#mentions" );
+
   var NUM_OF_TRENDS_TO_DISPLAY = 4
 
   $.get("/trends", function ( trendMentionList ) {
     for (var i = 0; i < NUM_OF_TRENDS_TO_DISPLAY; i++){
-        $("<button>"+trendMentionList[0][i]+"</button>").addClass("trendButton").addClass("trend"+i).appendTo(".trend")
+        $("<button class='btn'>"+trendMentionList[0][i]+"</button>").addClass("trendButton").addClass("trend"+i).appendTo(".trend")
     }
 
     var showList = trendMentionList[1];
@@ -37,16 +15,16 @@ $( document ).ready(function() {
             var parsedSentiment = JSON.parse(frontendArticle.sentiment)
             frontendArticle.sentiment = parsedSentiment
             if ( frontendArticle.sentiment && frontendArticle.sentiment.score ){
-                var sentScore = parseInt(frontendArticle.sentiment.score)
+                var sentScore = frontendArticle.sentiment.score
                 sentScore = 50*sentScore+50
-                frontendArticle.sentiment.score = "" + sentScore
+                frontendArticle.sentiment.score = String(sentScore).substring(0,5);
             } else {
                 frontendArticle.sentiment = {
                     score: 1
                 };
                 frontendArticle.sentiment.score = "0.00"
             }
-            if (frontendArticle.sentiment.score < 0) {
+            if (frontendArticle.sentiment.score < 50) {
                 frontendArticle.arrow = "bottom"
                 frontendArticle.color = "red"
             } else {
@@ -54,7 +32,8 @@ $( document ).ready(function() {
                 frontendArticle.color = "green"
             }
             var date = new Date(frontendArticle.time)
-            frontendArticle.time = date
+            frontendArticle.time = "" + (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear()
+            frontendArticle.title = frontendArticle.title.substring(0,60);
             showList[i][j] = frontendArticle
             $(showList[i][j]).attr("trendNo", ""+i)
         }

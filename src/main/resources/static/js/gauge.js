@@ -110,19 +110,17 @@ var gauge = function(container, configuration) {
 					return config.arcColorFn(d * i);
 				})
 				.attr('d', arcGauge);
-
-//		var lg = svg.append('g')
-//				.attr('class', 'label')
-//				.attr('transform', centerTx);
-//		lg.selectAll('text')
-//				.data([0,1])
-//			.enter().append('text')
-//				.attr('transform', function(d) {
-//					var ratio = scale(d);
-//					var newAngle = config.minAngle + (ratio * range);
-//					return 'rotate(' +newAngle +') translate(0,' +(config.labelInset - r) +')';
-//				})
-//				.text(config.labelFormat);
+		var lg = svg.append('g')
+				.attr('class', 'label')
+				.attr('transform', centerTx);
+		lg.selectAll('text')
+				.data([0,100])
+			.enter().append('text')
+				.attr('transform', function(d) {
+					var e = d == 0 ? 'translate(-125,15)' : 'translate(115,15)';//115,15
+					return e;
+				})
+				.text(config.labelFormat);
 
 		var lineData = [ [config.pointerWidth / 2, 0],
 						[0, -pointerHeadLength],
@@ -183,7 +181,7 @@ function onDocumentReady() {
             yesterday = yesterday * 50 + 50;
             var change = today-yesterday;
             $("#sentiment-today").text(String(today).substring(0,7));
-            $("#sentiment-yesterday .val").text(String(change).substring(0,7));
+            $("#sentiment-yesterday .val").text(String(Math.abs(change)).substring(0,7));
             if(change < 0) {
               $("#sentiment-yesterday .change").addClass("glyphicon glyphicon-menu-down red");
             } else {

@@ -24,7 +24,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">
-                        <img alt="Brand" th:src="@{/img/logo.png}" height="20px" width="20px"/>
+                        <img alt="Brand" th:src="@{/img/logo2.png}" height="20px" width="20px"/>
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
@@ -38,34 +38,39 @@
                 </div>
             </div>
         </nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="column">
+                    <div class="portlet" th:each="module  : ${view.columnOne}">
+                        <div class="portlet-header" th:text="${module.title}"></div>
+                        <div class="portlet-content">
+                            <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
+                        </div>
+                    </div>
+                </div></div>
 
-        <div class="column">
-            <div class="portlet" th:each="module  : ${view.columnOne}">
-                <div class="portlet-header" th:text="${module.title}"></div>
-                <div class="portlet-content">
-                    <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
-                </div>
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="column">
+                    <div class="portlet" th:each="module  : ${view.columnTwo}">
+                        <div class="portlet-header" th:text="${module.title}"></div>
+                        <div class="portlet-content">
+                            <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
+                        </div>
+                    </div>
+                </div></div>
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="column">
+                    <div class="portlet" th:each="module  : ${view.columnThree}">
+                        <div class="portlet-header" th:text="${module.title}"></div>
+                        <div class="portlet-content">
+                            <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
+                        </div>
+                    </div>
+                </div></div>
             </div>
         </div>
-
-        <div class="column">
-            <div class="portlet" th:each="module  : ${view.columnTwo}">
-                <div class="portlet-header" th:text="${module.title}"></div>
-                <div class="portlet-content">
-                    <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="portlet" th:each="module  : ${view.columnThree}">
-                <div class="portlet-header" th:text="${module.title}"></div>
-                <div class="portlet-content">
-                    <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
-                </div>
-            </div>
-        </div>
-
         <div id="modal-content" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
