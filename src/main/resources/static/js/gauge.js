@@ -110,7 +110,7 @@ var gauge = function(container, configuration) {
 					return config.arcColorFn(d * i);
 				})
 				.attr('d', arcGauge);
-		var lg = svg.append('g')
+		var lg = gauge.append('g')
 				.attr('class', 'label')
 				.attr('transform', centerTx);
 		lg.selectAll('text')
