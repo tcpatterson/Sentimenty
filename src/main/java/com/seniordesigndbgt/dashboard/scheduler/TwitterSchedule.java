@@ -35,7 +35,7 @@ public class TwitterSchedule {
             twitter4j.Twitter twitter = tf.getInstance();
 
             Query query = new Query(hashtag);
-            query.count(50);
+            query.count(10);
             QueryResult result = twitter.search(query);
             for (Status status : result.getTweets()){
 //                if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
