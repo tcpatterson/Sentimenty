@@ -4,7 +4,7 @@ $( document ).ready(function() {
 
   $.get("/trends", function ( trendMentionList ) {
     for (var i = 0; i < NUM_OF_TRENDS_TO_DISPLAY; i++){
-        $("<button>"+trendMentionList[0][i]+"</button>").addClass("trendButton").addClass("trend"+i).appendTo(".trend")
+        $("<button class='btn'>"+trendMentionList[0][i]+"</button>").addClass("trendButton").addClass("trend"+i).appendTo(".trend")
     }
 
     var showList = trendMentionList[1];
