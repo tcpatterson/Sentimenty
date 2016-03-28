@@ -35,7 +35,12 @@ public class TrendDAO {
     }
 
     public List<Trend> getMostRecent(){
-        return getSession().createQuery("from Trend").list().subList(0, NUMBER_OF_TRENDS);
+
+        List<Trend> trendList = getSession().createQuery("from Trend").list();
+        if (trendList.size() < NUMBER_OF_TRENDS)
+                return trendList.subList(0, NUMBER_OF_TRENDS);
+        else
+            return trendList;
     }
 
     public void update(Trend trend){
