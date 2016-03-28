@@ -20,7 +20,7 @@ public class TwitterSchedule {
     @Autowired
     private TwitterDAO _twitterDao;
 
-   // @Scheduled (fixedDelay = 5000)
+    @Scheduled (fixedDelay = 5000)
     public void gatherTwitter()
     {
         String hashtag = "deutschebank";
@@ -35,7 +35,7 @@ public class TwitterSchedule {
             twitter4j.Twitter twitter = tf.getInstance();
 
             Query query = new Query(hashtag);
-            query.count(10);
+            query.count(50);
             QueryResult result = twitter.search(query);
             for (Status status : result.getTweets()){
 //                if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
@@ -48,9 +48,12 @@ public class TwitterSchedule {
                 if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
                     String tweetText = status.getText();
                     String author = status.getUser().getName();
-                    TrendAnalyzer ta = new TrendAnalyzer();
-                    String keywords = ta.findKeywords(tweetText);
-                    Twitter t = new Twitter(author, tweetText);
+//                    TrendAnalyzer ta = new TrendAnalyzer();
+//                    String keywords = ta.findKeywords(tweetText);
+                    String url= "https://twitter.com/" + status.getUser().getScreenName()
+                            + "/status/" + status.getId();
+                    Twitter t = new Twitter(author, tweetText, url);
+                    t.setText(t.toString());
                     _twitterDao.save(t);
                 }
             }
