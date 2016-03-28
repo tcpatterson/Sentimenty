@@ -27,7 +27,7 @@ var line = d3.svg.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.close); });
 
-var svg = d3.select("#stockChart").append("svg")
+var stockChart = d3.select("#stockChart").append("svg")
     .attr("width", 340)
     .attr("height", height + margin.top + margin.bottom + 50)
     .append("g")
@@ -75,7 +75,7 @@ $( "#fiveYears" ).click(function() {
 });
 
 function drawChartToday(data) {
-    svg.selectAll("*").remove();
+    stockChart.selectAll("*").remove();
         data.forEach(function(d) {
             d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-21-16");
             d.close = +d.value;
@@ -98,7 +98,7 @@ function drawChartToday(data) {
         x.domain([data[0].date, data[data.length - 1].date]);
         y.domain([0,70]);
 
-        svg.append("g")
+        stockChart.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis)
@@ -109,7 +109,7 @@ function drawChartToday(data) {
           .attr("transform", "rotate(45)")
           .style("text-anchor", "start");
 
-        svg.append("g")
+        stockChart.append("g")
           .attr("class", "y axis")
           .attr("transform", "translate(" + width + " ,0)")
           .call(yAxis)
@@ -121,12 +121,12 @@ function drawChartToday(data) {
           .style("text-anchor", "end")
           .text("Price (USD)");
 
-        svg.append("path")
+        stockChart.append("path")
           .datum(data)
           .attr("class", "line")
           .attr("d", line);
 
-        svg.append("text")
+        stockChart.append("text")
           .attr("x", (width / 2))
           .attr("y", 0 - (margin.top / 2))
           .classed('title', true)
@@ -134,7 +134,7 @@ function drawChartToday(data) {
           .style("font-size", "12px")
           .text("One Day Stock Performance");
 
-        var focus = svg.append("g")
+        var focus = stockChart.append("g")
           .attr("class", "focus")
           .style("display", "none");
 
@@ -145,7 +145,7 @@ function drawChartToday(data) {
           .attr("x", 9)
           .attr("dy", ".35em");
 
-        svg.append("rect")
+        stockChart.append("rect")
           .attr("class", "overlay")
           .attr("width", width)
           .attr("height", height)
@@ -174,7 +174,7 @@ function drawChartToday(data) {
 }
 
 function drawChartOld(data, num) {
-    svg.selectAll("*").remove();
+    stockChart.selectAll("*").remove();
     data.forEach(function(d) {
         d.date = historyDate(d.dateStock);
         d.close = +d.closePrice;
@@ -213,7 +213,7 @@ function drawChartOld(data, num) {
         return (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear().toString().substring(2,4);
     });
 
-    svg.append("g")
+    stockChart.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
@@ -224,7 +224,7 @@ function drawChartOld(data, num) {
       .attr("transform", "rotate(45)")
       .style("text-anchor", "start");
 
-    svg.append("g")
+    stockChart.append("g")
       .attr("class", "y axis")
       .attr("transform", "translate(" + width + " ,0)")
       .call(yAxis)
@@ -236,12 +236,12 @@ function drawChartOld(data, num) {
       .style("text-anchor", "end")
       .text("Price (USD)");
 
-    svg.append("path")
+    stockChart.append("path")
       .datum(data)
       .attr("class", "line")
       .attr("d", line);
 
-    var focus = svg.append("g")
+    var focus = stockChart.append("g")
       .attr("class", "focus")
       .style("display", "none");
 
@@ -252,7 +252,7 @@ function drawChartOld(data, num) {
       .attr("x", 0)
       .attr("dy", "-2.35em");
 
-    svg.append("text")
+    stockChart.append("text")
       .attr("x", (width / 2))
       .attr("y", 0 - (margin.top / 2))
       .classed('title', true)
@@ -260,7 +260,7 @@ function drawChartOld(data, num) {
       .style("font-size", "12px")
       .text(titleText);
 
-    svg.append("rect")
+    stockChart.append("rect")
       .attr("class", "overlay")
       .attr("width", width)
       .attr("height", height)

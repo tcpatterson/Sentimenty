@@ -30,7 +30,7 @@ var gauge = function(container, configuration) {
 	var pointerHeadLength = undefined;
 	var value = 0;
 
-	var svg = undefined;
+	var gauge = undefined;
 	var arc = undefined;
 	var scale = undefined;
 	var ticks = undefined;
@@ -86,12 +86,12 @@ var gauge = function(container, configuration) {
 	}
 
 	function isRendered() {
-		return (svg !== undefined);
+		return (gauge !== undefined);
 	}
 	that.isRendered = isRendered;
 
 	function render(newValue) {
-		svg = d3.select(container)
+		gauge = d3.select(container)
 			.append('svg:svg')
 				.attr('class', 'gauge')
 				.attr('width', config.clipWidth)
@@ -99,7 +99,7 @@ var gauge = function(container, configuration) {
 
 		var centerTx = centerTranslation();
 
-		var arcs = svg.append('g')
+		var arcs = gauge.append('g')
 				.attr('class', 'arc')
 				.attr('transform', centerTx);
 
@@ -130,7 +130,7 @@ var gauge = function(container, configuration) {
 						[0, config.pointerTailLength],
 						[config.pointerWidth / 2, 0] ];
 		var pointerLine = d3.svg.line().interpolate('monotone');
-		var pg = svg.append('g').data([lineData])
+		var pg = gauge.append('g').data([lineData])
 				.attr('class', 'pointer')
 				.attr('transform', centerTx);
 

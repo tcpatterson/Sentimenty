@@ -93,7 +93,7 @@ public class ApiController {
 
     @RequestMapping("/percentSentiment")
     public @ResponseBody
-    List percentSentiment() {
+    String percentSentiment() {
         List<Press> pToday = _pressDAO.getToday();
         Double pos = 0.0;
         int posCount = 0;
@@ -117,9 +117,8 @@ public class ApiController {
         List sent = new ArrayList<List>();
         pos = (double)posCount/(pToday.size() - nullCount) * 100.0;
         neg = (double)negCount/(pToday.size() - nullCount) * 100.0;
-        sent.add(pos);
-        sent.add(neg);
-        return sent;
+        String results = "label,percent\n"+"good,"+pos+"\nbad,"+neg;
+        return results;
     }
 
     @RequestMapping("/trends")
