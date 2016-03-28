@@ -1,27 +1,5 @@
 $( document ).ready(function() {
-//    $.get( "/showPress", function( data ) {
-//      data.forEach(function(d) {
-//        var jsonn = JSON.parse(d.sentiment);
-//        d.sentiment = jsonn;
-//        if(d.sentiment && d.sentiment.score){
-//            d.sentiment.score = d.sentiment.score.substring(0,6);
-//        } else {
-//            d.sentiment = {
-//                score: 1
-//            };
-//            d.sentiment.score = "0.00";
-//        }
-//        if(d.sentiment.score < 0 ) {
-//            d.arrow = "bottom";
-//            d.color = "red";
-//        } else {
-//            d.arrow = "top";
-//            d.color = "green";
-//        }
-//        var date = new Date(d.time);
-//        d.time = date;
-//      });
-//      $("#clientTemplate").tmpl(data).appendTo( "#mentions" );
+
   var NUM_OF_TRENDS_TO_DISPLAY = 4
 
   $.get("/trends", function ( trendMentionList ) {
@@ -46,7 +24,7 @@ $( document ).ready(function() {
                 };
                 frontendArticle.sentiment.score = "0.00"
             }
-            if (frontendArticle.sentiment.score < 0) {
+            if (frontendArticle.sentiment.score < 50) {
                 frontendArticle.arrow = "bottom"
                 frontendArticle.color = "red"
             } else {
