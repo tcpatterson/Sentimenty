@@ -25,7 +25,7 @@ var pieChart = d3.select("#pie").append("svg")
 d3.csv("/percentSentiment", type, function(error, data) {
   if (error) throw error;
 
-  var g = pieChart.selectAll(".arc")
+  var g = pieChart.selectAll(".arcPie")
       .data(pie(data))
     .enter().append("g")
       .attr("class", "arcPie");

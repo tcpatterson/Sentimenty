@@ -31,7 +31,7 @@ var gauge = function(container, configuration) {
 	var value = 0;
 
 	var gauge = undefined;
-	var arc = undefined;
+	var arcGauge = undefined;
 	var scale = undefined;
 	var ticks = undefined;
 	var tickData = undefined;
@@ -67,7 +67,7 @@ var gauge = function(container, configuration) {
 		ticks = scale.ticks(config.majorTicks);
 		tickData = d3.range(config.majorTicks).map(function() {return 1/config.majorTicks;});
 
-		arc = d3.svg.arc()
+		arcGauge = d3.svg.arc()
 			.innerRadius(r - config.ringWidth - config.ringInset)
 			.outerRadius(r - config.ringInset)
 			.startAngle(function(d, i) {
@@ -100,7 +100,7 @@ var gauge = function(container, configuration) {
 		var centerTx = centerTranslation();
 
 		var arcs = gauge.append('g')
-				.attr('class', 'arc')
+				.attr('class', 'arcGauge')
 				.attr('transform', centerTx);
 
 		arcs.selectAll('path')
@@ -109,7 +109,7 @@ var gauge = function(container, configuration) {
 				.attr('fill', function(d, i) {
 					return config.arcColorFn(d * i);
 				})
-				.attr('d', arc);
+				.attr('d', arcGauge);
 
 //		var lg = svg.append('g')
 //				.attr('class', 'label')
