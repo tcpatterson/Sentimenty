@@ -1,5 +1,5 @@
 var margin = {top: 20, right: 30, bottom: 30, left: 30},
-    width = 320 - margin.left - margin.right,
+    width = parseInt(d3.select('#stockChart').style('width'), 10) - 180,
     height = 200 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%I-%M-%S-%m-%d-%Y").parse,
@@ -28,7 +28,7 @@ var line = d3.svg.line()
     .y(function(d) { return y(d.close); });
 
 var svg = d3.select("#stockChart").append("svg")
-    .attr("width", 340)
+    .attr("width", parseInt(d3.select('#stockChart').style('width'), 10))
     .attr("height", height + margin.top + margin.bottom + 50)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -289,4 +289,11 @@ function drawChartOld(data, num) {
         focus.select("text").text(ds + ": " + formatCurrency(d.close));
         focus.select("text").attr("x", xoff);
     };
+}
+
+
+d3.select(window).on('resize', stockResize);
+
+function stockResize() {
+    console.log("resizing!");
 }
