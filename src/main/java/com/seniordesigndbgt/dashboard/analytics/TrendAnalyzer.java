@@ -115,6 +115,10 @@ public class TrendAnalyzer {
         return keyWordsString;
     }
 
+    public void refreshShortMap(){
+        frequencyMap = new LinkedHashMap<String, Integer>();
+    }
+
     public Map<String, Integer> getFrequencyMap() {
         return frequencyMap;
     }
