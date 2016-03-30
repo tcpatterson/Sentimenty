@@ -52,6 +52,7 @@ public class TrendSchedule {
                     mentions += article.getId() + ", ";
                 }
             }
+            System.out.println(keyword);
             _trendDao.save(new Trend(keyword, mentions));
         }
         for (Trend trend : trends) {
