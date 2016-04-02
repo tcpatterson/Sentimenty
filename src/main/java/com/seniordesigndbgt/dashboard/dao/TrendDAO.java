@@ -22,6 +22,7 @@ public class TrendDAO {
     }
 
     public void save(Trend trend) {
+        System.out.println("\nTrend title: "+trend.getTrendTitle()+" is this long: "+trend.getTrendTitle().length());
         getSession().save(trend);
     }
 

@@ -46,14 +46,15 @@ public class TrendSchedule {
         String[] keywordSplit = keyString.split(",");
         List<Trend> trends = new ArrayList<Trend>();
         for (String keyword : keywordSplit) {
-            String mentions = "";
-            for (Press article : pressList) {
-                if (article.getKeywords() != null && article.getKeywords().contains(keyword)) {
-                    mentions += article.getId() + ", ";
+            if (!keyword.isEmpty()) {
+                String mentions = "";
+                for (Press article : pressList) {
+                    if (article.getKeywords() != null && article.getKeywords().contains(keyword)) {
+                        mentions += article.getId() + ", ";
+                    }
                 }
+                _trendDao.save(new Trend(keyword, mentions));
             }
-            System.out.println(keyword);
-            _trendDao.save(new Trend(keyword, mentions));
         }
         for (Trend trend : trends) {
 
