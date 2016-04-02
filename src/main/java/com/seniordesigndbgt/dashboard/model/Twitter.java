@@ -27,10 +27,17 @@ public class Twitter {
     @Column(name="author")
     private String author;
 
-    public Twitter(String author, String text, String url) {
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name="image")
+
+    private String image;
+
+    public Twitter(String author, String text, String url, String image) {
         this.author = author;
         this.text = text;
         this.url = url;
+        this.image = image;
     }
 
     public Twitter() {}
@@ -49,6 +56,14 @@ public class Twitter {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getUrl() { return url; }
