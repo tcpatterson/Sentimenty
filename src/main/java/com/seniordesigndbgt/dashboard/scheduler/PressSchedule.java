@@ -119,7 +119,7 @@ public class PressSchedule {
             String link = e.child(0).attr("href");
             String title = e.text();
             String timestamp = "March 22, 2016 04:57am EDT";
-            String thumbnail = "http://s4.reutersmedia.net/resources_v2/images/rcom-logo-hdr.png";
+            String thumbnail = "http://www.thewrap.com/wp-content/uploads/2013/10/Reuters-Logo.jpg";
             try {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
                 Press article = new Press("Reuters", link, title,  Calendar.getInstance().getTime(), thumbnail);

@@ -59,5 +59,17 @@ $( document ).ready(function() {
         $(".mention").addClass("hide");
         $(".article3").removeClass("hide")
     })
+    var counter = 0;
+    $(".onoffswitch-checkbox").change(function() {
+        if(counter%2==0){
+            $(".trend").hide(600);
+            $(".mention").removeClass("hide");
+        } else {
+            $(".trend").show(600);
+            $(".mention").addClass("hide");
+            $(".article0").removeClass("hide")
+        }
+        counter++;
+    });
   })
 });

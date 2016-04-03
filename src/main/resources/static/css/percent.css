@@ -1,12 +1,10 @@
 #good {
     display: inline;
-    font-size: 48px;
     color: green;
 }
 
 #bad {
     display: inline-block;
-    font-size: 48px;
     color: red;
 }
 
@@ -20,3 +18,6 @@
   stroke: #fff;
 }
 
+#current {
+    font-size: 24px;
+}
