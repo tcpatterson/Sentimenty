@@ -38,7 +38,7 @@ public class TrendAnalyzer {
     }
 
     public void findNewTrends() {
-        System.out.println("\nStart");
+        //System.out.println("\nStart");
     //Get press keywords
         List<Press> pressList = _pressDao.getAll();
         String allKeywords = "";
@@ -72,7 +72,7 @@ public class TrendAnalyzer {
             _trendDao.save(trend);
         }
         for (Trend databaseTrend : _trendDao.getAll()) {
-            System.out.println(databaseTrend.getMentions());
+            //System.out.println(databaseTrend.getMentions());
         }
 
     }
@@ -174,7 +174,7 @@ public class TrendAnalyzer {
         Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
+            //System.out.println(pair.getKey() + " = " + pair.getValue());
             it.remove(); // avoids a ConcurrentModificationException
         }
     }

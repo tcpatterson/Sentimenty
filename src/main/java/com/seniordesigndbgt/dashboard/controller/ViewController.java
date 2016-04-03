@@ -54,7 +54,7 @@ public class ViewController {
         Module twitterModule = new Module("Twitter Feed", "twitter");
         columnOne.add(stockModule);
         columnTwo.add(trendModule);
-        columnTwo.add(totalMentionModule);
+        //columnTwo.add(totalMentionModule);
         columnThree.add(gaugeModule);
         columnOne.add(percentSentimentModule);
         columnThree.add(twitterModule);

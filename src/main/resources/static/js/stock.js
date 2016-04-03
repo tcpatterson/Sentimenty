@@ -77,7 +77,7 @@ $( "#fiveYears" ).click(function() {
 function drawChartToday(data) {
     stockChart.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-28-16");
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-3-16");
             d.close = +d.value;
         });
 
@@ -88,6 +88,8 @@ function drawChartToday(data) {
         var last = data[data.length-1];
         var secondToLastClose = data[data.length-2].close;
         var lastClose = last.close;
+        var lastDate = last.date;
+        d3.select('#closeStamp').text("NYSE: DB - " + lastDate);
         d3.select('#close').text(lastClose);
         if(lastClose >= secondToLastClose ) {
             d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-up green")
@@ -169,7 +171,7 @@ function drawChartToday(data) {
 
             var per = i/data.length;
             var xoff = per*-110;
-            ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getFullYear();
+            ds = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear();
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(ds + ": " + formatCurrency(d.close));
             focus.select("text").attr("x", xoff);
@@ -281,7 +283,7 @@ function drawChartOld(data, num) {
         }
         var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
         var ds = new Date(d.date);
-        ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getFullYear();
+        ds = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear();
 
         var per = i/data.length;
         var xoff = per*-110;
