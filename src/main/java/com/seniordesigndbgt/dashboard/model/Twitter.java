@@ -71,10 +71,9 @@ public class Twitter {
 
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("@"+author+" - ");
-        sb.append(text);
-
-        return sb.toString();
+        if(author == null || text == null)
+            return null;
+        else
+            return "@" + author + " - " + text;
     }
 }
