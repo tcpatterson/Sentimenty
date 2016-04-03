@@ -28,7 +28,7 @@ public class TwitterTest {
 
     @Test
     public void testToString() throws Exception {
-        Twitter tweet = new Twitter("dbcares", "hello world");
+        Twitter tweet = new Twitter("dbcares", "hello world","");
         assertEquals("@dbcares - hello world", tweet.toString());
     }
 }

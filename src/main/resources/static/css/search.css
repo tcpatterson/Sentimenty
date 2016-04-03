@@ -1,0 +1,16 @@
+.searchThumb img {
+    width: 100px;
+}
+
+.modal-body .mention-sentiment {
+    width: 20%;
+}
+
+.modal {
+  overflow: hidden;
+}
+
+.modal-body {
+  height: 65vh;
+  overflow: auto;
+}
