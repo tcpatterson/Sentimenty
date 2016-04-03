@@ -4,7 +4,9 @@
 <div th:fragment="twitter">
     <script id="twitterTemplate" type="text/html">
     <div class="tweets">
-        <div class="picture"></div>
+        <div class="picture">
+            <img class ="image" src="${image}" alt="Broken"/>
+        </div>
         <div class="text">
             <a target="_blank" href="${url}">${text}</a>
         </div>

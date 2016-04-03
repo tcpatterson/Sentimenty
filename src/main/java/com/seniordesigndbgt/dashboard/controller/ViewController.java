@@ -54,10 +54,10 @@ public class ViewController {
         Module twitterModule = new Module("Twitter Feed", "twitter");
         columnOne.add(stockModule);
         columnTwo.add(trendModule);
-        columnTwo.add(twitterModule);
+        //columnTwo.add(totalMentionModule);
         columnThree.add(gaugeModule);
-        columnThree.add(percentSentimentModule);
-        columnThree.add(totalMentionModule);
+        columnOne.add(percentSentimentModule);
+        columnThree.add(twitterModule);
         View preferred = new View(current, current.getDefaultView(), columnOne, columnTwo, columnThree);
         modelMap.put("view", preferred);
         return "index";

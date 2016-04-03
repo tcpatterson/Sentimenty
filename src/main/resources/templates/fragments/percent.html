@@ -3,15 +3,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
         <div th:fragment="percent">
-            <div id="current">
-                <div id="good"></div>
-                <div id="bad"></div>
+            <div class="center">
+                <span>Out of</span><span id="mentionsToday"></span><span>press mentions today</span>
+                <link rel="stylesheet" href="/css/mentions.css"/>
+                <script src="/js/mentions.js"></script>
+                <div id="current">
+                    <div id="good"></div><span>were positive</span>
+                    <div id="bad"></div><span>were negative</span>
+                </div>
+                <br/>
+                <div id="pie"></div>
+                <link rel="stylesheet" href="/css/percent.css"/>
+                <script src="/js/percent.js"></script>
+                <script src="/js/pie.js"></script>
             </div>
-            <br/>
-            <div id="pie"></div>
-            <link rel="stylesheet" href="/css/percent.css"/>
-            <script src="/js/percent.js"></script>
-            <script src="/js/pie.js"></script>
         </div>
     </body>
 </html>

@@ -54,7 +54,7 @@ public class SentimentAnalyzerTest {
     @Test
     public void testGetSentimentArticle() throws Exception {
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        Press badArticle = new Press("badArticle", "http://www.bloomberg.com/news/articles/2016-02-25/ex-deutsche-bank-trader-zhou-admitted-to-mismarking-cmbs-trades", "The Big Bad Wolf",  Calendar.getInstance().getTime(), "");
+        Press badArticle = new Press("badArticle", "http://www.bloomberg.com/news/articles/2016-02-25/ex-deutsche-bank-trader-zhou-admitted-to-mismarking-cmbs-trades", "The Big Bad Wolf",  Calendar.getInstance().getTime(),"");
         Press goodArticle = new Press("goodArticle", "http://www.bloomberg.com/news/audio/2016-02-23/silverstein-balance-sheets-are-best-drivers-of-performance-now", "Fluffy Bunnies",  Calendar.getInstance().getTime(), "");
         String negRes = analyzer.getSentiment(badArticle);
         String posRes = analyzer.getSentiment(goodArticle);

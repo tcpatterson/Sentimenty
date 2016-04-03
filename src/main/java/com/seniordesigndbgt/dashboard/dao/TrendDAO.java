@@ -22,6 +22,7 @@ public class TrendDAO {
     }
 
     public void save(Trend trend) {
+        //System.out.println("\nTrend title: "+trend.getTrendTitle()+" is this long: "+trend.getTrendTitle().length());
         getSession().save(trend);
     }
 
@@ -37,7 +38,7 @@ public class TrendDAO {
     public List<Trend> getMostRecent(){
 
         List<Trend> trendList = getSession().createQuery("from Trend").list();
-        if (trendList.size() < NUMBER_OF_TRENDS)
+        if (trendList.size() > NUMBER_OF_TRENDS)
                 return trendList.subList(0, NUMBER_OF_TRENDS);
         else
             return trendList;

@@ -170,7 +170,6 @@ function onDocumentReady() {
 	powerGauge.render();
 
 	function updateReadings() {
-		// just pump in random data here...
 		$.get( "/sentiment", function( data ) {
             var today = data[0];
             today = today * 50 + 50;
@@ -180,7 +179,7 @@ function onDocumentReady() {
             }
             yesterday = yesterday * 50 + 50;
             var change = today-yesterday;
-            $("#sentiment-today").text(String(today).substring(0,7));
+            $("#sentiment-today").text(String(today).substring(0,5));
             $("#sentiment-yesterday .val").text(String(Math.abs(change)).substring(0,7));
             if(change < 0) {
               $("#sentiment-yesterday .change").addClass("glyphicon glyphicon-menu-down red");
@@ -188,12 +187,14 @@ function onDocumentReady() {
               $("#sentiment-yesterday .change").addClass("glyphicon glyphicon-menu-up green");
             }
             powerGauge.update(today);
+        }).fail(function() {
+            clearInterval(updateInterval);
         });
 	}
 
 	// every few seconds update reading values
 	updateReadings();
-	setInterval(function() {
+	var updateInterval = setInterval(function() {
 		updateReadings();
 	}, 10 * 1000);
 }
