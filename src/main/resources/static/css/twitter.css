@@ -12,6 +12,8 @@
     display: inline;
     width:80%;
     float:right;
+    text-overflow:ellipsis;
+    overflow:hidden;
 }
 .picture {
     display: inline-block;

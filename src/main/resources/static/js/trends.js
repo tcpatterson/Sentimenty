@@ -42,20 +42,29 @@ $( document ).ready(function() {
         $("#clientTemplate").tmpl(showList[i]).appendTo("#mentions")
     }
     $(".article0").removeClass("hide")//Start off showing trend 1
+    $(".trend0").addClass("active")
 
     $(".trend0").click(function(){
+        $(".trendButton").removeClass("active")
+        $(this).addClass("active")
         $(".mention").addClass("hide");
         $(".article0").removeClass("hide")
     })
     $(".trend1").click(function(){
+        $(".trendButton").removeClass("active")
+        $(this).addClass("active")
         $(".mention").addClass("hide");
         $(".article1").removeClass("hide")
     })
     $(".trend2").click(function(){
+        $(".trendButton").removeClass("active")
+        $(this).addClass("active")
         $(".mention").addClass("hide");
         $(".article2").removeClass("hide")
     })
     $(".trend3").click(function(){
+        $(".trendButton").removeClass("active")
+        $(this).addClass("active")
         $(".mention").addClass("hide");
         $(".article3").removeClass("hide")
     })
