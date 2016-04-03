@@ -1,7 +1,8 @@
 $( document ).ready(function() {
     $.get( "/percentSentiment", function( data ) {
-      var today = data[0];
-      var yesterday = data[1];
+      var array = data.split('\n');
+      var today = array[1].split(',')[1] ;
+      var yesterday = array[2].split(',')[1];
       $("#good").text(String(today).substring(0,7) + '%');
       $("#bad").text(String(yesterday).substring(0,7) + '%');
     });

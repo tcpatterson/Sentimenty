@@ -30,8 +30,8 @@ var gauge = function(container, configuration) {
 	var pointerHeadLength = undefined;
 	var value = 0;
 
-	var svg = undefined;
-	var arc = undefined;
+	var gauge = undefined;
+	var arcGauge = undefined;
 	var scale = undefined;
 	var ticks = undefined;
 	var tickData = undefined;
@@ -67,7 +67,7 @@ var gauge = function(container, configuration) {
 		ticks = scale.ticks(config.majorTicks);
 		tickData = d3.range(config.majorTicks).map(function() {return 1/config.majorTicks;});
 
-		arc = d3.svg.arc()
+		arcGauge = d3.svg.arc()
 			.innerRadius(r - config.ringWidth - config.ringInset)
 			.outerRadius(r - config.ringInset)
 			.startAngle(function(d, i) {
@@ -86,12 +86,12 @@ var gauge = function(container, configuration) {
 	}
 
 	function isRendered() {
-		return (svg !== undefined);
+		return (gauge !== undefined);
 	}
 	that.isRendered = isRendered;
 
 	function render(newValue) {
-		svg = d3.select(container)
+		gauge = d3.select(container)
 			.append('svg:svg')
 				.attr('class', 'gauge')
 				.attr('width', config.clipWidth)
@@ -99,8 +99,8 @@ var gauge = function(container, configuration) {
 
 		var centerTx = centerTranslation();
 
-		var arcs = svg.append('g')
-				.attr('class', 'arc')
+		var arcs = gauge.append('g')
+				.attr('class', 'arcGauge')
 				.attr('transform', centerTx);
 
 		arcs.selectAll('path')
@@ -109,8 +109,8 @@ var gauge = function(container, configuration) {
 				.attr('fill', function(d, i) {
 					return config.arcColorFn(d * i);
 				})
-				.attr('d', arc);
-		var lg = svg.append('g')
+				.attr('d', arcGauge);
+		var lg = gauge.append('g')
 				.attr('class', 'label')
 				.attr('transform', centerTx);
 		lg.selectAll('text')
@@ -128,7 +128,7 @@ var gauge = function(container, configuration) {
 						[0, config.pointerTailLength],
 						[config.pointerWidth / 2, 0] ];
 		var pointerLine = d3.svg.line().interpolate('monotone');
-		var pg = svg.append('g').data([lineData])
+		var pg = gauge.append('g').data([lineData])
 				.attr('class', 'pointer')
 				.attr('transform', centerTx);
 

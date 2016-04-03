@@ -21,7 +21,9 @@ public class TrendAnalyzer {
     private static Map<String, Integer> frequencyMap;
     private List<Map.Entry<String,Integer>> trends;
     private static final int THRESHOLD = 2;
-    private static final int NUM_OF_KEYWORDS = 4;
+    //The number of keywords to get
+    private static final int NUM_OF_KEYWORDS_TO_DISPLAY = 4;
+    private static final int NUM_OF_KEYWORDS_TO_STORE = NUM_OF_KEYWORDS_TO_DISPLAY + 2;
     @Autowired
     private PressDAO _pressDao;
     @Autowired
@@ -102,7 +104,7 @@ public class TrendAnalyzer {
                           }
                     }
         List<String> keyWords = new LinkedList<String>();
-        for (int i = 0; i < NUM_OF_KEYWORDS; i++){
+        for (int i = 0; i < NUM_OF_KEYWORDS_TO_STORE; i++){
             if ( i < nounsAndCounts.size())
                 keyWords.add(nounsAndCounts.get(i).getKey());
         }
@@ -113,6 +115,10 @@ public class TrendAnalyzer {
         }
         keyWordsString = keyWordsString.substring(0,keyWordsString.length()-1);
         return keyWordsString;
+    }
+
+    public void refreshShortMap(){
+        frequencyMap = new LinkedHashMap<String, Integer>();
     }
 
     public Map<String, Integer> getFrequencyMap() {

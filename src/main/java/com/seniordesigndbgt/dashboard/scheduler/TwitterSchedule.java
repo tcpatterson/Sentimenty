@@ -52,7 +52,8 @@ public class TwitterSchedule {
 //                    String keywords = ta.findKeywords(tweetText);
                     String url= "https://twitter.com/" + status.getUser().getScreenName()
                             + "/status/" + status.getId();
-                    Twitter t = new Twitter(author, tweetText, url);
+                    String image = status.getUser().getOriginalProfileImageURL();
+                    Twitter t = new Twitter(author, tweetText, url, image);
                     t.setText(t.toString());
                     _twitterDao.save(t);
                 }
