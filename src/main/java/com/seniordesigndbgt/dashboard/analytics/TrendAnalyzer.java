@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 
 public class TrendAnalyzer {
@@ -24,6 +22,7 @@ public class TrendAnalyzer {
     //The number of keywords to get
     private static final int NUM_OF_KEYWORDS_TO_DISPLAY = 4;
     private static final int NUM_OF_KEYWORDS_TO_STORE = NUM_OF_KEYWORDS_TO_DISPLAY + 2;
+    private static ArrayList<String> stopList;
     @Autowired
     private PressDAO _pressDao;
     @Autowired
@@ -82,27 +81,28 @@ public class TrendAnalyzer {
         List<Map.Entry<String,Integer>> allWords = sortTrends(updateFrequencyMap(text,
                 new LinkedHashMap<String, Integer>()));
         String[] allWordsArray = new String[allWords.size()];
-                for (int i = 0; i < allWords.size(); i++){
-                        allWordsArray[i] = allWords.get(i).getKey();
-                    }
-                InputStream modelIn;
-                POSModel model = null;
-                try {
-                        modelIn = new FileInputStream("en-pos-maxent.bin");
-                        model = new POSModel(modelIn);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                POSTaggerME tagger = new POSTaggerME(model);
-                String[] tagged = tagger.tag(allWordsArray);
-                List<Map.Entry<String,Integer>> nounsAndCounts = new LinkedList<Map.Entry<String, Integer>>();
-                //Check if the words are nouns
-                        for (int i = 0; i < tagged.length; i++){
-                        if (tagged[i].equals("NN") || tagged[i].equals("NNS") ||
-                                        tagged[i].equals("NNP") || tagged[i].equals("NNPS")){
-                                nounsAndCounts.add(allWords.get(i));
-                          }
-                    }
+        for (int i = 0; i < allWords.size(); i++){
+            allWordsArray[i] = allWords.get(i).getKey();
+        }
+
+        InputStream modelIn;
+        POSModel model = null;
+        try {
+                modelIn = new FileInputStream("en-pos-maxent.bin");
+                model = new POSModel(modelIn);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        POSTaggerME tagger = new POSTaggerME(model);
+        String[] tagged = tagger.tag(allWordsArray);
+        List<Map.Entry<String,Integer>> nounsAndCounts = new LinkedList<Map.Entry<String, Integer>>();
+        //Check if the words are nouns
+        for (int i = 0; i < tagged.length; i++){
+            if (tagged[i].equals("NN") || tagged[i].equals("NNS") ||
+                        tagged[i].equals("NNP") || tagged[i].equals("NNPS")){
+                nounsAndCounts.add(allWords.get(i));
+            }
+        }
         List<String> keyWords = new LinkedList<String>();
         for (int i = 0; i < NUM_OF_KEYWORDS_TO_STORE; i++){
             if ( i < nounsAndCounts.size())
@@ -148,13 +148,29 @@ public class TrendAnalyzer {
      * List of articles is incomplete*/
     public String sanitizeInput(String text){
         text = text.toLowerCase();
-        String[] stopList = {".",",","!","?"," in "," the "," to "," a "," an "," as "," and "," has "," of "," or ",
-                " for "," up "," with "," on "," off "," into "," it "," have "," by ","is ","this ", "said ", "that ", "deutsche", "bank ",
-                " at "};
-        for (int i = 0; i < stopList.length; i++){
-            text = text.replace(stopList[i], "");
+        populateStopList();
+        for (int i = 0; i < stopList.size(); i++){
+            text = text.replace("[^a-zA-Z]"+stopList.get(i)+"[^a-zA-Z]", "");//Remove all stop words
+            text = text.replaceAll(" {2,}", " ");//Replace all instances of multiple spaces to single space
         }
         return text;
+    }
+
+    public void populateStopList(){
+        if (stopList == null) {
+            stopList = new ArrayList<String>();
+            try {
+                Scanner scanner = new Scanner(new File("stoplist.txt"));
+                while (scanner.hasNextLine()) {
+                    stopList.add(scanner.nextLine());
+                }
+                scanner.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+//            for (int i = 0; i < stopList.size(); i++)
+//                System.out.println(stopList.get(i));
+        }
     }
 
     /*
