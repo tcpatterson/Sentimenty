@@ -21,7 +21,7 @@
     overflow: scroll;
 }
 
-.trend button {
+.trendButton {
     width: 24%;
     height: 25px;
 }
@@ -97,4 +97,17 @@
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
     right: 0px;
+}
+.active {
+    background-color:#073459;
+    color: #e5f2f8;
+    font-weight:bold;
+}
+.btn:hover {
+    background-color:#66b4d7;
+    color: #e5f2f8;
+}
+.btn:focus {
+    background-color:#073459;
+    color:#e5f2f8;
 }
