@@ -32,7 +32,7 @@ public class PressActionTest {
     @Test
     public void testGetBodyContent() throws Exception {
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        Press article = new Press("Reuters", "http://www.reuters.com/article/us-deutsche-bank-bafin-idUSKCN0VY2O4", "German regulator ends Deutsche Bank probes over fixing scandals",  Calendar.getInstance().getTime());
+        Press article = new Press("Reuters", "http://www.reuters.com/article/us-deutsche-bank-bafin-idUSKCN0VY2O4", "German regulator ends Deutsche Bank probes over fixing scandals",  Calendar.getInstance().getTime(),"");
         String body = PressAction.getBodyContent(article);
         System.out.println(body);
         assertTrue("body is there", body.length() > 100);
