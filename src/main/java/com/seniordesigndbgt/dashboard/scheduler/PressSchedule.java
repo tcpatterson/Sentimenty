@@ -17,8 +17,12 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 @Component
 public class PressSchedule {
@@ -39,7 +43,21 @@ public class PressSchedule {
         analyzer = AnalyzerFactory.getSentimentAnalyzer();
         for(Element e : newsHeadlines) {
             String timestamp = e.child(0).select(".metadata-timestamp").first().child(0).attr("datetime");
+            //System.out.println(timestamp); 2016-03-31T11:00:48+00:00
+            String a[] = timestamp.split("T");
+            String a2[] = a[1].split("\\+");
+            timestamp = a[0] + " " + a2[0];
             String thumbnail;
+            //2016-04-02 21:52:49
+            //System.out.println(timestamp);
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd k:m:s", Locale.ENGLISH);
+            Date thistime = new Date();
+            try {
+                thistime = format.parse(timestamp);
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            //System.out.println(thistime);
             String link = e.select(".search-result-story__headline").first().child(0).attr("href");
             try {
                 thumbnail = e.select(".search-result-story__thumbnail__image").first().attr("src");
@@ -52,7 +70,7 @@ public class PressSchedule {
             String title = e.select(".search-result-story__headline").first().text();
             try {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
-                Press article = new Press("Bloomberg", link, title, Calendar.getInstance().getTime(), thumbnail);
+                Press article = new Press("Bloomberg", link, title, thistime, thumbnail);
                 _pressDao.save(article);
                 String sent = analyzer.getSentiment(article);
                 article.setSentiment(sent);
