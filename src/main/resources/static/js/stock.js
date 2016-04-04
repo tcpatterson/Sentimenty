@@ -43,6 +43,8 @@ $( document ).ready(function() {
 });
 
 $( "#oneDay" ).click(function() {
+    $(".stockBtn").removeClass("active");
+    $("#oneDay").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.hours, 1)
         .scale(x)
@@ -51,6 +53,8 @@ $( "#oneDay" ).click(function() {
 });
 
 $( "#oneMonth" ).click(function() {
+    $(".stockBtn").removeClass("active");
+    $("#oneMonth").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.days, 5)
         .scale(x)
@@ -59,6 +63,8 @@ $( "#oneMonth" ).click(function() {
 });
 
 $( "#oneYear" ).click(function() {
+    $(".stockBtn").removeClass("active");
+    $("#oneYear").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.months, 3)
         .scale(x)
@@ -67,12 +73,16 @@ $( "#oneYear" ).click(function() {
 });
 
 $( "#fiveYears" ).click(function() {
+    $(".stockBtn").removeClass("active");
+    $("#fiveYear").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.months, 6)
         .scale(x)
         .orient("bottom");
     drawChartOld(global[1], 1200);
 });
+
+$("#oneDay").addclass("active");
 
 function drawChartToday(data) {
     stockChart.selectAll("*").remove();
