@@ -34,8 +34,8 @@ public class SentimentAnalyzerTest {
     //testing for strings
     @Test
     public void testGetSentimentText() throws Exception {
-        String testNeg = "I hate potatoes. They are the worst. Not even ketchup will save them";
-        String testPos = "This is so awesome! I love tater tots. They are so amazing with honey mustard";
+        String testNeg = "I hate potatoes. They are the worst. Not even ketchup will save them";//This will be used to test for negative responses
+        String testPos = "This is so awesome! I love tater tots. They are so amazing with honey mustard";//this will be used to test for positive responses
         String negRes = analyzer.getSentiment(testNeg);
         String posRes = analyzer.getSentiment(testPos);
         JsonElement jElementNeg = new JsonParser().parse(negRes);
@@ -48,6 +48,11 @@ public class SentimentAnalyzerTest {
         jPrimitive = jObject.getAsJsonPrimitive("score");
         n = jPrimitive.getAsDouble();
         assertTrue("n between -1 and 1", n > 0.00 && n < 1.00);
+
+        //Test for empyt string and string with only spaces returning null
+        //This should be caused to reduce use of the api calls
+        assertNull(analyzer.getSentiment(" "));
+        assertNull(analyzer.getSentiment(""));
     }
 
     //testing for articles
