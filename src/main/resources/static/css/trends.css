@@ -22,8 +22,9 @@
 }
 
 .trendButton {
-    width: 24%;
+    width: 20%;
     height: 25px;
+    margin: 2.5%;
 }
 
 .mention-sentiment {

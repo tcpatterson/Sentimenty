@@ -12,8 +12,14 @@
     display: inline;
     width:80%;
     float:right;
-    text-overflow:ellipsis;
-    overflow:hidden;
+}
+.tweetText{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; // max nb lines to show
+    -webkit-box-orient: vertical;
 }
 .picture {
     display: inline-block;
