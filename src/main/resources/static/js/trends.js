@@ -42,17 +42,35 @@ $( document ).ready(function() {
         $("#clientTemplate").tmpl(showList[i]).appendTo("#mentions")
     }
 
+    if ($(".active").length == 0){
+        $(".mention").removeClass("hide")
+    }
+
+        if ($(".active").length > 0)
+            $(".mention").addClass("hide")
+
+
+
     $(".trendButton").click(function(){
+        $(".mention").addClass("hide")
         $(this).toggleClass("active")
         if (document.activeElement != document.body)
             document.activeElement.blur();
-
-        var classList = this.className.split(/\s+/);
-        //The third class of classList is the trend#
-        var trendNo = classList[2].substring(5,6)
-        //Append trend number to articles to toggle
-        var articleNo = ".article"+trendNo;
-        $(articleNo).toggleClass("hide")
+        $(".trendButton").each(function(){
+            if (this.className.indexOf("active") > -1){
+                //Get all class of all buttons
+                var classList = this.className.split(/\s+/);
+                //The third class of classList is the trend#
+                var trendNo = classList[2].substring(5,6)
+                //Append trend number to articles to toggle
+                var articleNo = ".article"+trendNo;
+                $(articleNo).toggleClass("hide")
+            }
+        })
+        if ($(".active").length == 0){
+                $(".mention").removeClass("hide")
+        }
     })
+
   })
 });

@@ -20,8 +20,8 @@ public class TrendAnalyzer {
     private List<Map.Entry<String,Integer>> trends;
     private static final int THRESHOLD = 2;
     //The number of keywords to get
-    private static final int NUM_OF_KEYWORDS_TO_DISPLAY = 4;
-    private static final int NUM_OF_KEYWORDS_TO_STORE = NUM_OF_KEYWORDS_TO_DISPLAY + 2;
+    public static final int NUM_OF_KEYWORDS_TO_DISPLAY = 4;
+    public static final int NUM_OF_KEYWORDS_TO_STORE = NUM_OF_KEYWORDS_TO_DISPLAY + 2;
     private static ArrayList<String> stopList;
     @Autowired
     private PressDAO _pressDao;
