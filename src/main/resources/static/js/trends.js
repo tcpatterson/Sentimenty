@@ -41,44 +41,18 @@ $( document ).ready(function() {
     for ( var i = 0; i < showList.length; i++){
         $("#clientTemplate").tmpl(showList[i]).appendTo("#mentions")
     }
-    $(".article0").removeClass("hide")//Start off showing trend 1
-    $(".trend0").addClass("active")
 
-    $(".trend0").click(function(){
-        $(".trendButton").removeClass("active")
-        $(this).addClass("active")
-        $(".mention").addClass("hide");
-        $(".article0").removeClass("hide")
+    $(".trendButton").click(function(){
+        $(this).toggleClass("active")
+        if (document.activeElement != document.body)
+            document.activeElement.blur();
+
+        var classList = this.className.split(/\s+/);
+        //The third class of classList is the trend#
+        var trendNo = classList[2].substring(5,6)
+        //Append trend number to articles to toggle
+        var articleNo = ".article"+trendNo;
+        $(articleNo).toggleClass("hide")
     })
-    $(".trend1").click(function(){
-        $(".trendButton").removeClass("active")
-        $(this).addClass("active")
-        $(".mention").addClass("hide");
-        $(".article1").removeClass("hide")
-    })
-    $(".trend2").click(function(){
-        $(".trendButton").removeClass("active")
-        $(this).addClass("active")
-        $(".mention").addClass("hide");
-        $(".article2").removeClass("hide")
-    })
-    $(".trend3").click(function(){
-        $(".trendButton").removeClass("active")
-        $(this).addClass("active")
-        $(".mention").addClass("hide");
-        $(".article3").removeClass("hide")
-    })
-    var counter = 0;
-    $(".onoffswitch-checkbox").change(function() {
-        if(counter%2==0){
-            $(".trend").hide(600);
-            $(".mention").removeClass("hide");
-        } else {
-            $(".trend").show(600);
-            $(".mention").addClass("hide");
-            $(".article0").removeClass("hide")
-        }
-        counter++;
-    });
   })
 });
