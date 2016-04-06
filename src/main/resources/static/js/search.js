@@ -5,6 +5,7 @@ $('#modal-content').on('shown.bs.modal', function () {
         $( "#searchTerm" ).val("");
         $(".modal-body").text("");
         $(".resultsTerm").text(term);
+        $("#resultsCount").text(data.length);
         term = "";
         data.forEach(function(d) {
             var jsonn = JSON.parse(d.sentiment);
