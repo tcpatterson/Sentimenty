@@ -46,16 +46,18 @@ public class TwitterSchedule {
 //                    System.out.println(status.getCreatedAt().toString());
 //                }
                 if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
-                    String tweetText = status.getText();
-                    String author = status.getUser().getName();
+                    if (status.getUser() != null) {
+                        String tweetText = status.getText();
+                        String author = status.getUser().getName();
 //                    TrendAnalyzer ta = new TrendAnalyzer();
 //                    String keywords = ta.findKeywords(tweetText);
-                    String url= "https://twitter.com/" + status.getUser().getScreenName()
-                            + "/status/" + status.getId();
-                    String image = status.getUser().getOriginalProfileImageURL();
-                    Twitter t = new Twitter(author, tweetText, url, image);
-                    t.setText(t.toString());
-                    _twitterDao.save(t);
+                        String url = "https://twitter.com/" + status.getUser().getScreenName()
+                                + "/status/" + status.getId();
+                        String image = status.getUser().getOriginalProfileImageURL();
+                        Twitter t = new Twitter(author, tweetText, url, image);
+                        t.setText(t.toString());
+                        _twitterDao.save(t);
+                    }
                 }
             }
         } catch (TwitterException e){
