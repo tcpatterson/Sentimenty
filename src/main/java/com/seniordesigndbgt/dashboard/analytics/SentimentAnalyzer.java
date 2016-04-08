@@ -8,7 +8,6 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.seniordesigndbgt.dashboard.model.Press;
-
 import java.awt.*;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -24,6 +23,8 @@ public class SentimentAnalyzer {
     //List sentimentQue
 
     public String getSentiment(String text) {
+        if(text.trim().isEmpty() )
+            return null;
         try {
             text = URLEncoder.encode(text, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -53,6 +54,7 @@ public class SentimentAnalyzer {
         // String url = pressArticle.getUrl();
         //TODO
         HttpResponse<JsonNode> response = null;
+
         try {
             String url = apiBase + "/url/URLGetTextSentiment?url=" + article.getUrl() + "&apikey=" + apiKey + "&outputMode=json&sourceText=cleaned";
             response = Unirest.get(url)

@@ -20,13 +20,16 @@ public class TrendSchedule {
 
     @Autowired
     private PressDAO _pressDao;
+    @Autowired
     private TwitterDAO _twitterDao;
+    @Autowired
     private TrendDAO _trendDao;
     TrendAnalyzer ta = new TrendAnalyzer();
+    private static final int RATE = 10000;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = RATE)
     public void getTrends() {
-        //System.out.println("\nStart");
+        //Get all keywords from pressDao
         List<Press> pressList = _pressDao.getAll();
         String allKeywords = "";
         for (Press article : pressList) {
@@ -38,31 +41,22 @@ public class TrendSchedule {
                 }
             }
         }
+
+        //Get the keywords from all keywords
         allKeywords = allKeywords.replace(",", " ");
         String keyString = ta.findKeywords(allKeywords);
-        //System.out.println("all keywords: " + keyString);
         String[] keywordSplit = keyString.split(",");
         List<Trend> trends = new ArrayList<Trend>();
         for (String keyword : keywordSplit) {
-            String mentions = "";
-            for (Press article : pressList) {
-                if (article.getKeywords() != null && article.getKeywords().contains(keyword)) {
-                    mentions += article.getId() + ", ";
+            if (!keyword.isEmpty()) {
+                String mentions = "";
+                for (Press article : pressList) {
+                    if (article.getKeywords() != null && article.getKeywords().contains(keyword)) {
+                        mentions += article.getId() + ", ";
+                    }
                 }
+                _trendDao.save(new Trend(keyword, mentions));
             }
-            trends.add(new Trend(keyword, mentions));
         }
-        for (Trend trend : trends) {
-
-            //System.out.println(trend.getTrendTitle() + "   " + trend.getMentions());
-        }
-//        ta.findNewTrends();
-    }
-
-//    @Scheduled(fixedDelay = 10000)
-    public void testStringBreak() {
-        String testSource = "This should split up into this, that, and the other other other other this this up up.";
-        TrendAnalyzer ta = new TrendAnalyzer();
-        //System.out.println(ta.findKeywords(testSource));
     }
 }

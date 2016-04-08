@@ -42,14 +42,21 @@ public class Press {
     @Column(name = "timestamp")
     private Date time;
 
+    @Column(name = "thumbnail")
+    private String thumbnail;
+
+    @Column(name = "body")
+    private String body;
+
 
     public Press() {}
 
-    public Press(String source, String url, String title, Date time) {
+    public Press(String source, String url, String title, Date time, String thumbnail) {
         this.source = source;
         this.url = url;
         this.title = title;
         this.time = time;
+        this.thumbnail = thumbnail;
     }
 
     public int getId() {
@@ -105,4 +112,20 @@ public class Press {
     }
 
     public void setTime(Date time) { this.time = time; }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
 }

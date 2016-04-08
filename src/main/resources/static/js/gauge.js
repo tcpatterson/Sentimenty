@@ -30,8 +30,8 @@ var gauge = function(container, configuration) {
 	var pointerHeadLength = undefined;
 	var value = 0;
 
-	var svg = undefined;
-	var arc = undefined;
+	var gauge = undefined;
+	var arcGauge = undefined;
 	var scale = undefined;
 	var ticks = undefined;
 	var tickData = undefined;
@@ -67,7 +67,7 @@ var gauge = function(container, configuration) {
 		ticks = scale.ticks(config.majorTicks);
 		tickData = d3.range(config.majorTicks).map(function() {return 1/config.majorTicks;});
 
-		arc = d3.svg.arc()
+		arcGauge = d3.svg.arc()
 			.innerRadius(r - config.ringWidth - config.ringInset)
 			.outerRadius(r - config.ringInset)
 			.startAngle(function(d, i) {
@@ -86,12 +86,12 @@ var gauge = function(container, configuration) {
 	}
 
 	function isRendered() {
-		return (svg !== undefined);
+		return (gauge !== undefined);
 	}
 	that.isRendered = isRendered;
 
 	function render(newValue) {
-		svg = d3.select(container)
+		gauge = d3.select(container)
 			.append('svg:svg')
 				.attr('class', 'gauge')
 				.attr('width', config.clipWidth)
@@ -99,8 +99,8 @@ var gauge = function(container, configuration) {
 
 		var centerTx = centerTranslation();
 
-		var arcs = svg.append('g')
-				.attr('class', 'arc')
+		var arcs = gauge.append('g')
+				.attr('class', 'arcGauge')
 				.attr('transform', centerTx);
 
 		arcs.selectAll('path')
@@ -109,20 +109,18 @@ var gauge = function(container, configuration) {
 				.attr('fill', function(d, i) {
 					return config.arcColorFn(d * i);
 				})
-				.attr('d', arc);
-
-//		var lg = svg.append('g')
-//				.attr('class', 'label')
-//				.attr('transform', centerTx);
-//		lg.selectAll('text')
-//				.data(ticks)
-//			.enter().append('text')
-//				.attr('transform', function(d) {
-//					var ratio = scale(d);
-//					var newAngle = config.minAngle + (ratio * range);
-//					return 'rotate(' +newAngle +') translate(0,' +(config.labelInset - r) +')';
-//				})
-//				.text(config.labelFormat);
+				.attr('d', arcGauge);
+		var lg = gauge.append('g')
+				.attr('class', 'label')
+				.attr('transform', centerTx);
+		lg.selectAll('text')
+				.data([0,100])
+			.enter().append('text')
+				.attr('transform', function(d) {
+					var e = d == 0 ? 'translate(-125,15)' : 'translate(115,15)';//115,15
+					return e;
+				})
+				.text(config.labelFormat);
 
 		var lineData = [ [config.pointerWidth / 2, 0],
 						[0, -pointerHeadLength],
@@ -130,7 +128,7 @@ var gauge = function(container, configuration) {
 						[0, config.pointerTailLength],
 						[config.pointerWidth / 2, 0] ];
 		var pointerLine = d3.svg.line().interpolate('monotone');
-		var pg = svg.append('g').data([lineData])
+		var pg = gauge.append('g').data([lineData])
 				.attr('class', 'pointer')
 				.attr('transform', centerTx);
 
@@ -172,15 +170,33 @@ function onDocumentReady() {
 	powerGauge.render();
 
 	function updateReadings() {
-		// just pump in random data here...
-		powerGauge.update(75);
+		$.get( "/sentiment", function( data ) {
+            var today = data[0];
+            today = today * 50 + 50;
+            var yesterday = data[1];
+            if(yesterday == "NaN") {
+                yesterday = 0;
+            }
+            yesterday = yesterday * 50 + 50;
+            var change = today-yesterday;
+            $("#sentiment-today").text(String(today).substring(0,5));
+            $("#sentiment-yesterday .val").text(String(Math.abs(change)).substring(0,7));
+            if(change < 0) {
+              $("#sentiment-yesterday .change").addClass("glyphicon glyphicon-menu-down red");
+            } else {
+              $("#sentiment-yesterday .change").addClass("glyphicon glyphicon-menu-up green");
+            }
+            powerGauge.update(today);
+        }).fail(function() {
+            clearInterval(updateInterval);
+        });
 	}
 
 	// every few seconds update reading values
 	updateReadings();
-	setInterval(function() {
+	var updateInterval = setInterval(function() {
 		updateReadings();
-	}, 5 * 1000);
+	}, 10 * 1000);
 }
 
 if ( !window.isLoaded ) {

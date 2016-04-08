@@ -17,15 +17,27 @@ public class Twitter {
     @Column(name = "text")
     private String text;
 
+    @NotNull
+    @Size(min=1, max = 750)
+    @Column(name="url")
+    private String url;
 
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "author")
+    @Column(name="author")
     private String author;
 
-    public Twitter(String author, String text) {
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name="image")
+
+    private String image;
+
+    public Twitter(String author, String text, String url, String image) {
         this.author = author;
         this.text = text;
+        this.url = url;
+        this.image = image;
     }
 
     public Twitter() {}
@@ -46,12 +58,22 @@ public class Twitter {
         this.text = text;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getUrl() { return url; }
+
+
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("@"+author+" - ");
-        sb.append(text);
-
-        return sb.toString();
+        if(author == null || text == null)
+            return null;
+        else
+            return "@" + author + " - " + text;
     }
 }

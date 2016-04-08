@@ -5,31 +5,31 @@ $('#modal-content').on('shown.bs.modal', function () {
         $( "#searchTerm" ).val("");
         $(".modal-body").text("");
         $(".resultsTerm").text(term);
+        $("#resultsCount").text(data.length);
         term = "";
         data.forEach(function(d) {
             var jsonn = JSON.parse(d.sentiment);
             d.sentiment = jsonn;
             if(d.sentiment && d.sentiment.score){
-                d.sentiment.score = d.sentiment.score.substring(0,6);
+                d.sentiment.score = d.sentiment.score * 50 + 50;
+                d.sentiment.score = String(d.sentiment.score).substring(0,5);
             } else {
                 d.sentiment = {
                     score: 1
                 };
                 d.sentiment.score = "0.00";
             }
-            if(d.sentiment.score < 0 ) {
+            if(d.sentiment.score < 50 ) {
                 d.arrow = "bottom";
                 d.color = "red";
             } else {
                 d.arrow = "top";
                 d.color = "green";
             }
+            var date = new Date(d.time);
+            d.time = date;
           });
-        $("#clientTemplate").tmpl(data).appendTo( ".modal-body" );
-//        data.forEach(function(d) {
-//            $(".modal-body").append(d.title);
-//            $(".modal-body").append("<br/>");
-//        });
+        $("#searchTemplate").tmpl(data).appendTo( ".modal-body" );
       });
 });
 

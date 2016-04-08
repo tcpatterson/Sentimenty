@@ -1,0 +1,33 @@
+.tweets {
+    border: 1px solid black;
+    padding: 5px;
+    margin: 10px;
+    hieght: 20%;
+}
+.tweetedAbout{
+    height: 300px;
+    overflow: scroll;
+}
+.text {
+    display: inline;
+    width:80%;
+    float:right;
+}
+.tweetText{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; // max nb lines to show
+    -webkit-box-orient: vertical;
+}
+.picture {
+    display: inline-block;
+    text-align: center;
+    margin:2%;
+    width:15%;
+}
+.image{
+    height:75%;
+    width:75%;
+}

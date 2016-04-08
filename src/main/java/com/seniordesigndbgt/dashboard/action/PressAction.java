@@ -14,6 +14,8 @@ public class PressAction {
     public PressAction() {}
 
     public static String getBodyContent(Press article) throws IOException {
+        if(article.getUrl() == null)
+                return null;
         String url = article.getUrl();
         String source = article.getSource();
         Document doc = Jsoup.connect(url).get();

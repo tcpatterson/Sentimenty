@@ -1,5 +1,5 @@
 var margin = {top: 20, right: 30, bottom: 30, left: 30},
-    width = 320 - margin.left - margin.right,
+    width = parseInt(d3.select('#stockChart').style('width'), 10) - 180,
     height = 200 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%I-%M-%S-%m-%d-%Y").parse,
@@ -27,8 +27,8 @@ var line = d3.svg.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.close); });
 
-var svg = d3.select("#stockChart").append("svg")
-    .attr("width", 340)
+var stockChart = d3.select("#stockChart").append("svg")
+    .attr("width", parseInt(d3.select('#stockChart').style('width'), 10))
     .attr("height", height + margin.top + margin.bottom + 50)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -43,6 +43,8 @@ $( document ).ready(function() {
 });
 
 $( "#oneDay" ).click(function() {
+    $(".stockBtn").removeClass("active");
+    $("#oneDay").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.hours, 1)
         .scale(x)
@@ -51,6 +53,8 @@ $( "#oneDay" ).click(function() {
 });
 
 $( "#oneMonth" ).click(function() {
+    $(".stockBtn").removeClass("active");
+    $("#oneMonth").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.days, 5)
         .scale(x)
@@ -59,6 +63,8 @@ $( "#oneMonth" ).click(function() {
 });
 
 $( "#oneYear" ).click(function() {
+    $(".stockBtn").removeClass("active");
+    $("#oneYear").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.months, 3)
         .scale(x)
@@ -67,6 +73,8 @@ $( "#oneYear" ).click(function() {
 });
 
 $( "#fiveYears" ).click(function() {
+    $(".stockBtn").removeClass("active");
+    $("#fiveYear").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.months, 6)
         .scale(x)
@@ -74,10 +82,12 @@ $( "#fiveYears" ).click(function() {
     drawChartOld(global[1], 1200);
 });
 
+$("#oneDay").addclass("active");
+
 function drawChartToday(data) {
-    svg.selectAll("*").remove();
+    stockChart.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-16-16");
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-4-16");
             d.close = +d.value;
         });
 
@@ -88,6 +98,8 @@ function drawChartToday(data) {
         var last = data[data.length-1];
         var secondToLastClose = data[data.length-2].close;
         var lastClose = last.close;
+        var lastDate = last.date;
+        d3.select('#closeStamp').text("NYSE: DB - " + lastDate);
         d3.select('#close').text(lastClose);
         if(lastClose >= secondToLastClose ) {
             d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-up green")
@@ -96,9 +108,12 @@ function drawChartToday(data) {
         }
 
         x.domain([data[0].date, data[data.length - 1].date]);
-        y.domain([0,70]);
+        y.domain([
+            d3.min(data, function(d) { return d.close; }) -5,
+            d3.max(data, function(d) { return d.close; }) +5
+        ]);
 
-        svg.append("g")
+        stockChart.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis)
@@ -109,24 +124,24 @@ function drawChartToday(data) {
           .attr("transform", "rotate(45)")
           .style("text-anchor", "start");
 
-        svg.append("g")
+        stockChart.append("g")
           .attr("class", "y axis")
           .attr("transform", "translate(" + width + " ,0)")
           .call(yAxis)
         .append("text")
           .attr("transform", "rotate(-90)")
-          .attr("y", 30)
+          .attr("y", 40)
           .attr("x", -50)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           .text("Price (USD)");
 
-        svg.append("path")
+        stockChart.append("path")
           .datum(data)
           .attr("class", "line")
           .attr("d", line);
 
-        svg.append("text")
+        stockChart.append("text")
           .attr("x", (width / 2))
           .attr("y", 0 - (margin.top / 2))
           .classed('title', true)
@@ -134,7 +149,7 @@ function drawChartToday(data) {
           .style("font-size", "12px")
           .text("One Day Stock Performance");
 
-        var focus = svg.append("g")
+        var focus = stockChart.append("g")
           .attr("class", "focus")
           .style("display", "none");
 
@@ -145,7 +160,7 @@ function drawChartToday(data) {
           .attr("x", 9)
           .attr("dy", ".35em");
 
-        svg.append("rect")
+        stockChart.append("rect")
           .attr("class", "overlay")
           .attr("width", width)
           .attr("height", height)
@@ -166,7 +181,7 @@ function drawChartToday(data) {
 
             var per = i/data.length;
             var xoff = per*-110;
-            ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getFullYear();
+            ds = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear();
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(ds + ": " + formatCurrency(d.close));
             focus.select("text").attr("x", xoff);
@@ -174,7 +189,7 @@ function drawChartToday(data) {
 }
 
 function drawChartOld(data, num) {
-    svg.selectAll("*").remove();
+    stockChart.selectAll("*").remove();
     data.forEach(function(d) {
         d.date = historyDate(d.dateStock);
         d.close = +d.closePrice;
@@ -213,7 +228,7 @@ function drawChartOld(data, num) {
         return (d.getMonth()+1) + "/" + d.getDate() + "/" + d.getFullYear().toString().substring(2,4);
     });
 
-    svg.append("g")
+    stockChart.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
@@ -224,24 +239,24 @@ function drawChartOld(data, num) {
       .attr("transform", "rotate(45)")
       .style("text-anchor", "start");
 
-    svg.append("g")
+    stockChart.append("g")
       .attr("class", "y axis")
       .attr("transform", "translate(" + width + " ,0)")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 30)
+      .attr("y", 40)
       .attr("x", -50)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("Price (USD)");
 
-    svg.append("path")
+    stockChart.append("path")
       .datum(data)
       .attr("class", "line")
       .attr("d", line);
 
-    var focus = svg.append("g")
+    var focus = stockChart.append("g")
       .attr("class", "focus")
       .style("display", "none");
 
@@ -252,7 +267,7 @@ function drawChartOld(data, num) {
       .attr("x", 0)
       .attr("dy", "-2.35em");
 
-    svg.append("text")
+    stockChart.append("text")
       .attr("x", (width / 2))
       .attr("y", 0 - (margin.top / 2))
       .classed('title', true)
@@ -260,7 +275,7 @@ function drawChartOld(data, num) {
       .style("font-size", "12px")
       .text(titleText);
 
-    svg.append("rect")
+    stockChart.append("rect")
       .attr("class", "overlay")
       .attr("width", width)
       .attr("height", height)
@@ -278,7 +293,7 @@ function drawChartOld(data, num) {
         }
         var d = x0 - d0.date > d1.date - x0 ? d1 : d0;
         var ds = new Date(d.date);
-        ds = ds.getMonth() + "/" + ds.getDate() + "/" + ds.getFullYear();
+        ds = (ds.getMonth()+1) + "/" + ds.getDate() + "/" + ds.getFullYear();
 
         var per = i/data.length;
         var xoff = per*-110;
@@ -286,4 +301,11 @@ function drawChartOld(data, num) {
         focus.select("text").text(ds + ": " + formatCurrency(d.close));
         focus.select("text").attr("x", xoff);
     };
+}
+
+
+d3.select(window).on('resize', stockResize);
+
+function stockResize() {
+    console.log("resizing!");
 }

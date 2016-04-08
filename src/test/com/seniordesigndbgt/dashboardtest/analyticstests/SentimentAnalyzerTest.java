@@ -34,8 +34,8 @@ public class SentimentAnalyzerTest {
     //testing for strings
     @Test
     public void testGetSentimentText() throws Exception {
-        String testNeg = "I hate potatoes. They are the worst. Not even ketchup will save them";
-        String testPos = "This is so awesome! I love tater tots. They are so amazing with honey mustard";
+        String testNeg = "I hate potatoes. They are the worst. Not even ketchup will save them";//This will be used to test for negative responses
+        String testPos = "This is so awesome! I love tater tots. They are so amazing with honey mustard";//this will be used to test for positive responses
         String negRes = analyzer.getSentiment(testNeg);
         String posRes = analyzer.getSentiment(testPos);
         JsonElement jElementNeg = new JsonParser().parse(negRes);
@@ -48,14 +48,19 @@ public class SentimentAnalyzerTest {
         jPrimitive = jObject.getAsJsonPrimitive("score");
         n = jPrimitive.getAsDouble();
         assertTrue("n between -1 and 1", n > 0.00 && n < 1.00);
+
+        //Test for empyt string and string with only spaces returning null
+        //This should be caused to reduce use of the api calls
+        assertNull(analyzer.getSentiment(" "));
+        assertNull(analyzer.getSentiment(""));
     }
 
     //testing for articles
     @Test
     public void testGetSentimentArticle() throws Exception {
         Timestamp time = new Timestamp(System.currentTimeMillis());
-        Press badArticle = new Press("badArticle", "http://www.bloomberg.com/news/articles/2016-02-25/ex-deutsche-bank-trader-zhou-admitted-to-mismarking-cmbs-trades", "The Big Bad Wolf",  Calendar.getInstance().getTime());
-        Press goodArticle = new Press("goodArticle", "http://www.bloomberg.com/news/audio/2016-02-23/silverstein-balance-sheets-are-best-drivers-of-performance-now", "Fluffy Bunnies",  Calendar.getInstance().getTime());
+        Press badArticle = new Press("badArticle", "http://www.bloomberg.com/news/articles/2016-02-25/ex-deutsche-bank-trader-zhou-admitted-to-mismarking-cmbs-trades", "The Big Bad Wolf",  Calendar.getInstance().getTime(),"");
+        Press goodArticle = new Press("goodArticle", "http://www.bloomberg.com/news/audio/2016-02-23/silverstein-balance-sheets-are-best-drivers-of-performance-now", "Fluffy Bunnies",  Calendar.getInstance().getTime(), "");
         String negRes = analyzer.getSentiment(badArticle);
         String posRes = analyzer.getSentiment(goodArticle);
         JsonElement jElementNeg = new JsonParser().parse(negRes);

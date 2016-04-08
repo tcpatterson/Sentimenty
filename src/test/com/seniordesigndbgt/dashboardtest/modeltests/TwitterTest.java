@@ -13,8 +13,12 @@ public class TwitterTest {
     public void testGetId() throws Exception {
         long val = 100000;
         Twitter tweet = new Twitter();
+        assertEquals(0, tweet.getId());
         tweet.setId(val);
         assertEquals(val, tweet.getId());
+        tweet.setId(val+1);
+        assertNotEquals(val, tweet.getId());
+        assertEquals(val+1, tweet.getId());
     }
 
 
@@ -22,13 +26,22 @@ public class TwitterTest {
     public void testGetText() throws Exception {
         String str = "Hello world";
         Twitter tweet = new Twitter();
+        assertNull(tweet.getText());
         tweet.setText(str);
         assertEquals(str, tweet.getText());
+        tweet.setText(str + "potato");
+        assertNotEquals(str, tweet.getText());
+        assertEquals(str + "potato", tweet.getText());
     }
 
     @Test
     public void testToString() throws Exception {
-        Twitter tweet = new Twitter("dbcares", "hello world");
-        assertEquals("@dbcares - hello world", tweet.toString());
+        String handle = "dbcares";
+        String text = "hello world";
+        String empty = " ";
+        Twitter tweet = new Twitter();
+        assertNull(tweet.toString());
+        tweet = new Twitter(handle, text, empty, empty);
+        assertEquals("@"+ handle + " - " + text, tweet.toString());
     }
 }

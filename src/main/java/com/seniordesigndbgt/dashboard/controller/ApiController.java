@@ -3,12 +3,8 @@ package com.seniordesigndbgt.dashboard.controller;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
-import com.seniordesigndbgt.dashboard.dao.PressDAO;
-import com.seniordesigndbgt.dashboard.dao.StockHistoryDAO;
-import com.seniordesigndbgt.dashboard.model.DailyStock;
-import com.seniordesigndbgt.dashboard.model.Press;
-import com.seniordesigndbgt.dashboard.model.StockHistory;
+import com.seniordesigndbgt.dashboard.dao.*;
+import com.seniordesigndbgt.dashboard.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.Table;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -30,6 +27,10 @@ public class ApiController {
     private StockHistoryDAO _stockHistoryDao;
     @Autowired
     private PressDAO _pressDAO;
+    @Autowired
+    private TrendDAO _trendDao;
+    @Autowired
+    private TwitterDAO _twitterDao;
 
     @RequestMapping("/stocks")
     public @ResponseBody
@@ -86,9 +87,18 @@ public class ApiController {
         return p;
     }
 
+    @RequestMapping("/mentions")
+    public @ResponseBody
+    List totalMentions() {
+        List<Integer> mentions = new ArrayList<Integer>();
+        int size = _pressDAO.getToday().size();
+        mentions.add(size);
+        return mentions;
+    }
+
     @RequestMapping("/percentSentiment")
     public @ResponseBody
-    List percentSentiment() {
+    String percentSentiment() {
         List<Press> pToday = _pressDAO.getToday();
         Double pos = 0.0;
         int posCount = 0;
@@ -112,9 +122,48 @@ public class ApiController {
         List sent = new ArrayList<List>();
         pos = (double)posCount/(pToday.size() - nullCount) * 100.0;
         neg = (double)negCount/(pToday.size() - nullCount) * 100.0;
-        sent.add(pos);
-        sent.add(neg);
-        return sent;
+        String results = "label,percent\n"+"good,"+pos+"\nbad,"+neg;
+        return results;
+    }
+
+    @RequestMapping("/trends")
+    public @ResponseBody
+    List trend() {
+        List<Trend> currentTrends = _trendDao.getMostRecent();
+        List<String> title = new ArrayList<String>();
+        List<List> mentions = new ArrayList<List>();
+        List<Press> mentionsPerTrend = new LinkedList<Press>();
+        for (Trend t : currentTrends) {
+            title.add(t.getTrendTitle());
+            String mentionsString = t.getMentions();
+            String[] mentionsIds = mentionsString.split(",");
+            for (String s : mentionsIds) {
+                s = s.replace(" ","");
+                if (s.equals(""))
+                    continue;
+                int mentionID = Integer.parseInt(s);
+                mentionsPerTrend.add(_pressDAO.getById(mentionID).get(0));
+            }
+            LinkedList<Press> mentionsCopy = new LinkedList<Press>(mentionsPerTrend);
+            mentions.add(mentionsCopy);
+            mentionsPerTrend.clear();
+        }
+        List<List> result = new LinkedList<List>();
+
+        result.add(title);
+        result.add(mentions);
+        return result;
+    }
+
+    @RequestMapping("/twitter")
+    @ResponseBody
+    public List twitter() {
+        int numOfTwitters = 250;
+        List<Twitter> twitterList = _twitterDao.getAll();
+        if (twitterList.size() > numOfTwitters)
+            return twitterList.subList(0,numOfTwitters);
+        else
+            return twitterList;
     }
 
 }

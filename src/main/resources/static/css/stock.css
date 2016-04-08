@@ -10,10 +10,6 @@ body {
     shape-rendering: crispEdges;
 }
 
-.x.axis path {
-  display: none;
-}
-
 .line {
   fill: none;
   stroke: steelblue;
@@ -45,7 +41,8 @@ body {
 }
 
 #arrow.glyphicon {
-    font-size: 20px;
+    font-size: 25px;
+    vertical-align: text-bottom;
 }
 
 .green {
@@ -54,4 +51,33 @@ body {
 
 .red {
     color: red;
+}
+
+#close {
+    font-size: 42px;
+    font-weight: 500;
+}
+
+#current-price {
+    font-size: 20px;
+    line-height: 10px;
+}
+
+#closeStamp, #stockAg {
+    font-size: 10px;
+}
+
+
+.active {
+    background-color:#073459;
+    color: #e5f2f8;
+    font-weight:bold;
+}
+.btn:hover {
+    background-color:#66b4d7;
+    color: #e5f2f8;
+}
+.btn:focus {
+    background-color:#073459;
+    color:#e5f2f8;
 }
