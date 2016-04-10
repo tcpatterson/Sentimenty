@@ -33,7 +33,7 @@ $( document ).ready(function() {
             }
             var date = new Date(frontendArticle.time)
             frontendArticle.time = "" + (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear()
-            frontendArticle.title = frontendArticle.title.substring(0,60);
+//            frontendArticle.title = frontendArticle.title.substring(0,90);
             showList[i][j] = frontendArticle
             $(showList[i][j]).attr("trendNo", ""+i)
         }
