@@ -2,8 +2,12 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
+        <p>Select any combination of trends to see associated mentions. Select none to show all
+            articles related to all trends.</p>
         <div th:fragment="trends">
-            <div>
+            <div id="instructions">
+                <p>Select any combination of trends to see associated mentions.<br/> Select none to show all
+                    articles related to all trends.</p>
             </div>
             <div class="trend">
                 <!--<button id="bloomberg">Bloomberg</button>-->
@@ -11,14 +15,7 @@
                 <!--<button id="nyt">NYT</button>-->
                 <!--<button id="forbes">Forbes</button>-->
             </div>
-            <span>Trend filters: </span>
-            <div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked="true"/>
-                <label class="onoffswitch-label" for="myonoffswitch">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
-            </div>
+            
             <script id="clientTemplate" type="text/html">
                 <div class="mention hide article${trendNo}">
                     <div class="mention-sentiment">

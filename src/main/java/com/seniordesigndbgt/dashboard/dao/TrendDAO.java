@@ -1,5 +1,6 @@
 package com.seniordesigndbgt.dashboard.dao;
 
+import com.seniordesigndbgt.dashboard.analytics.TrendAnalyzer;
 import com.seniordesigndbgt.dashboard.model.Trend;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +16,7 @@ public class TrendDAO {
 
     @Autowired
     private SessionFactory _sessionFactory;
-    private static final int NUMBER_OF_TRENDS = 4;
+    private static final int NUMBER_OF_TRENDS = TrendAnalyzer.NUM_OF_KEYWORDS_TO_DISPLAY;
 
     private Session getSession() {
         return _sessionFactory.getCurrentSession();
@@ -39,7 +40,7 @@ public class TrendDAO {
 
         List<Trend> trendList = getSession().createQuery("from Trend").list();
         if (trendList.size() > NUMBER_OF_TRENDS)
-                return trendList.subList(0, NUMBER_OF_TRENDS);
+                return trendList.subList(trendList.size()-NUMBER_OF_TRENDS, trendList.size());
         else
             return trendList;
     }

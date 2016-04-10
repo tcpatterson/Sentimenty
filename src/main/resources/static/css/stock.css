@@ -66,3 +66,18 @@ body {
 #closeStamp, #stockAg {
     font-size: 10px;
 }
+
+
+.active {
+    background-color:#073459;
+    color: #e5f2f8;
+    font-weight:bold;
+}
+.btn:hover {
+    background-color:#66b4d7;
+    color: #e5f2f8;
+}
+.btn:focus {
+    background-color:#073459;
+    color:#e5f2f8;
+}

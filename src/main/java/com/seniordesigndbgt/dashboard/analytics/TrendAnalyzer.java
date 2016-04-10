@@ -20,8 +20,8 @@ public class TrendAnalyzer {
     private List<Map.Entry<String,Integer>> trends;
     private static final int THRESHOLD = 2;
     //The number of keywords to get
-    private static final int NUM_OF_KEYWORDS_TO_DISPLAY = 4;
-    private static final int NUM_OF_KEYWORDS_TO_STORE = NUM_OF_KEYWORDS_TO_DISPLAY + 2;
+    public static final int NUM_OF_KEYWORDS_TO_DISPLAY = 4;
+    public static final int NUM_OF_KEYWORDS_TO_STORE = NUM_OF_KEYWORDS_TO_DISPLAY + 2;
     private static ArrayList<String> stopList;
     @Autowired
     private PressDAO _pressDao;
@@ -117,20 +117,14 @@ public class TrendAnalyzer {
         return keyWordsString;
     }
 
-    public void refreshShortMap(){
-        frequencyMap = new LinkedHashMap<String, Integer>();
-    }
-
-    public Map<String, Integer> getFrequencyMap() {
-        return frequencyMap;
-    }
-
+    /* Put data into a frequency map,*/
     public Map<String, Integer> updateFrequencyMap(String text, Map<String,Integer> map){
         //Sanitize input
         text = sanitizeInput(text);
+        //Basic tokenization, only separates on space
         String[] splitArray = text.split(" ");
-
-
+        //If the word is in the map, increment its count
+        //If not, add it to the map and give it a count of 1
         for (String currWord : splitArray) {
             if (map.containsKey(currWord)) {
                 int currCount = map.get(currWord);
@@ -139,7 +133,6 @@ public class TrendAnalyzer {
                 map.put(currWord, 1);
             }
         }
-//        printFrequencyMap(map);
         return map;
 
     }
@@ -156,6 +149,9 @@ public class TrendAnalyzer {
         return text;
     }
 
+    /*Takes data from stoplist.txt and puts it in stoplist
+    * A stoplist is a list of words to remove from text before processing it
+    * As in, removing common words like "a" or "the"*/
     public void populateStopList(){
         if (stopList == null) {
             stopList = new ArrayList<String>();
@@ -185,14 +181,4 @@ public class TrendAnalyzer {
         });
         return list;
     }
-
-    private void printFrequencyMap(Map<String,Integer> map){
-        Iterator it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            //System.out.println(pair.getKey() + " = " + pair.getValue());
-            it.remove(); // avoids a ConcurrentModificationException
-        }
-    }
-
 }
