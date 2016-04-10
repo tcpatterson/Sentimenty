@@ -91,7 +91,7 @@ public class ApiController {
     public @ResponseBody
     List totalMentions() {
         List<Integer> mentions = new ArrayList<Integer>();
-        int size = _pressDAO.getAll().size();
+        int size = _pressDAO.getToday().size();
         mentions.add(size);
         return mentions;
     }
