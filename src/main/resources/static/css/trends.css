@@ -1,7 +1,9 @@
 .mention {
-    border: 1px solid black;
+    border: 1px solid #ccc;
     padding: 5px;
     margin: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.50);
+    min-height: 15%;
 }
 
 .positive {
@@ -25,6 +27,7 @@
     width: 20%;
     height: 25px;
     margin: 2.5%;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.50);
 }
 
 .mention-sentiment {
@@ -41,9 +44,8 @@
 .mention-content a {
     font-size: 12px;
     font-weight: bold;
-    color: blue;
+    color: #0d62a5;
     text-decoration: underline;
-    display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -53,10 +55,6 @@
 
 .mention-sentiment .glyphicon {
     font-size: 20px;
-}
-
-.mention-content a {
-    color: #0d62a5;
 }
 
 .active {

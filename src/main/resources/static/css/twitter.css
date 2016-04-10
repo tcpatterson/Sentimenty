@@ -1,8 +1,8 @@
 .tweets {
-    border: 1px solid black;
+    border: 1px solid #ccc;
     padding: 5px;
     margin: 10px;
-    hieght: 20%;
+    min-height: 30%;
 }
 .tweetedAbout{
     height: 300px;
@@ -14,11 +14,13 @@
     float:right;
 }
 .tweetText{
-    display: inline-block;
+    margin-top:2.2%;
+    font-size:14px;
+    color: #0d62a5;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
 .picture {
