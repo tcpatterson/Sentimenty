@@ -1,6 +1,16 @@
 $(function() {
     $( ".column" ).sortable({
       connectWith: ".column",
+      stop: function( event, ui ) {
+        var viewArray = [];
+        $(".column").each(function(index){
+            console.log(index);
+            $(this).children().each(function(index) {
+                var x = $(this).find('.portlet-header').text();
+                console.log(x);
+            });
+        })
+      },
       handle: ".portlet-header",
       cancel: ".portlet-toggle",
       placeholder: "portlet-placeholder ui-corner-all"
