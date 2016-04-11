@@ -94,7 +94,7 @@ $( "#fiveYears" ).click(function() {
 function drawChartToday(data) {
     stockChart.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-4-16");
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-" + d.time.monthValue + "-" + d.time.dayOfMonth + "-" + String(d.time.year).substring(2,4));
             d.close = +d.value;
         });
 
