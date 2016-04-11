@@ -31,7 +31,7 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Customize</a></li>
+                        <li><button id="revertSort">Default</button></li>
                     </ul>
                     <form class="navbar-form navbar-right" onsubmit="formSubmit();">
                         <input type="text" class="form-control" id="searchTerm" placeholder="Search..."/>
@@ -44,7 +44,8 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="column">
-                    <div class="portlet" th:each="module  : ${view.columnOne}">
+                    <div id="colOne"></div>
+                    <div th:id="${module.apiEndpoint} + 'Module'" class="portlet" th:each="module  : ${view.columnOne}">
                         <div class="portlet-header" th:text="${module.title}"></div>
                         <div class="portlet-content">
                             <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
@@ -54,7 +55,8 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="column">
-                    <div class="portlet" th:each="module  : ${view.columnTwo}">
+                    <div id="colTwo"></div>
+                    <div th:id="${module.apiEndpoint} + 'Module'" class="portlet" th:each="module  : ${view.columnTwo}">
                         <div class="portlet-header" th:text="${module.title}"></div>
                         <div class="portlet-content">
                             <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
@@ -64,7 +66,8 @@
 
                 <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="column">
-                    <div class="portlet" th:each="module  : ${view.columnThree}">
+                    <div id="colThree"></div>
+                    <div th:id="${module.apiEndpoint} + 'Module'" class="portlet" th:each="module  : ${view.columnThree}">
                         <div class="portlet-header" th:text="${module.title}"></div>
                         <div class="portlet-content">
                             <div th:include="${module.fragment} :: ${module.apiEndpoint}"></div>
