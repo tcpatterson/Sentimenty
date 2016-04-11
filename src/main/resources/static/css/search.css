@@ -14,3 +14,7 @@
   height: 65vh;
   overflow: auto;
 }
+
+.modal .mention {
+    min-height: 20%;
+}

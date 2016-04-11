@@ -7,11 +7,11 @@
 }
 
 .positive {
-    background-color: LawnGreen;
+    background-color: #589f04;
 }
 
 .negative {
-    background-color: Crimson;
+    background-color: #ee0000;
 }
 
 .hide {
