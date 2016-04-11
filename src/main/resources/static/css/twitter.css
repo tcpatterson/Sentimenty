@@ -2,6 +2,7 @@
     border: 1px solid #ccc;
     padding: 5px;
     margin: 10px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.50);
     min-height: 30%;
 }
 .tweetedAbout{
