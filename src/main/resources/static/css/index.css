@@ -4,6 +4,7 @@
 .column {
     float: left;
     width: 100%;
+    min-height: 100px;
 }
 .portlet {
     margin: 0 1em 1em 0;

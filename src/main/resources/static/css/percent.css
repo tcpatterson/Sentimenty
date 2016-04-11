@@ -1,11 +1,11 @@
 #good {
     display: inline;
-    color: green;
+    color: #589f04;
 }
 
 #bad {
     display: inline-block;
-    color: red;
+    color: #ee0000;
 }
 
 
