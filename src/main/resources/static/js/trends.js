@@ -42,14 +42,9 @@ $( document ).ready(function() {
         $("#clientTemplate").tmpl(showList[i]).appendTo("#mentions")
     }
 
-    if ($(".active").length == 0){
+    if ($(".trendButton.active").length == 0){
         $(".mention").removeClass("hide")
     }
-
-        if ($(".active").length > 0)
-            $(".mention").addClass("hide")
-
-
 
     $(".trendButton").click(function(){
         $(".mention").addClass("hide")
@@ -67,7 +62,7 @@ $( document ).ready(function() {
                 $(articleNo).toggleClass("hide")
             }
         })
-        if ($(".active").length == 0){
+        if ($(".trendButton.active").length == 0){
                 $(".mention").removeClass("hide")
         }
     })

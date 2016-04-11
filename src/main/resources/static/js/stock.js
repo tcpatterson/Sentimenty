@@ -36,9 +36,18 @@ var stockChart = d3.select("#stockChart").append("svg")
 $( document ).ready(function() {
     $.get( "/stocks", function( data ) {
       global = data;
+    $("#oneDay").addClass("active");
 
       drawChartToday(global[0]);
     });
+    var aspect = width/height,
+        chart = d3.select('#stockChart');
+    d3.select(window)
+        .on('resize', function() {
+            var targetWidth = chart.node().getBoundingClientRect().width;
+                chart.attr("width", targetWidth);
+                chart.attr("height", targetWidth / aspect);
+        });
 
 });
 
@@ -81,8 +90,6 @@ $( "#fiveYears" ).click(function() {
         .orient("bottom");
     drawChartOld(global[1], 1200);
 });
-
-$("#oneDay").addclass("active");
 
 function drawChartToday(data) {
     stockChart.selectAll("*").remove();
@@ -304,8 +311,26 @@ function drawChartOld(data, num) {
 }
 
 
-d3.select(window).on('resize', stockResize);
+//d3.select(window).on('resize', stockResize);
+//
+//function stockResize() {
+//    console.log("resizing!");
+//}
 
-function stockResize() {
-    console.log("resizing!");
-}
+var aspect = width/height,
+    chart = d3.select('#stockChart');
+d3.select(window)
+    .on('resize', function() {
+        var targetWidth = chart.node().getBoundingClientRect().width;
+            chart.attr("width", targetWidth);
+            chart.attr("height", targetWidth / aspect);
+            var activeButton = $(".stockBtn.active").attr('id');
+            console.log(activeButton);
+            if (activeButton === "fiveYear"){
+                xAxis = d3.svg.axis()
+                    .ticks(d3.time.months, 6)
+                    .scale(x)
+                    .orient("bottom");
+                drawChartOld(global[1], 1200);
+            }
+    });
