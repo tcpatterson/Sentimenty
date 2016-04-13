@@ -12,8 +12,18 @@
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.3.0/annyang.min.js"></script>
         <script th:src="@{/vendor/bootstrap/js/bootstrap.js}"/>
         <script th:src="@{/js/index.js}"/>
+        <script>
+            if (annyang) {
+                var commands = {
+                    'search *term': search
+                };
+
+                annyang.addCommands(commands);
+            }
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -26,7 +36,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">
-                        <img alt="Brand" th:src="@{/img/logo2.png}" height="20px" width="20px"/>
+                        <img alt="Brand" th:src="@{/img/logo2.png}" height="20px" width="20px" id="anny"/>
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
