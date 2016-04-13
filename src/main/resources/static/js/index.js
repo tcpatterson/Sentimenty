@@ -64,11 +64,11 @@ function getCookie(cname) {
 }
 
 $(document).ready(function() {
-    var layout = JSON.parse(getCookie("layout"));
-    //console.log(layout);
-    if(layout.length>0) {
-        reorder(layout, false);
-    }
+    var layout = getCookie("layout");
+        if(layout != ""){
+            layout = JSON.parse(layout);
+            reorder(layout, false);
+        }
 })
 
 function reorder(layout, anim) {
