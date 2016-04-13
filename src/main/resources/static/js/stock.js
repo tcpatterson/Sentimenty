@@ -107,7 +107,7 @@ function drawChartToday(data) {
         var lastClose = last.close;
         var lastDate = last.date;
         d3.select('#closeStamp').text("NYSE: DB - " + lastDate);
-        d3.select('#close').text(lastClose);
+        d3.select('#close').text(String(lastClose).substring(0,5));
         if(lastClose >= secondToLastClose ) {
             d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-up green")
         } else {

@@ -39,6 +39,14 @@ $(function() {
         reorder(rry, true);
         setCookie("layout", JSON.stringify(rry), 365);
     });
+
+    $("#anny").click(function() {
+        if(annyang.isListening()){
+            annyang.abort();
+        } else if (!annyang.isListening()) {
+            annyang.start();
+        }
+    })
   });
 
 
@@ -64,12 +72,26 @@ function getCookie(cname) {
 }
 
 $(document).ready(function() {
+    var user = getCookie("username");
     var layout = getCookie("layout");
-        if(layout != ""){
+        if(user != "") {
+            $.post( "/layout", { query: user })
+                .done(function( data ) {
+                    console.log(data);
+            })
+        } else if(layout != ""){
             layout = JSON.parse(layout);
             reorder(layout, false);
         }
+
 })
+
+function search(term) {
+    $( "#searchTerm" ).val(term);
+    $('#modal-content').modal({
+        show: true
+    });
+}
 
 function reorder(layout, anim) {
     layout.forEach(function(element, index, array) {
@@ -109,3 +131,4 @@ function animateMove(element, column) {
        $(this).insertBefore( column ).fadeIn();
     });
 }
+
