@@ -83,7 +83,7 @@ $( "#oneYear" ).click(function() {
 
 $( "#fiveYears" ).click(function() {
     $(".stockBtn").removeClass("active");
-    $("#fiveYear").addClass("active");
+    $("#fiveYears").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.months, 6)
         .scale(x)

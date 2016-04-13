@@ -93,6 +93,24 @@ function search(term) {
     });
 }
 
+function stockVoice( length ) {
+    switch(length) {
+        case 'one day':
+            $("#oneDay").click();
+            break;
+        case 'one month':
+            $("#oneMonth").click();
+            break;
+        case 'one year':
+            $("#oneYear").click();
+            break;
+        case 'five years':
+            $("#fiveYears").click();
+            break;
+    }
+}
+
+
 function reorder(layout, anim) {
     layout.forEach(function(element, index, array) {
         element.forEach(function(element){
