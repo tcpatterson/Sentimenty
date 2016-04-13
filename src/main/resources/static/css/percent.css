@@ -1,5 +1,5 @@
 #good {
-    display: inline;
+    display: inline-block;
     color: #589f04;
 }
 
@@ -11,7 +11,7 @@
 
 .arc text {
   font: 10px sans-serif;
-  text-anchor: middle;
+  text-anchor: top;
 }
 
 .arc path {
@@ -19,5 +19,9 @@
 }
 
 #current {
-    font-size: 24px;
+    font-size: 20px;
+}
+
+.smallText {
+    font-size: 20px;
 }
