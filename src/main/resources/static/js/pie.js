@@ -37,6 +37,7 @@ d3.csv("/percentSentiment", type, function(error, data) {
   g.append("text")
       .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
       .attr("dy", ".35em")
+      .attr("text-anchor", "middle")
       .text(function(d) { return d.data.label; });
 });
 

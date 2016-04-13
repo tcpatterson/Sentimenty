@@ -122,7 +122,7 @@ public class ApiController {
         List sent = new ArrayList<List>();
         pos = (double)posCount/(pToday.size() - nullCount) * 100.0;
         neg = (double)negCount/(pToday.size() - nullCount) * 100.0;
-        String results = "label,percent\n"+"good,"+pos+"\nbad,"+neg;
+        String results = "label,percent\n"+"positive,"+pos+"\nnegative,"+neg;
         return results;
     }
 
