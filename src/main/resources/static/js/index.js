@@ -34,10 +34,19 @@ $(function() {
     });
 
     $("#revertSort").click(function() {
+        $( this ).blur();
         var rry = [["stockModule","percentModule"],["trendsModule"],["gaugeModule","twitterModule"]];
-        reorder(rry);
+        reorder(rry, true);
         setCookie("layout", JSON.stringify(rry), 365);
     });
+
+    $("#anny").click(function() {
+        if(annyang.isListening()){
+            annyang.abort();
+        } else if (!annyang.isListening()) {
+            annyang.start();
+        }
+    })
   });
 
 
@@ -54,7 +63,8 @@ function getCookie(cname) {
     for(var i=0; i<ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) {
+        cname = c.substring(0,name.length);
+        if (cname == name) {
             return c.substring(name.length, c.length);
         }
     }
@@ -62,28 +72,81 @@ function getCookie(cname) {
 }
 
 //$(document).ready(function() {
-//    var layout = JSON.parse(getCookie("layout"));
-//    //console.log(layout);
-//    if(layout.length>0) {
-//        reorder(layout);
-//    }
-//})
+    var user = getCookie("username");
+    var layout = getCookie("layout");
+        if(user != "") {
+            $.post( "/layout", { query: user })
+                .done(function( data ) {
+                    console.log(data);
+            })
+        } else if(layout != ""){
+            layout = JSON.parse(layout);
+            reorder(layout, false);
+        }
 
-function reorder(layout) {
+})
+
+function search(term) {
+    $( "#searchTerm" ).val(term);
+    $('#modal-content').modal({
+        show: true
+    });
+}
+
+function stockVoice( length ) {
+    switch(length) {
+        case 'one day':
+            $("#oneDay").click();
+            break;
+        case 'one month':
+            $("#oneMonth").click();
+            break;
+        case 'one year':
+            $("#oneYear").click();
+            break;
+        case 'five years':
+            $("#fiveYears").click();
+            break;
+    }
+}
+
+
+function reorder(layout, anim) {
     layout.forEach(function(element, index, array) {
         element.forEach(function(element){
             //console.log(element)
-            switch(index) {
-                case 0:
-                    $( "#" + element ).insertBefore( "#colOne" );
-                    break;
-                case 1:
-                    $( "#" + element ).insertBefore( "#colTwo" );
-                    break;
-                case 2:
-                    $( "#" + element ).insertBefore( "#colThree" );
-                    break;
+            if(anim){
+                switch(index) {
+                    case 0:
+                        animateMove(element, "#colOne")
+                        break;
+                    case 1:
+                        animateMove(element, "#colTwo" );
+                        break;
+                    case 2:
+                        animateMove(element, "#colThree")
+                        break;
+                }
+            } else {
+                switch(index) {
+                    case 0:
+                        $( "#" + element ).insertBefore( "#colOne" );
+                        break;
+                    case 1:
+                        $( "#" + element ).insertBefore( "#colTwo" );
+                        break;
+                    case 2:
+                        $( "#" + element ).insertBefore( "#colThree" );
+                        break;
+                }
             }
         });
     })
 }
+
+function animateMove(element, column) {
+    $("#"+element).fadeOut(function() {
+       $(this).insertBefore( column ).fadeIn();
+    });
+}
+

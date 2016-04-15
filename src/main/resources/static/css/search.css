@@ -20,3 +20,7 @@
 .inputBar {
     font-size:12px;
 }
+
+.modal .mention {
+    min-height: 20%;
+}

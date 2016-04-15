@@ -83,7 +83,7 @@ $( "#oneYear" ).click(function() {
 
 $( "#fiveYears" ).click(function() {
     $(".stockBtn").removeClass("active");
-    $("#fiveYear").addClass("active");
+    $("#fiveYears").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.months, 6)
         .scale(x)
@@ -107,7 +107,7 @@ function drawChartToday(data) {
         var lastClose = last.close;
         var lastDate = last.date;
         d3.select('#closeStamp').text("NYSE: DB - " + lastDate);
-        d3.select('#close').text(lastClose);
+        d3.select('#close').text(String(lastClose).substring(0,5));
         if(lastClose >= secondToLastClose ) {
             d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-up green")
         } else {

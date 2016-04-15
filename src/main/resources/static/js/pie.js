@@ -2,7 +2,7 @@
 var radius = Math.min(width, height) / 2;
 
 var color = d3.scale.ordinal()
-    .range(["#00ff00", "#ff0000"]);
+    .range(["#589f04", "#ee0000"]);
 
 var arcPie = d3.svg.arc()
     .outerRadius(radius - 10)
@@ -37,6 +37,7 @@ d3.csv("/percentSentiment", type, function(error, data) {
   g.append("text")
       .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
       .attr("dy", ".35em")
+      .attr("text-anchor", "middle")
       .text(function(d) { return d.data.label; });
 });
 

@@ -40,6 +40,11 @@ public class ViewDAO {
                 .list();
     }
 
+    public View getByViewName(String view) {
+        return (View) getSession().createQuery(
+                "from Views where name ="+view+"");
+    }
+
     public View getById(long id) {
         return (View) getSession().load(View.class, id);
     }

@@ -1,18 +1,29 @@
 package com.seniordesigndbgt.dashboard.controller;
 
+import com.seniordesigndbgt.dashboard.dao.UserDAO;
+import com.seniordesigndbgt.dashboard.dao.ViewDAO;
 import com.seniordesigndbgt.dashboard.model.Module;
 import org.apache.tomcat.util.digester.ArrayStack;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.seniordesigndbgt.dashboard.model.User;
 import com.seniordesigndbgt.dashboard.model.View;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ViewController {
+
+    @Autowired
+    private UserDAO _userDAO;
+    @Autowired
+    private ViewDAO _viewDAO;
 
     @RequestMapping("/{username}")
     public String loadHome(@PathVariable String username, ModelMap modelMap) {
@@ -40,9 +51,9 @@ public class ViewController {
 
     @RequestMapping("/")
     public String loadHome(ModelMap modelMap) {
-        String username = "deafult";
-        System.out.println("username " + username);
+        String username = "tcpatter";
         User current = new User(username, "employee");
+        //_userDAO.save(current);
         ArrayList<Module> columnOne = new ArrayList<Module>();
         ArrayList<Module> columnTwo = new ArrayList<Module>();
         ArrayList<Module> columnThree = new ArrayList<Module>();
@@ -59,8 +70,18 @@ public class ViewController {
         columnOne.add(percentSentimentModule);
         columnThree.add(twitterModule);
         View preferred = new View(current, current.getDefaultView(), columnOne, columnTwo, columnThree);
+        //_viewDAO.save(preferred);
         modelMap.put("view", preferred);
         return "index";
+    }
+
+    @RequestMapping(value = "/layout")
+    public @ResponseBody
+    View search(@RequestParam("query") String user) {
+        User current = _userDAO.getByUsername(user);
+        String userView = current.getDefaultView();
+        View thisView = _viewDAO.getByViewName(userView);
+        return thisView;
     }
 
 }
