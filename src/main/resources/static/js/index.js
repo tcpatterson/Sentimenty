@@ -71,7 +71,7 @@ function getCookie(cname) {
     return "";
 }
 
-//$(document).ready(function() {
+$(document).ready(function() {
     var user = getCookie("username");
     var layout = getCookie("layout");
         if(user != "") {
