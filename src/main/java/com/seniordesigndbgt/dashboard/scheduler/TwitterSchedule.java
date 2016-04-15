@@ -56,7 +56,7 @@ public class TwitterSchedule {
                                 + "/status/" + status.getId();
                         String image = status.getUser().getOriginalProfileImageURL();
                         Date utilCreated = status.getCreatedAt();
-                        java.sql.Date created = new java.sql.Date(utilCreated.getTime());
+                        java.sql.Timestamp created = new java.sql.Timestamp(utilCreated.getTime());
                         Twitter t = new Twitter(author, tweetText, url, image, created);
                         t.setText(t.toString());
                         _twitterDao.save(t);
