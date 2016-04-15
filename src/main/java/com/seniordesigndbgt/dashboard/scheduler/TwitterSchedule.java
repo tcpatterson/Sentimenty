@@ -12,6 +12,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -20,7 +21,7 @@ public class TwitterSchedule {
     @Autowired
     private TwitterDAO _twitterDao;
 
-    @Scheduled (fixedDelay = 500000)
+    @Scheduled (fixedDelay = 50000)
     public void gatherTwitter()
     {
         String hashtag = "deutschebank";
@@ -35,7 +36,7 @@ public class TwitterSchedule {
             twitter4j.Twitter twitter = tf.getInstance();
 
             Query query = new Query(hashtag);
-            query.count(10);
+            query.count(30);
             QueryResult result = twitter.search(query);
             for (Status status : result.getTweets()){
 //                if (!status.getLang().equals(null) && status.getLang().equalsIgnoreCase("en")) {
@@ -54,7 +55,9 @@ public class TwitterSchedule {
                         String url = "https://twitter.com/" + status.getUser().getScreenName()
                                 + "/status/" + status.getId();
                         String image = status.getUser().getOriginalProfileImageURL();
-                        Twitter t = new Twitter(author, tweetText, url, image);
+                        Date utilCreated = status.getCreatedAt();
+                        java.sql.Date created = new java.sql.Date(utilCreated.getTime());
+                        Twitter t = new Twitter(author, tweetText, url, image, created);
                         t.setText(t.toString());
                         _twitterDao.save(t);
                     }

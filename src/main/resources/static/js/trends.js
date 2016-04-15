@@ -8,7 +8,7 @@ $( document ).ready(function() {
     }
 
     var showList = trendMentionList[1];
-    for (var i = 0; i < trendMentionList[1].length; i++ ){//List of List of Press
+    for (var i = 0; i < trendMentionList[1].length; i++ ){//List of Trends which has List of Press
         for (var j = 0; j < trendMentionList[1][i].length; j++){//List of Press
             var apiArticle = trendMentionList[1][i][j]
             frontendArticle = apiArticle

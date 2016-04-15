@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8"/>
-        <link rel="stylesheet" th:href="@{/css/index.css}"/>
-        <link rel="stylesheet" th:href="@{/css/search.css}"/>
         <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
         <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/dashboard.css}"/>
         <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/autobahn-flat-min.css}"/>
+        <link rel="stylesheet" th:href="@{/css/index.css}"/>
+        <link rel="stylesheet" th:href="@{/css/search.css}"/>
         <title>Sentimenty</title>
         <link rel="shortcut icon" type="image/png" th:href="@{/img/logo.png}"/>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
@@ -34,7 +34,7 @@
                         <li><button id="revertSort">Default</button></li>
                     </ul>
                     <form class="navbar-form navbar-right" onsubmit="formSubmit();">
-                        <input type="text" class="form-control" id="searchTerm" placeholder="Search..."/>
+                        <input type="text" class="form-control inputBar" id="searchTerm" placeholder="Search..."/>
                         <a href="#" class="btn btn-default" id="openBtn">Search</a>
                     </form>
                 </div>

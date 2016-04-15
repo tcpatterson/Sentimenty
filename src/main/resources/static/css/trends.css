@@ -18,9 +18,14 @@
     display: none;
 }
 
-#mentions {
+.mentionsContainer {
     height: 400px;
+}
+
+#mentions {
+    height: 380px;
     overflow: scroll;
+    margin-top:20px;
 }
 
 .trendButton {

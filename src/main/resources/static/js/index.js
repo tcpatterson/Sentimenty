@@ -61,13 +61,13 @@ function getCookie(cname) {
     return "";
 }
 
-$(document).ready(function() {
-    var layout = JSON.parse(getCookie("layout"));
-    //console.log(layout);
-    if(layout.length>0) {
-        reorder(layout);
-    }
-})
+//$(document).ready(function() {
+//    var layout = JSON.parse(getCookie("layout"));
+//    //console.log(layout);
+//    if(layout.length>0) {
+//        reorder(layout);
+//    }
+//})
 
 function reorder(layout) {
     layout.forEach(function(element, index, array) {
