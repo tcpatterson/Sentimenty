@@ -16,7 +16,6 @@
 }
 .tweetText{
     margin-top:2.2%;
-    font-size:14px;
     color: #0d62a5;
     overflow: hidden;
     text-overflow: ellipsis;
