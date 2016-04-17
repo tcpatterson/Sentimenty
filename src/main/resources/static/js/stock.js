@@ -94,7 +94,7 @@ $( "#fiveYears" ).click(function() {
 function drawChartToday(data) {
     stockChart.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-" + d.time.monthValue + "-" + d.time.dayOfMonth + "-" + String(d.time.year).substring(2,4));
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-" + d.time.monthValue + "-" + d.time.dayOfMonth + "-" + d.time.year);
             d.close = +d.value;
         });
 
@@ -106,7 +106,8 @@ function drawChartToday(data) {
         var secondToLastClose = data[data.length-2].close;
         var lastClose = last.close;
         var lastDate = last.date;
-        d3.select('#closeStamp').text("NYSE: DB - " + lastDate);
+        var lastDateString = String(last.date).substring(0,24)
+        d3.select('#closeStamp').text("NYSE: DB - " + lastDateString);
         d3.select('#close').text(String(lastClose).substring(0,5));
         if(lastClose >= secondToLastClose ) {
             d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-up green")
