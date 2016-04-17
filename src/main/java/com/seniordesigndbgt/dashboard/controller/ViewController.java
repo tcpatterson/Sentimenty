@@ -48,7 +48,7 @@ public class ViewController {
     }
 
     @RequestMapping("/")
-    public String loadHome(@CookieValue(value = "layout", defaultValue = "hello") String layout, ModelMap modelMap) {
+    public String loadHome(@CookieValue(value = "layout", required = false) Object layout, ModelMap modelMap) {
         System.out.println(layout);
         String username = "tcpatter";
         User current = new User(username, "employee");
