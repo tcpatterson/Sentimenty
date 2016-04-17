@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.Table;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ApiController {
@@ -84,6 +82,12 @@ public class ApiController {
     public @ResponseBody
     List search(@RequestParam("query") String query) {
         List<Press> p = _pressDAO.search(query);
+        Collections.sort(p, new Comparator<Press>() {
+            @Override
+            public int compare(Press o1, Press o2) {
+                return o2.getTime().compareTo(o1.getTime());
+            }
+        });
         return p;
     }
 
