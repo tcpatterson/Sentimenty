@@ -27,7 +27,7 @@ $('#modal-content').on('shown.bs.modal', function () {
                 d.color = "green";
             }
             var date = new Date(d.time);
-            d.time = date;
+            d.time = String(date).substring(0,24);
           });
         $("#searchTemplate").tmpl(data).appendTo( ".modal-body" );
       });

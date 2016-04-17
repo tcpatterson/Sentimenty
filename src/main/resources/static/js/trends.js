@@ -8,7 +8,7 @@ $( document ).ready(function() {
     }
 
     var showList = trendMentionList[1];
-    for (var i = 0; i < trendMentionList[1].length; i++ ){//List of List of Press
+    for (var i = 0; i < trendMentionList[1].length; i++ ){//List of Trends which has List of Press
         for (var j = 0; j < trendMentionList[1][i].length; j++){//List of Press
             var apiArticle = trendMentionList[1][i][j]
             frontendArticle = apiArticle
@@ -32,8 +32,9 @@ $( document ).ready(function() {
                 frontendArticle.color = "green"
             }
             var date = new Date(frontendArticle.time)
-            frontendArticle.time = "" + (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear()
-//            frontendArticle.title = frontendArticle.title.substring(0,90);
+            //frontendArticle.time = "" + (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear()
+            frontendArticle.time = String(date).substring(0,24);
+            //frontendArticle.title = frontendArticle.title.substring(0,90);
             showList[i][j] = frontendArticle
             $(showList[i][j]).attr("trendNo", ""+i)
         }
@@ -42,14 +43,9 @@ $( document ).ready(function() {
         $("#clientTemplate").tmpl(showList[i]).appendTo("#mentions")
     }
 
-    if ($(".active").length == 0){
+    if ($(".trendButton.active").length == 0){
         $(".mention").removeClass("hide")
     }
-
-        if ($(".active").length > 0)
-            $(".mention").addClass("hide")
-
-
 
     $(".trendButton").click(function(){
         $(".mention").addClass("hide")
@@ -67,7 +63,7 @@ $( document ).ready(function() {
                 $(articleNo).toggleClass("hide")
             }
         })
-        if ($(".active").length == 0){
+        if ($(".trendButton.active").length == 0){
                 $(".mention").removeClass("hide")
         }
     })

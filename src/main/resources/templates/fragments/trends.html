@@ -2,20 +2,15 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
-        <p>Select any combination of trends to see associated mentions. Select none to show all
-            articles related to all trends.</p>
         <div th:fragment="trends">
             <div id="instructions">
-                <p>Select any combination of trends to see associated mentions.<br/> Select none to show all
-                    articles related to all trends.</p>
+                <p>Select any combination of trends to see associated mentions.</p>
             </div>
             <div class="trend">
-                <!--<button id="bloomberg">Bloomberg</button>-->
-                <!--<button id="reuters">Reuters</button>-->
-                <!--<button id="nyt">NYT</button>-->
-                <!--<button id="forbes">Forbes</button>-->
+                <!--Trend buttons are appended here-->
             </div>
-            
+
+            <!--Mentions are formatted here-->
             <script id="clientTemplate" type="text/html">
                 <div class="mention hide article${trendNo}">
                     <div class="mention-sentiment">
@@ -28,16 +23,11 @@
                     </div>
                 </div>
             </script>
-            <div id="mentions">
-                <!--<div class="mention bloomberg">-->
-                    <!--<div id="mention-sentiment">-->
-                        <!--<span class="glyphicon glyphicon-triangle-bottom"></span><br/>-->
-                        <!--<p>0.1045</p>-->
-                    <!--</div>-->
-                    <!--<div id="mention-content">-->
-                        <!--<a target="_blank" href="www.google.com">This is a test</a>-->
-                    <!--</div>-->
-                <!--</div>-->
+
+            <div class="mentionsContainer">
+                <div id="mentions">
+                    <!--Mentions are appended here-->
+                </div>
             </div>
             <link rel="stylesheet" href="/css/trends.css"/>
             <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>

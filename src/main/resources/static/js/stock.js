@@ -36,9 +36,18 @@ var stockChart = d3.select("#stockChart").append("svg")
 $( document ).ready(function() {
     $.get( "/stocks", function( data ) {
       global = data;
+    $("#oneDay").addClass("active");
 
       drawChartToday(global[0]);
     });
+    var aspect = width/height,
+        chart = d3.select('#stockChart');
+    d3.select(window)
+        .on('resize', function() {
+            var targetWidth = chart.node().getBoundingClientRect().width;
+                chart.attr("width", targetWidth);
+                chart.attr("height", targetWidth / aspect);
+        });
 
 });
 
@@ -74,7 +83,7 @@ $( "#oneYear" ).click(function() {
 
 $( "#fiveYears" ).click(function() {
     $(".stockBtn").removeClass("active");
-    $("#fiveYear").addClass("active");
+    $("#fiveYears").addClass("active");
     xAxis = d3.svg.axis()
         .ticks(d3.time.months, 6)
         .scale(x)
@@ -82,12 +91,10 @@ $( "#fiveYears" ).click(function() {
     drawChartOld(global[1], 1200);
 });
 
-$("#oneDay").addclass("active");
-
 function drawChartToday(data) {
     stockChart.selectAll("*").remove();
         data.forEach(function(d) {
-            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-4-4-16");
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-" + d.time.monthValue + "-" + d.time.dayOfMonth + "-" + String(d.time.year).substring(2,4));
             d.close = +d.value;
         });
 
@@ -100,7 +107,7 @@ function drawChartToday(data) {
         var lastClose = last.close;
         var lastDate = last.date;
         d3.select('#closeStamp').text("NYSE: DB - " + lastDate);
-        d3.select('#close').text(lastClose);
+        d3.select('#close').text(String(lastClose).substring(0,5));
         if(lastClose >= secondToLastClose ) {
             d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-up green")
         } else {
@@ -309,3 +316,21 @@ d3.select(window).on('resize', stockResize);
 function stockResize() {
     console.log("resizing!");
 }
+
+//var aspect = width/height,
+//    chart = d3.select('#stockChart');
+//d3.select(window)
+//    .on('resize', function() {
+//        var targetWidth = chart.node().getBoundingClientRect().width;
+//            chart.attr("width", targetWidth);
+//            chart.attr("height", targetWidth / aspect);
+//            var activeButton = $(".stockBtn.active").attr('id');
+//            console.log(activeButton);
+//            if (activeButton === "fiveYear"){
+//                xAxis = d3.svg.axis()
+//                    .ticks(d3.time.months, 6)
+//                    .scale(x)
+//                    .orient("bottom");
+//                drawChartOld(global[1], 1200);
+//            }
+//    });

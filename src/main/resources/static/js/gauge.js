@@ -23,7 +23,7 @@ var gauge = function(container, configuration) {
 		labelFormat					: d3.format(',g'),
 		labelInset					: 10,
 
-		arcColorFn					: d3.interpolateHsl(d3.rgb('#dc143c'), d3.rgb('#3e6c0a'))
+		arcColorFn					: d3.interpolateHsl(d3.rgb('#ee0000'), d3.rgb('#589f04'))
 	};
 	var range = undefined;
 	var r = undefined;
