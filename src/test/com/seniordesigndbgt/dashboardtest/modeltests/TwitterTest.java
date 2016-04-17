@@ -2,6 +2,9 @@ package com.seniordesigndbgt.dashboardtest.modeltests;
 
 import org.junit.Test;
 import com.seniordesigndbgt.dashboard.model.Twitter;
+
+import java.sql.Timestamp;
+
 import static org.junit.Assert.*;
 
 /**
@@ -41,7 +44,7 @@ public class TwitterTest {
         String empty = " ";
         Twitter tweet = new Twitter();
         assertNull(tweet.toString());
-        tweet = new Twitter(handle, text, empty, empty);
+        tweet = new Twitter(handle, text, empty,empty, Timestamp.valueOf("1111-11-11 11:12:12"));
         assertEquals("@"+ handle + " - " + text, tweet.toString());
     }
 }

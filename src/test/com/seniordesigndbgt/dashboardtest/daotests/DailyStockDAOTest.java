@@ -27,6 +27,8 @@ public class DailyStockDAOTest{
     SessionFactory sessionFactory;
     Session session;
 
+    DailyStockDAO _dailystockDAO;
+
     @Before
     public void before() {
         // setup the session factory
