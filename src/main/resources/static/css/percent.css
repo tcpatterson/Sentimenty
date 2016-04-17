@@ -9,15 +9,26 @@
 }
 
 
-.arc text {
+#pie .arc text {
   font: 10px sans-serif;
   text-anchor: middle;
 }
 
-.arc path {
+#pie .arc path {
   stroke: #fff;
 }
 
 #current {
     font-size: 24px;
+}
+
+#pie path.slice{
+	stroke-width:2px;
+}
+
+#pie polyline{
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
 }
