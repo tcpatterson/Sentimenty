@@ -44,13 +44,13 @@ public class ApiController {
     @RequestMapping("/sentiment")
     public @ResponseBody
     List sentiment() {
-        List<Press> pToday = _pressDAO.getToday();
-        List<Press> pYesterday = _pressDAO.getYesterday();
+        List<Press> pList = _pressDAO.getArticlesByOffset(0);
+        List<Press> pYesterday = _pressDAO.getArticlesByOffset(1);
         Double todayS = 0.0;
         Double yesterdayS = 0.0;
         int nullCountT = 0;
         int nullCountY = 0;
-        for (Press p : pToday) {
+        for (Press p : pList) {
             try {
                 JsonElement jElement = new JsonParser().parse(p.getSentiment());
                 JsonObject jObject = jElement.getAsJsonObject();
@@ -71,7 +71,7 @@ public class ApiController {
             }
         }
         List sent = new ArrayList<List>();
-        todayS = todayS/(pToday.size()- nullCountT);
+        todayS = todayS/(pList.size()- nullCountT);
         yesterdayS = yesterdayS/(pYesterday.size()- nullCountY);
         sent.add(todayS);
         sent.add(todayS-yesterdayS);
@@ -95,7 +95,7 @@ public class ApiController {
     public @ResponseBody
     List totalMentions() {
         List<Integer> mentions = new ArrayList<Integer>();
-        int size = _pressDAO.getToday().size();
+        int size = _pressDAO.getArticlesByOffset(0).size();
         mentions.add(size);
         return mentions;
     }
@@ -103,13 +103,18 @@ public class ApiController {
     @RequestMapping("/percentSentiment")
     public @ResponseBody
     String percentSentiment() {
-        List<Press> pToday = _pressDAO.getToday();
+        List<Press> pList = null;
+        int daysBack = 0;
+        while (pList == null || pList.size() == 0){
+            pList = _pressDAO.getArticlesByOffset(daysBack++);
+        }
+        int mentionsToday = pList.size();
         Double pos = 0.0;
         int posCount = 0;
         Double neg = 0.0;
         int negCount = 0;
         int nullCount = 0;
-        for (Press p : pToday) {
+        for (Press p : pList) {
             try {
                 JsonElement jElement = new JsonParser().parse(p.getSentiment());
                 JsonObject jObject = jElement.getAsJsonObject();
@@ -123,10 +128,10 @@ public class ApiController {
                 nullCount++;
             }
         }
-        List sent = new ArrayList<List>();
-        pos = (double)posCount/(pToday.size() - nullCount) * 100.0;
-        neg = (double)negCount/(pToday.size() - nullCount) * 100.0;
-        String results = "label,percent\n"+"positive,"+pos+"\nnegative,"+neg;
+        pos = (double)posCount/(pList.size() - nullCount) * 100.0;
+        neg = (double)negCount/(pList.size() - nullCount) * 100.0;
+        String results = "label,percent\n"+"positive,"+pos+"\nnegative,"+neg+"\noffset,"+daysBack+
+                "\nmentionsToday,"+mentionsToday;
         return results;
     }
 
