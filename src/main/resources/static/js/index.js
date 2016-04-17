@@ -40,7 +40,7 @@ $(function() {
         setCookie("layout", JSON.stringify(rry), 365);
     });
 
-    $("#anny").click(function() {
+    $("#anny").dblclick(function() {
         if(annyang.isListening()){
             annyang.abort();
         } else if (!annyang.isListening()) {

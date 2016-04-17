@@ -7,12 +7,9 @@ import org.apache.tomcat.util.digester.ArrayStack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.seniordesigndbgt.dashboard.model.User;
 import com.seniordesigndbgt.dashboard.model.View;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,8 @@ public class ViewController {
     private ViewDAO _viewDAO;
 
     @RequestMapping("/{username}")
-    public String loadHome(@PathVariable String username, ModelMap modelMap) {
+    public String loadHome(ModelMap modelMap) {
+        String username = "TODO";
         System.out.println("username " + username);
         User current = new User(username, "employee");
         ArrayList<Module> columnOne = new ArrayList<Module>();
@@ -50,7 +48,8 @@ public class ViewController {
     }
 
     @RequestMapping("/")
-    public String loadHome(ModelMap modelMap) {
+    public String loadHome(@CookieValue(value = "layout", defaultValue = "hello") String layout, ModelMap modelMap) {
+        System.out.println(layout);
         String username = "tcpatter";
         User current = new User(username, "employee");
         //_userDAO.save(current);
