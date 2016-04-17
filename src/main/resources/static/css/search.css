@@ -1,5 +1,7 @@
 .searchThumb img {
     width: 100px;
+    min-height:60px;
+    margin-left:2.5%;
 }
 
 .modal-body .mention-sentiment {
@@ -13,6 +15,10 @@
 .modal-body {
   height: 65vh;
   overflow: auto;
+}
+
+.inputBar {
+    font-size:12px;
 }
 
 .modal .mention {

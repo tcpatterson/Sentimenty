@@ -56,10 +56,10 @@ public class ViewController {
         ArrayList<Module> columnOne = new ArrayList<Module>();
         ArrayList<Module> columnTwo = new ArrayList<Module>();
         ArrayList<Module> columnThree = new ArrayList<Module>();
-        Module stockModule = new Module("DB stock information", "stock");
-        Module totalMentionModule = new Module("Mentions today", "mentions");
+        Module stockModule = new Module("DB Stock Information", "stock");
+        Module totalMentionModule = new Module("Mentions Today", "mentions");
         Module trendModule = new Module("Trending Topics", "trends");
-        Module gaugeModule = new Module("Current sentiment", "gauge");
+        Module gaugeModule = new Module("Current Sentiment", "gauge");
         Module percentSentimentModule = new Module("Percent Makeup of Sentiment", "percent");
         Module twitterModule = new Module("Twitter Feed", "twitter");
         columnOne.add(stockModule);
