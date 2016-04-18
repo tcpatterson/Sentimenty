@@ -130,8 +130,8 @@ public class ApiController {
         }
         pos = (double)posCount/(pList.size() - nullCount) * 100.0;
         neg = (double)negCount/(pList.size() - nullCount) * 100.0;
-        String results = "label,percent\n"+"positive,"+pos+"\nnegative,"+neg+"\noffset,"+daysBack+
-                "\nmentionsToday,"+mentionsToday;
+        String results = "label,percent\n"+"positive,"+pos+"\nnegative,"+neg/*+"\noffset,"+daysBack+
+                "\nmentionsToday,"+mentionsToday*/;
         return results;
     }
 
