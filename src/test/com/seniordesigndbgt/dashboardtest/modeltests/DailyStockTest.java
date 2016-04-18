@@ -18,6 +18,7 @@ public class DailyStockTest {
     public void testGetSymbol() throws Exception {
         String str = "XYN";
         DailyStock stock = new DailyStock();
+        assertNull( stock.getSymbol());
         stock.setSymbol(str);
         assertEquals(str, stock.getSymbol());
     }
@@ -25,6 +26,7 @@ public class DailyStockTest {
     @Test
     public void testGetTime() throws Exception {
         DailyStock stock = new DailyStock();
+        assertNull(stock.getTime());
         LocalDateTime today = LocalDateTime.of(LocalDate.now(), LocalTime.now());
         stock.setTime(today);
         assertEquals(today, stock.getTime());
@@ -34,6 +36,7 @@ public class DailyStockTest {
     @Test
     public void testGetValue() throws Exception {
         DailyStock stock = new DailyStock();
+        assertEquals(0.0, stock.getValue(), 0.00);
         double val = 18.40;
         stock.setValue(val);
         assertEquals(val, stock.getValue(), 0.0);
