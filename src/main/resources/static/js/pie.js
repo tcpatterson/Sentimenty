@@ -14,7 +14,7 @@ var radius = Math.min(width, height) / 2;
 var pie = d3.layout.pie()
 	.sort(null)
 	.value(function(d) {
-		return d.value;
+		return d.percent;
 	});
 
 var color = d3.scale.ordinal()
@@ -28,7 +28,7 @@ var outerarcPie = d3.svg.arc()
 	.innerRadius(radius * 0.9)
 	.outerRadius(radius * 0.9);
 
-svgPie.attr("transform", "translate(" + width  + "," + height / 2 + ")");
+svgPie.attr("transform", "translate(" + width / 1.5 + "," + height / 2 + ")");
 
 var keyPie = function(d){ return d.data.label; };
 
@@ -128,20 +128,6 @@ d3.csv("/percentSentiment", type, function(error, data) {
 	polylinePie.exit()
 		.remove();
 
-  var g = pieChart.selectAll(".arcPie")
-      .data(pie(data))
-    .enter().append("g")
-      .attr("class", "arcPie");
-
-  g.append("path")
-      .attr("d", arcPie)
-      .style("fill", function(d) { return color(d.data.label); });
-
-  g.append("text")
-      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .attr("text-anchor", "middle")
-      .text(function(d) { return d.data.label; });
 });
 
 function type(d) {
