@@ -5,6 +5,5 @@ $( document ).ready(function() {
       var yesterday = array[2].split(',')[1];
       $("#good").text(String(today).substring(0,4) + '%');
       $("#bad").text(String(yesterday).substring(0,4) + '%');
-
     });
 });

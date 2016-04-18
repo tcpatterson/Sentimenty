@@ -131,17 +131,29 @@ public class PressSchedule {
     @Scheduled(fixedRate = RATE)
     public void checkReuters() throws IOException {
         Document doc = Jsoup.connect("http://www.reuters.com/search/news?blob=deutsche+bank").get();
-        Elements newsHeadlines = doc.select(".search-result-title");
+        Elements newsHeadlines = doc.select(".search-result-content");
         analyzer = AnalyzerFactory.getSentimentAnalyzer();
         for(Element e : newsHeadlines) {
+            //System.out.println(e);
+            Element t = e.getElementsByClass("search-result-timestamp").remove(0);
+            String timestamp = t.text();
+            //time April 08, 2016 02:56pm EDT
+            DateFormat format = new SimpleDateFormat("MMMM dd, yyyy h:mma z", Locale.ENGLISH);
+            Date thisTime = new Date();
+            try {
+                thisTime = format.parse(timestamp);
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            e = e.child(0);
             String link = e.child(0).attr("href");
             String title = e.text();
-            String timestamp = "March 22, 2016 04:57am EDT";
+            //String timestamp = "March 22, 2016 04:57am EDT";
             //String thumbnail = "http://www.thewrap.com/wp-content/uploads/2013/10/Reuters-Logo.jpg";
             String thumbnail = "http://fontslogo.com/wp-content/uploads/2013/02/Reuters-Logo-Font.jpg";
             try {
                 Timestamp time = new Timestamp(System.currentTimeMillis());
-                Press article = new Press("Reuters", link, title,  Calendar.getInstance().getTime(), thumbnail);
+                Press article = new Press("Reuters", link, title, thisTime, thumbnail);
                 _pressDao.save(article);
                 article.setSentiment(analyzer.getSentiment(article));
                 String bodyContent = PressAction.getBodyContent(article);
