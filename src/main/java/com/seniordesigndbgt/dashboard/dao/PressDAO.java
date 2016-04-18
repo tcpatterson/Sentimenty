@@ -33,12 +33,14 @@ public class PressDAO {
         return getSession().createQuery("from Press").list();
     }
 
-    public List <Press> getToday() {
-        return getSession().createQuery("from Press WHERE timestamp between CURDATE() and CURDATE()+1").list();
-    }
+    /*Get articles of a day in the past
+    * How far in the past is determined by offset
+    * Ex: get today's -> offset = 0
+    * get yesterday's -> offset = 1
+    * get 5 days ago's articles -> offset = 5*/
+    public List <Press> getArticlesByOffset(int offset){
+        return getSession().createQuery("from Press WHERE timestamp between CURDATE()-"+ offset +" and CURDATE()").list();
 
-    public List <Press> getYesterday() {
-        return getSession().createQuery("from Press WHERE timestamp between CURDATE()-1 and CURDATE()").list();
     }
 
     public List <Press> search(String term) {
