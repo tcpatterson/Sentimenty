@@ -103,6 +103,11 @@ $( "#fiveYears" ).click(function() {
 });
 
 function drawChartToday(data) {
+    stockChart.selectAll("*").remove();
+        data.forEach(function(d) {
+            d.date = parseDate(d.time.hour + "-" + d.time.minute + "-" + d.time.second + "-" + d.time.monthValue + "-" + d.time.dayOfMonth + "-" + d.time.year);
+            d.close = +d.value;
+        });
 
         var width = chart.node().getBoundingClientRect().width;
         sv.attr("width", width);
@@ -110,6 +115,22 @@ function drawChartToday(data) {
         x = d3.time.scale()
             .range([0, width]);
         xAxis.scale(x);
+        data.sort(function(a, b) {
+            return a.date - b.date;
+        });
+
+        var last = data[data.length-1];
+        var secondToLastClose = data[data.length-2].close;
+        var lastClose = last.close;
+        var lastDate = last.date;
+        var lastDateString = String(last.date).substring(0,24)
+        d3.select('#closeStamp').text("NYSE: DB - " + lastDateString);
+        d3.select('#close').text(String(lastClose).substring(0,5));
+        if(lastClose >= secondToLastClose ) {
+            d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-up green")
+        } else {
+            d3.select('#arrow').attr("class", "glyphicon glyphicon-arrow-down red")
+        }
 
         x.domain([data[0].date, data[data.length - 1].date]);
         y.domain([
