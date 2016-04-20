@@ -78,7 +78,8 @@ public class TrendAnalyzer {
     /**
     * Finds the top constant number of keywords, returned as a comma separated string*/
     public String findKeywords(String text){
-        List<Map.Entry<String,Integer>> allWords = sortTrends(updateFrequencyMap(text,
+        String textClean = sanitizeInput(text);
+        List<Map.Entry<String,Integer>> allWords = sortTrends(updateFrequencyMap(textClean,
                 new LinkedHashMap<String, Integer>()));
         String[] allWordsArray = new String[allWords.size()];
         for (int i = 0; i < allWords.size(); i++){
@@ -143,7 +144,8 @@ public class TrendAnalyzer {
         text = text.toLowerCase();
         populateStopList();
         for (int i = 0; i < stopList.size(); i++){
-            text = text.replace("[^a-zA-Z]"+stopList.get(i)+"[^a-zA-Z]", "");//Remove all stop words
+            //Replace all stop words with a space to maintain separation
+            text = text.replaceAll("[^a-zA-Z]"+stopList.get(i)+"[^a-zA-Z]", " ");//Remove all stop words
             text = text.replaceAll(" {2,}", " ");//Replace all instances of multiple spaces to single space
         }
         return text;
@@ -151,21 +153,28 @@ public class TrendAnalyzer {
 
     /*Takes data from stoplist.txt and puts it in stoplist
     * A stoplist is a list of words to remove from text before processing it
-    * As in, removing common words like "a" or "the"*/
+    * As in, removing common words like "a" or "the"
+    * Stoplist is usually null, since we're starting the application repeatedly*/
     public void populateStopList(){
-        if (stopList == null) {
-            stopList = new ArrayList<String>();
-            try {
-                Scanner scanner = new Scanner(new File("stoplist.txt"));
+        try {
+            Scanner scanner = new Scanner(new File("stoplist.txt"));
+            if (stopList == null) {
+                stopList = new ArrayList<String>();
                 while (scanner.hasNextLine()) {
                     stopList.add(scanner.nextLine());
                 }
-                scanner.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            } else {
+                //Update the stop list if word in txt file isn't found in list
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    if (!stopList.contains(line)){
+                        stopList.add(line);
+                    }
+                }
             }
-//            for (int i = 0; i < stopList.size(); i++)
-//                System.out.println(stopList.get(i));
+            scanner.close();
+        }  catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
