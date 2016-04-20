@@ -44,8 +44,15 @@ public class ApiController {
     @RequestMapping("/sentiment")
     public @ResponseBody
     List sentiment() {
-        List<Press> pList = _pressDAO.getArticlesByOffset(0);
-        List<Press> pYesterday = _pressDAO.getArticlesByOffset(1);
+        List<Press> pList = null;
+        List<Press> pYesterday = null;
+        int daysBack = 0;
+        while (pList == null || pList.size() == 0){
+            pList = _pressDAO.getArticlesByOffset(daysBack++);
+        }
+        while (pYesterday == null || pYesterday.size() == 0){
+            pYesterday = _pressDAO.getArticlesByOffset(daysBack++);
+        }
         Double todayS = 0.0;
         Double yesterdayS = 0.0;
         int nullCountT = 0;
@@ -95,8 +102,13 @@ public class ApiController {
     public @ResponseBody
     List totalMentions() {
         List<Integer> mentions = new ArrayList<Integer>();
-        int size = _pressDAO.getArticlesByOffset(0).size();
-        mentions.add(size);
+        List<Press> pList = null;
+        int daysBack = 0;
+        while (pList == null || pList.size() == 0){
+            pList = _pressDAO.getArticlesByOffset(daysBack++);
+        }
+        mentions.add(pList.size());
+        mentions.add(daysBack);
         return mentions;
     }
 
@@ -130,8 +142,7 @@ public class ApiController {
         }
         pos = (double)posCount/(pList.size() - nullCount) * 100.0;
         neg = (double)negCount/(pList.size() - nullCount) * 100.0;
-        String results = "label,percent\n"+"positive,"+pos+"\nnegative,"+neg/*+"\noffset,"+daysBack+
-                "\nmentionsToday,"+mentionsToday*/;
+        String results = "label,percent\n"+"positive,"+pos+"\nnegative,"+neg;
         return results;
     }
 

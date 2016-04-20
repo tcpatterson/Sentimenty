@@ -1,48 +1,65 @@
 package com.seniordesigndbgt.dashboardtest.daotests;
 
 
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.seniordesigndbgt.dashboard.Application;
+import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
+import com.seniordesigndbgt.dashboard.model.DailyStock;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import com.seniordesigndbgt.dashboard.model.DailyStock;
-import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
-/**
- * Created by kamehardy on 3/21/16.
- */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-public class DailyStockDAOTest {
-    @Autowired
-    private SessionFactory _sessionFactory;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-    @Autowired
-    private DailyStockDAO dailystockDAO;
+public class DailyStockDAOTest{
+
+    SessionFactory sessionFactory;
+    Session session;
+
+    DailyStockDAO _dailystockDAO;
+
+    @Before
+    public void before() {
+        // setup the session factory
+        AnnotationConfiguration configuration = new AnnotationConfiguration();
+        configuration.addAnnotatedClass(DailyStock.class);
+        configuration.setProperty("hibernate.dialect",
+                "org.hibernate.dialect.H2Dialect");
+        configuration.setProperty("hibernate.connection.driver_class",
+                "org.h2.Driver");
+        configuration.setProperty("hibernate.connection.url", "jdbc:h2:mem");
+        configuration.setProperty("hibernate.hbm2ddl.auto", "create");
+        sessionFactory = configuration.buildSessionFactory();
+        session = sessionFactory.openSession();
+    }
 
     @Test
     public void testSave() throws Exception {
         DailyStock stock = new DailyStock();
-        dailystockDAO.save(stock);
+        _dailystockDAO.save(stock);
 
-        List<DailyStock> stocks = dailystockDAO.getAll();
+        List<DailyStock> stocks = _dailystockDAO.getAll();
         assertEquals(stock, stocks.get(0));
-
     }
 
     @Test
     public void testDelete() throws Exception {
         DailyStock stock = new DailyStock();
-        dailystockDAO.save(stock);
-        dailystockDAO.delete(stock);
+        _dailystockDAO.save(stock);
+        _dailystockDAO.delete(stock);
 
-        List<DailyStock> stocks = dailystockDAO.getAll();
+        List<DailyStock> stocks = _dailystockDAO.getAll();
         assertNull(stocks);
 
     }
@@ -51,8 +68,8 @@ public class DailyStockDAOTest {
     public void testGetAll() throws Exception {
         DailyStock stock = new DailyStock();
         DailyStock stock2 = new DailyStock();
-        dailystockDAO.save(stock);
-        dailystockDAO.save(stock2);
+        _dailystockDAO.save(stock);
+        _dailystockDAO.save(stock2);
 
     }
 
