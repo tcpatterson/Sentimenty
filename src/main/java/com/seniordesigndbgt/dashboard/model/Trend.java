@@ -16,7 +16,7 @@ public class Trend {
     private int id;
 
     @NotNull
-    @Size(min = 3, max = 200)
+    @Size(min = 1, max = 200)
     @Column(name = "title")
     private String title;
 
