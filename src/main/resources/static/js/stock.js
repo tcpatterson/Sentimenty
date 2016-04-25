@@ -140,7 +140,7 @@ function drawChartToday(data) {
 
         xAxis.tickFormat(function(d) {
             var d = new Date(""+d+"");
-            return d.getHours()-12 + " PM";
+            return d.getHours() + " AM";
         });
 
         stockChart.append("g")
@@ -230,7 +230,7 @@ function updateChartToday(data, titleText) {
 
         xAxis.tickFormat(function(d) {
             var d = new Date(""+d+"");
-            return d.getHours()-12 + " PM";
+            return d.getHours() + " AM";
         });
 
         svg.select(".x.axis")
@@ -319,7 +319,7 @@ function drawChartOld(data, num, titleText) {
         .duration(750)
         .call(yAxis)
 
-    svg.select(".line")
+    svg.select("#stockChart .line")
         .duration(750)
         .attr("d",line(data));
 
@@ -366,7 +366,7 @@ var aspect = width/height,
 $(window)
     .on('resize', function() {
         var targetWidth = chart.node().getBoundingClientRect().width;
-        var pathLength = d3.select("path.line")[0][0].__data__.length;
+        var pathLength = d3.select("#stockChart path.line")[0][0].__data__.length;
         sv.attr("width", targetWidth);
         targetWidth = targetWidth-90;
         x = d3.time.scale()
@@ -391,11 +391,11 @@ $(window)
 
         var svg = d3.select("body").transition();
 
-        svg.select(".line")
+        svg.select("#stockChart .line")
             .duration(750)
             .attr("d",line(c));
 
-        svg.select(".x.axis") // change the x axis
+        svg.select("#stockChart .x.axis") // change the x axis
             .duration(750)
             .call(xAxis)
             .selectAll("text")
@@ -404,7 +404,7 @@ $(window)
               .attr("dy", ".35em")
               .attr("transform", "rotate(45)")
               .style("text-anchor", "start");
-        svg.select(".y.axis")
+        svg.select("#stockChart .y.axis")
             .duration(750)
             .call(yAxis)
             .attr("transform", "translate(" + targetWidth + " ,0)");
