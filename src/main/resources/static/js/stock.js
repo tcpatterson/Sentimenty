@@ -215,6 +215,7 @@ function drawChartToday(data) {
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(ds + ": " + formatCurrency(d.close));
             focus.select("text").attr("x", xoff);
+            focus.select("text").attr("y", -20)
         };
 }
 
@@ -254,18 +255,11 @@ function updateChartToday(data, titleText) {
         stockChart.select(".title")
             .text(titleText);
 
-        var focus = stockChart.append("g")
-            .attr("class", "focus")
-            .style("display", "none");
-
-        focus.append("circle")
-        .attr("r", 4.5);
-
-        focus.append("text")
-        .attr("x", 9)
-        .attr("dy", ".35em");
+        var focus = stockChart.select(".focus");
 
         stockChart.select(".overlay")
+            .on("mouseover", function() { focus.style("display", null); })
+            .on("mouseout", function() { focus.style("display", "none"); })
             .on("mousemove", mousemove);
 
         function mousemove() {
@@ -285,6 +279,7 @@ function updateChartToday(data, titleText) {
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(ds + ": " + formatCurrency(d.close));
             focus.select("text").attr("x", xoff);
+            focus.select("text").attr("y", -20)
         };
 }
 
@@ -326,21 +321,14 @@ function drawChartOld(data, num, titleText) {
     stockChart.select(".title")
         .text(titleText);
 
-    var focus = stockChart.append("g")
-        .attr("class", "focus")
-        .style("display", "none");
-
-    focus.append("circle")
-    .attr("r", 4.5);
-
-    focus.append("text")
-    .attr("x", 9)
-    .attr("dy", ".35em");
+    var focus = stockChart.select(".focus");
 
     stockChart.select(".overlay")
-        .on("mousemove", mousemove);
+        .on("mouseover", function() { focus.style("display", null); })
+        .on("mouseout", function() { focus.style("display", "none"); })
+        .on("mousemove", mousemove2);
 
-    function mousemove() {
+    function mousemove2() {
         var x0 = x.invert(d3.mouse(this)[0]),
             i = bisectDate(data, x0, 1),
             d0 = data[i - 1],
@@ -357,6 +345,7 @@ function drawChartOld(data, num, titleText) {
         focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
         focus.select("text").text(ds + ": " + formatCurrency(d.close));
         focus.select("text").attr("x", xoff);
+        focus.select("text").attr("y", -20)
     };
 }
 
