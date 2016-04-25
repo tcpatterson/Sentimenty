@@ -140,7 +140,7 @@ function drawChartToday(data) {
 
         xAxis.tickFormat(function(d) {
             var d = new Date(""+d+"");
-            return d.getHours()-12 + " PM";
+            return d.getHours() + " AM";
         });
 
         stockChart.append("g")
@@ -215,6 +215,7 @@ function drawChartToday(data) {
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(ds + ": " + formatCurrency(d.close));
             focus.select("text").attr("x", xoff);
+            focus.select("text").attr("y", -20)
         };
 }
 
@@ -230,7 +231,7 @@ function updateChartToday(data, titleText) {
 
         xAxis.tickFormat(function(d) {
             var d = new Date(""+d+"");
-            return d.getHours()-12 + " PM";
+            return d.getHours() + " AM";
         });
 
         svg.select(".x.axis")
@@ -254,18 +255,11 @@ function updateChartToday(data, titleText) {
         stockChart.select(".title")
             .text(titleText);
 
-        var focus = stockChart.append("g")
-            .attr("class", "focus")
-            .style("display", "none");
-
-        focus.append("circle")
-        .attr("r", 4.5);
-
-        focus.append("text")
-        .attr("x", 9)
-        .attr("dy", ".35em");
+        var focus = stockChart.select(".focus");
 
         stockChart.select(".overlay")
+            .on("mouseover", function() { focus.style("display", null); })
+            .on("mouseout", function() { focus.style("display", "none"); })
             .on("mousemove", mousemove);
 
         function mousemove() {
@@ -285,6 +279,7 @@ function updateChartToday(data, titleText) {
             focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
             focus.select("text").text(ds + ": " + formatCurrency(d.close));
             focus.select("text").attr("x", xoff);
+            focus.select("text").attr("y", -20)
         };
 }
 
@@ -319,28 +314,21 @@ function drawChartOld(data, num, titleText) {
         .duration(750)
         .call(yAxis)
 
-    svg.select(".line")
+    svg.select("#stockChart .line")
         .duration(750)
         .attr("d",line(data));
 
     stockChart.select(".title")
         .text(titleText);
 
-    var focus = stockChart.append("g")
-        .attr("class", "focus")
-        .style("display", "none");
-
-    focus.append("circle")
-    .attr("r", 4.5);
-
-    focus.append("text")
-    .attr("x", 9)
-    .attr("dy", ".35em");
+    var focus = stockChart.select(".focus");
 
     stockChart.select(".overlay")
-        .on("mousemove", mousemove);
+        .on("mouseover", function() { focus.style("display", null); })
+        .on("mouseout", function() { focus.style("display", "none"); })
+        .on("mousemove", mousemove2);
 
-    function mousemove() {
+    function mousemove2() {
         var x0 = x.invert(d3.mouse(this)[0]),
             i = bisectDate(data, x0, 1),
             d0 = data[i - 1],
@@ -357,6 +345,7 @@ function drawChartOld(data, num, titleText) {
         focus.attr("transform", "translate(" + x(d.date) + "," + y(d.close) + ")");
         focus.select("text").text(ds + ": " + formatCurrency(d.close));
         focus.select("text").attr("x", xoff);
+        focus.select("text").attr("y", -20)
     };
 }
 
@@ -366,7 +355,13 @@ var aspect = width/height,
 $(window)
     .on('resize', function() {
         var targetWidth = chart.node().getBoundingClientRect().width;
-        var pathLength = d3.select("path.line")[0][0].__data__.length;
+        if(d3.select(".title").text().indexOf("One Month") == 0) {
+            var pathLength = 20;
+        } else if(d3.select(".title").text().indexOf("One Year") == 0) {
+            var pathLength = 250;
+        } else if(d3.select(".title").text().indexOf("Five Years") == 0) {
+            var pathLength = 1200;
+        }
         sv.attr("width", targetWidth);
         targetWidth = targetWidth-90;
         x = d3.time.scale()
@@ -391,11 +386,11 @@ $(window)
 
         var svg = d3.select("body").transition();
 
-        svg.select(".line")
+        svg.select("#stockChart .line")
             .duration(750)
             .attr("d",line(c));
 
-        svg.select(".x.axis") // change the x axis
+        svg.select("#stockChart .x.axis") // change the x axis
             .duration(750)
             .call(xAxis)
             .selectAll("text")
@@ -404,7 +399,7 @@ $(window)
               .attr("dy", ".35em")
               .attr("transform", "rotate(45)")
               .style("text-anchor", "start");
-        svg.select(".y.axis")
+        svg.select("#stockChart .y.axis")
             .duration(750)
             .call(yAxis)
             .attr("transform", "translate(" + targetWidth + " ,0)");
