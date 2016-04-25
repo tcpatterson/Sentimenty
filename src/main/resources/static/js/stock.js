@@ -366,7 +366,13 @@ var aspect = width/height,
 $(window)
     .on('resize', function() {
         var targetWidth = chart.node().getBoundingClientRect().width;
-        var pathLength = d3.select("#stockChart path.line")[0][0].__data__.length;
+        if(d3.select(".title").text().indexOf("One Month") == 0) {
+            var pathLength = 20;
+        } else if(d3.select(".title").text().indexOf("One Year") == 0) {
+            var pathLength = 250;
+        } else if(d3.select(".title").text().indexOf("Five Years") == 0) {
+            var pathLength = 1200;
+        }
         sv.attr("width", targetWidth);
         targetWidth = targetWidth-90;
         x = d3.time.scale()

@@ -27,9 +27,13 @@ body {
 }
 
 .range button {
-  width: 24%;
+  width: 23%;
+  padding: 0px;
   height: 25px;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.50);
+}
+
+.range {
+  text-align: center;
 }
 
 .ticker button {
