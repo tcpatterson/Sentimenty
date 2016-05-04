@@ -47,4 +47,26 @@ public class TwitterTest {
         tweet = new Twitter(handle, text, empty,empty, Timestamp.valueOf("1111-11-11 11:12:12"));
         assertEquals("@"+ handle + " - " + text, tweet.toString());
     }
+
+    @Test
+    public void testImage() throws Exception {
+        Twitter tweet = new Twitter("handle", "text", "empty","image", Timestamp.valueOf("1111-11-11 11:12:12"));
+        assertEquals("image", tweet.getImage());
+        tweet.setImage("jpg");
+        assertEquals("jpg", tweet.getImage());
+    }
+
+    @Test
+    public void testCreated() throws Exception {
+        Twitter tweet = new Twitter("handle", "text", "empty","image", Timestamp.valueOf("1111-11-11 11:12:12"));
+        assertEquals(Timestamp.valueOf("1111-11-11 11:12:12"), tweet.getCreated());
+        tweet.setCreated(Timestamp.valueOf("1111-11-11 11:12:13"));
+        assertEquals(Timestamp.valueOf("1111-11-11 11:12:13"), tweet.getCreated());
+    }
+
+    @Test
+    public void testURL() throws Exception {
+        Twitter tweet = new Twitter("handle", "text", "empty","image", Timestamp.valueOf("1111-11-11 11:12:12"));
+        assertEquals("empty", tweet.getUrl());
+    }
 }

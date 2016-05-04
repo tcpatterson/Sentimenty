@@ -28,7 +28,7 @@ var outerarcPie = d3.svg.arc()
 	.innerRadius(radius * 0.9)
 	.outerRadius(radius * 0.9);
 
-svgPie.attr("transform", "translate(" + width / 1.5 + "," + height / 2 + ")");
+svgPie.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var keyPie = function(d){ return d.data.label; };
 
@@ -64,7 +64,6 @@ d3.csv("/percentSentiment", type, function(error, data) {
 		.remove();
 
 	/* ------- TEXT LABELS -------*/
-
 	var text = svgPie.select(".labels").selectAll("text")
 		.data(pie(data), keyPie);
 
@@ -72,6 +71,8 @@ d3.csv("/percentSentiment", type, function(error, data) {
 		.append("text")
 		.attr("dy", ".35em")
 		.text(function(d) {
+		    if(d.data.percent == 0)
+		        return "";
 			return d.data.label;
 		});
 	
@@ -114,6 +115,8 @@ d3.csv("/percentSentiment", type, function(error, data) {
 
 	polylinePie.transition().duration(1000)
 		.attrTween("points", function(d){
+		    if(d.data.percent == 0)
+		        return null;
 			this._current = this._current || d;
 			var interpolate = d3.interpolate(this._current, d);
 			this._current = interpolate(0);
@@ -127,7 +130,6 @@ d3.csv("/percentSentiment", type, function(error, data) {
 	
 	polylinePie.exit()
 		.remove();
-
 });
 
 function type(d) {

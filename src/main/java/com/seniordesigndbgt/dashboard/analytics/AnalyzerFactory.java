@@ -11,8 +11,4 @@ public class AnalyzerFactory {
     public static SentimentAnalyzer getSentimentAnalyzer() {
         return new SentimentAnalyzer(sentimentQue);
     }
-
-    public static TrendAnalyzer getTrendAnalyzer(){
-        return new TrendAnalyzer();
-    }
 }

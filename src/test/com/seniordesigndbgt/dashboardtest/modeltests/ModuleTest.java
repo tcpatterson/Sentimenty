@@ -26,6 +26,7 @@ public class ModuleTest {
     public void testGetTitle() throws Exception {
         Module module = new Module();
         Module preset = new Module("title", "end", "frag");
+        preset = new Module("title", "end");
         assertNull( module.getTitle());
         module.setTitle("POTATO");
         assertEquals("POTATO", module.getTitle());
