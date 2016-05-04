@@ -15,7 +15,10 @@ public class UserTest {
         User u = new User();
         u.setUsername(str);
         assertEquals(str, u.getUsername());
-
+        u = new User("potato");
+        assertEquals("potato", u.getUsername());
+        u = new User("tot", "beaches");
+        assertEquals("tot", u.getUsername());
     }
 
 
@@ -25,6 +28,10 @@ public class UserTest {
         User u = new User();
         u.setDefaultView(str);
         assertEquals(str, u.getDefaultView());
+        u = new User("potato");
+        assertEquals("employee", u.getDefaultView());
+        u = new User("tot", "beaches");
+        assertEquals("beaches", u.getDefaultView());
     }
 
 }

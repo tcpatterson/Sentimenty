@@ -109,4 +109,18 @@ public class PressTest {
         p.setThumbnail("thumbs");
         assertEquals("thumbs", p.getThumbnail());
     }
+
+    @Test
+    public void testGetBody() throws Exception {
+        Press p = new Press();
+        Press preset = new Press("source", "url", "title", date, "thumbnail");
+        assertNull(p.getBody());
+        assertNull(preset.getBody());
+        p.setBody("thumb");
+        preset.setBody("thumbnail");
+        assertEquals("thumb", p.getBody());
+        assertEquals("thumbnail", preset.getBody());
+        p.setBody("thumbs");
+        assertEquals("thumbs", p.getBody());
+    }
 }

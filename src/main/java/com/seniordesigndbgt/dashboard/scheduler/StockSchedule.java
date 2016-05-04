@@ -2,10 +2,8 @@ package com.seniordesigndbgt.dashboard.scheduler;
 
 import com.google.gson.*;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.seniordesigndbgt.dashboard.action.StockAction;
 import com.seniordesigndbgt.dashboard.dao.DailyStockDAO;
 import com.seniordesigndbgt.dashboard.dao.StockHistoryDAO;
 import com.seniordesigndbgt.dashboard.model.DailyStock;
@@ -20,7 +18,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalTime;
 
 @Component
 public class StockSchedule {
