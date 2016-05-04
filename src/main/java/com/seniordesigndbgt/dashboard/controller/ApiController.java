@@ -105,10 +105,11 @@ public class ApiController {
         List<Press> pList = null;
         int daysBack = 0;
         while (pList == null || pList.size() == 0){
-            pList = _pressDAO.getArticlesByOffset(daysBack++);
+            pList = _pressDAO.getArticlesByOffset(daysBack);
+            daysBack++;
         }
         mentions.add(pList.size());
-        mentions.add(daysBack);
+        mentions.add(daysBack-1);
         return mentions;
     }
 
@@ -118,7 +119,8 @@ public class ApiController {
         List<Press> pList = null;
         int daysBack = 0;
         while (pList == null || pList.size() == 0){
-            pList = _pressDAO.getArticlesByOffset(daysBack++);
+            pList = _pressDAO.getArticlesByOffset(daysBack);
+            daysBack++;
         }
         int mentionsToday = pList.size();
         Double pos = 0.0;

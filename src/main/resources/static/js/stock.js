@@ -140,7 +140,11 @@ function drawChartToday(data) {
 
         xAxis.tickFormat(function(d) {
             var d = new Date(""+d+"");
-            return d.getHours() + " AM";
+            if(d.getHours() > 12) {
+                return d.getHours()-12 + " PM";
+            } else {
+                return d.getHours() + " AM";
+            }
         });
 
         stockChart.append("g")
@@ -231,7 +235,11 @@ function updateChartToday(data, titleText) {
 
         xAxis.tickFormat(function(d) {
             var d = new Date(""+d+"");
-            return d.getHours() + " AM";
+            if(d.getHours() > 12) {
+                return d.getHours()-12 + " PM";
+            } else {
+                return d.getHours() + " AM";
+            }
         });
 
         svg.select(".x.axis")

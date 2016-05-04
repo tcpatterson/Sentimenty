@@ -39,8 +39,11 @@ public class PressDAO {
     * get yesterday's -> offset = 1
     * get 5 days ago's articles -> offset = 5*/
     public List <Press> getArticlesByOffset(int offset){
-        return getSession().createQuery("from Press WHERE timestamp between CURDATE()-"+ offset +" and CURDATE()").list();
-
+        if(offset == 0){
+            return getSession().createQuery("from Press WHERE timestamp between CURDATE() and CURDATE()+1").list();
+        } else {
+            return getSession().createQuery("from Press WHERE timestamp between CURDATE()-" + offset + " and CURDATE()").list();
+        }
     }
 
     public List <Press> search(String term) {
