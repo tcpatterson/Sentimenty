@@ -31,7 +31,7 @@ public class StockSchedule {
     private StockHistoryDAO _stockHistoryDao;
 
     //@Scheduled(cron = "0/5 9-16 * * MON-FRI")
-    @Scheduled(fixedDelay = 50000)
+    @Scheduled(fixedDelay = 120000)
     public void getCurrentPrice() {
         DailyStock result = null;
         try {
