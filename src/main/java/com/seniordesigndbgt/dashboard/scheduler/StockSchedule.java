@@ -60,7 +60,7 @@ public class StockSchedule {
     @PostConstruct
     public void backfillStocks(){
         if (_stockHistoryDao.getAll().size() == 0) {
-            String filename = "dbHistorical.csv";
+            String filename = "dbOldStock.csv";
             BufferedReader br = null;
             String line = "";
             String splitBy = ",";
