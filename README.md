@@ -1,7 +1,8 @@
 # Sentimenty
+> Very Beta, be advised
 
 Sentimenty is the fruit of a semester long Senior Design capstone project. It was built in for, and in partnership with, Deutsche Bank Global Technology. The webapp is designed to monitor Deutsche Bank in the news and on social media, and display that information in an easy to use dashboard.
->Note: As this was built for a school partnership in conjuction with DBGT, the app is currently hardcoded to pull, analyze, and display information about Deutsche Bank. If you would like to clone and have the app work for your company, change the strings in x and y.
+>Note: As this was built for a school partnership in conjuction with DBGT, the app is currently hardcoded to pull, analyze, and display information about Deutsche Bank. If you would like to clone and have the app work for your company, change the string on line 46 of StockSchedule.java as well as the strings on line 41 and 133 of PressSchedule.java.
 
 Some features include:
   - Real time and historical stock graphs in D3
