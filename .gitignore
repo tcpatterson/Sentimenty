@@ -1,11 +1,10 @@
 #build
-/build/
-.gitignore
+/app/build/
 # IntelliJ
-/out/
+/app/out/
 .idea/
 *.iml
 *.iws
-.gradle/2.5/taskArtifacts/*
-.gradle/*
-app/.gradle/
+/app/.gradle/2.10/taskArtifacts/*
+/app/.gradle/*
+.gradle/

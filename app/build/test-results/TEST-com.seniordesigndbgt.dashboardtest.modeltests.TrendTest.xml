@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.seniordesigndbgt.dashboardtest.modeltests.TrendTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-09-05T13:53:37" hostname="Thomass-MacBook-Pro-8.local" time="0.001">
-  <properties/>
-  <testcase name="testGetId" classname="com.seniordesigndbgt.dashboardtest.modeltests.TrendTest" time="0.0"/>
-  <testcase name="testGetMentions" classname="com.seniordesigndbgt.dashboardtest.modeltests.TrendTest" time="0.0"/>
-  <testcase name="testGetTrendTitle" classname="com.seniordesigndbgt.dashboardtest.modeltests.TrendTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
