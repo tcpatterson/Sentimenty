@@ -34,15 +34,8 @@ Sentimenty is very easy to install and deploy in a Docker container.
 cd Sentimenty
 bash start.sh
 ```
-Very Sentimenty is running
+Verify Sentimenty is running
 
 ```sh
 127.0.0.1:6060
 ```
-
-### Todos
-
- - Write Tests
- - Rethink Github Save
- - Add Code Comments
- - Add Night Mode
