@@ -8,3 +8,4 @@
 *.iws
 .gradle/2.5/taskArtifacts/*
 .gradle/*
+app/.gradle/
