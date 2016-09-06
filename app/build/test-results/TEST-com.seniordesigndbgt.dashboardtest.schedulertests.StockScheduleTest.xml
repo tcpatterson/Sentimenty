@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.seniordesigndbgt.dashboardtest.schedulertests.StockScheduleTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2016-09-05T13:53:37" hostname="Thomass-MacBook-Pro-8.local" time="0.362">
+  <properties/>
+  <testcase name="testGetCurrentPrice" classname="com.seniordesigndbgt.dashboardtest.schedulertests.StockScheduleTest" time="0.362"/>
+  <system-out><![CDATA[09:53:37.963 [Test worker] DEBUG o.a.h.c.protocol.RequestAddCookies - CookieSpec selected: best-match
+09:53:37.963 [Test worker] DEBUG o.a.h.c.protocol.RequestAuthCache - Auth cache not set in the context
+09:53:37.963 [Test worker] DEBUG o.a.h.i.c.PoolingHttpClientConnectionManager - Connection request: [route: {}->http://dev.markitondemand.com:80][total kept alive: 1; route allocated: 0 of 20; total allocated: 1 of 200]
+09:53:37.964 [Test worker] DEBUG o.a.h.i.c.PoolingHttpClientConnectionManager - Connection leased: [id: 1][route: {}->http://dev.markitondemand.com:80][total kept alive: 1; route allocated: 1 of 20; total allocated: 2 of 200]
+09:53:37.965 [Test worker] DEBUG o.a.h.impl.execchain.MainClientExec - Opening connection {}->http://dev.markitondemand.com:80
+09:53:38.054 [Test worker] DEBUG o.a.h.i.c.HttpClientConnectionOperator - Connecting to dev.markitondemand.com/209.234.225.117:80
+09:53:38.128 [Test worker] DEBUG o.a.h.i.c.HttpClientConnectionOperator - Connection established 192.168.0.15:55937<->209.234.225.117:80
+09:53:38.128 [Test worker] DEBUG o.a.h.impl.execchain.MainClientExec - Executing request GET /MODApis/Api/v2/Quote/jsonp?symbol=DB&callback=cb HTTP/1.1
+09:53:38.129 [Test worker] DEBUG o.a.h.impl.execchain.MainClientExec - Target auth state: UNCHALLENGED
+09:53:38.129 [Test worker] DEBUG o.a.h.impl.execchain.MainClientExec - Proxy auth state: UNCHALLENGED
+09:53:38.130 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 >> GET /MODApis/Api/v2/Quote/jsonp?symbol=DB&callback=cb HTTP/1.1
+09:53:38.130 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 >> accept-encoding: gzip
+09:53:38.130 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 >> user-agent: unirest-java/1.3.11
+09:53:38.130 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 >> Host: dev.markitondemand.com
+09:53:38.130 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 >> Connection: Keep-Alive
+09:53:38.131 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 >> "GET /MODApis/Api/v2/Quote/jsonp?symbol=DB&callback=cb HTTP/1.1[\r][\n]"
+09:53:38.131 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 >> "accept-encoding: gzip[\r][\n]"
+09:53:38.131 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 >> "user-agent: unirest-java/1.3.11[\r][\n]"
+09:53:38.131 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 >> "Host: dev.markitondemand.com[\r][\n]"
+09:53:38.131 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 >> "Connection: Keep-Alive[\r][\n]"
+09:53:38.131 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 >> "[\r][\n]"
+09:53:38.305 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "HTTP/1.1 200 OK[\r][\n]"
+09:53:38.306 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Cache-Control: private[\r][\n]"
+09:53:38.306 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Content-Type: text/javascript; charset=UTF-8[\r][\n]"
+09:53:38.306 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Content-Encoding: gzip[\r][\n]"
+09:53:38.306 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Vary: Accept-Encoding[\r][\n]"
+09:53:38.306 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Server: [\r][\n]"
+09:53:38.307 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "X-AspNet-Version: [\r][\n]"
+09:53:38.307 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "P3P: CP="NON PHY ONL UNI PUR FIN COM NAV INT DEM STA HEA CUR ADM DEV OUR IND", policyref="/w3c/p3p.xml"[\r][\n]"
+09:53:38.308 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Set-Cookie: 3481%5F0=BABE567F63BF930E2E5CEA846727CF120F4A97B54A8804E67345C4833DD7A9C7; path=/; HttpOnly[\r][\n]"
+09:53:38.308 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Set-Cookie: GZIP=1; expires=Sat, 04-Sep-2021 13:53:37 GMT; path=/[\r][\n]"
+09:53:38.308 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "X-Powered-By: ASP.NET[\r][\n]"
+09:53:38.309 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Date: Mon, 05 Sep 2016 13:53:36 GMT[\r][\n]"
+09:53:38.309 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "Content-Length: 390[\r][\n]"
+09:53:38.309 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "[\r][\n]"
+09:53:38.310 [Test worker] DEBUG org.apache.http.wire - http-outgoing-1 << "[0x1f][0x8b][0x8][0x0][0x0][0x0][0x0][0x0][0x4][0x0][0xed][0xbd][0x7]`[0x1c]I[0x96]%&/m[0xca]{]]>&#x7f;<![CDATA[J[0xf5]J[0xd7][0xe0]t[0xa1][0x8][0x80]`[0x13]$[0xd8][0x90]@[0x10][0xec][0xc1][0x88][0xcd][0xe6][0x92][0xec][0x1d]iG#)[0xab]*[0x81][0xca]eVe]f[0x16]@[0xcc][0xed][0x9d][0xbc][0xf7][0xde]{[0xef][0xbd][0xf7][0xde]{[0xef][0xbd][0xf7][0xba];[0x9d]N'[0xf7][0xdf][0xff]?\fd[0x1]l[0xf6][0xce]J[0xda][0xc9][0x9e]![0x80][0xaa][0xc8][0x1f]?~|[0x1f]?"[0xa6][0x93][0xad]_[0xfc][0xd1][0xeb]6k[0xd7][0xcd]G[0x8f]>z[0xfd][0xd5][0xc9][0xc9][0xe9][0xeb][0xd7][0x1f][0x8d]>z[0x91]-r[0xfa][0xe0]i[0xbe]n[0x9b][0xe9]<O[0x9f]d[0xcb][0xb7][0xe9][0xf1][0xe7][0xf4][0xcd][0xeb][0xeb][0xc5][0xa4]*[0xf1][0xdd][0x13][0xfa][0xeb]y[0xd6][0xb4]/[0xeb]bJ[0x8d]w[0xf7][0xc7][0xf]G[0x1f][0x9d][0xcc][0xb3][0xe5][0x5][0xfd][0xb5]3[0xde][0xdb][0xdd][0xf1][0x9e]][0xf3][0xd5][0xcb][0xbc][0x9e][0xe6][0xcb][0x96][0xda][0x8f][0xf7][0xf7][0x1e][0xde][0xdf][0xbf][0xf7]p[0xe7][0xc1][0xfe][0xde][0xce][0xce][0xde][0xe8][0xa3]7[0xc5]"o[0xda]l[0xb1]"[0xe8][0xcf][0xea]"}[0x9d][0xaf][0xd2][0xbd]t[0xf7][0xfe][0xa3][0xfb][0xf][0x1f][0xed][0xec][0xa4]_[0xbd]9[0xd9][0xde][0xd9][0xc7]o{;[0xbb][0x9f]R[0xe7]_[0xbc]~[0x9a][0xb5][0xd4][0xd7][0xfe][0xde][0xa7][0xbb][0xf7][0xc7][0x9f]~z[0xff][0xe1][0x83]=<[0xf4]MV[0xbf][0xcd][0xdb][0x93][0x8c] [0xed][0xed][0xdc][0xbf][0xbf][0xbb][0xfb][0xe9][0x83][0x7];;[0xa3][0x8f]~[0xb2]*[0xd7][0x18][0xd8][0xee][0xc1][0x83][0x87][0xf]?5([0xfd]>o[0x9e]R[0xbb][0xfd][0xf1][0xee]}[0xf3][0x89]"[0xc9]_l[0xdf];[0x18][0xdf][0xdb][0xd9][0xdb]{[0xf0]`[0xff][0xde][0xde][0x83]][0x80][0xff]vq1' 4`[0xfa][0xe3]yu[0xc5][0xbf]?[0xa0][0xb7][0xbf]\[0xe5]K[0xfe][0xe3][0xe0][0xfe]/[0xb9][0xf3][0xff][0x0][0x90]T[0xfe][0xd0]\[0x1][0x0][0x0]"
+09:53:38.310 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << HTTP/1.1 200 OK
+09:53:38.310 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Cache-Control: private
+09:53:38.310 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Content-Type: text/javascript; charset=UTF-8
+09:53:38.310 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Content-Encoding: gzip
+09:53:38.310 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Vary: Accept-Encoding
+09:53:38.311 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Server: 
+09:53:38.311 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << X-AspNet-Version: 
+09:53:38.311 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << P3P: CP="NON PHY ONL UNI PUR FIN COM NAV INT DEM STA HEA CUR ADM DEV OUR IND", policyref="/w3c/p3p.xml"
+09:53:38.311 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Set-Cookie: 3481%5F0=BABE567F63BF930E2E5CEA846727CF120F4A97B54A8804E67345C4833DD7A9C7; path=/; HttpOnly
+09:53:38.311 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Set-Cookie: GZIP=1; expires=Sat, 04-Sep-2021 13:53:37 GMT; path=/
+09:53:38.311 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << X-Powered-By: ASP.NET
+09:53:38.312 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Date: Mon, 05 Sep 2016 13:53:36 GMT
+09:53:38.312 [Test worker] DEBUG org.apache.http.headers - http-outgoing-1 << Content-Length: 390
+09:53:38.312 [Test worker] DEBUG o.a.h.impl.execchain.MainClientExec - Connection can be kept alive indefinitely
+09:53:38.316 [Test worker] DEBUG o.a.h.c.p.ResponseProcessCookies - Cookie accepted [3481%5F0="BABE567F63BF930E2E5CEA846727CF120F4A97B54A8804E67345C4833DD7A9C7", version:0, domain:dev.markitondemand.com, path:/, expiry:null]
+09:53:38.323 [Test worker] DEBUG o.a.h.c.p.ResponseProcessCookies - Cookie accepted [GZIP="1", version:0, domain:dev.markitondemand.com, path:/, expiry:Sat Sep 04 09:53:37 EDT 2021]
+09:53:38.323 [Test worker] DEBUG o.a.h.i.c.PoolingHttpClientConnectionManager - Connection [id: 1][route: {}->http://dev.markitondemand.com:80] can be kept alive indefinitely
+09:53:38.323 [Test worker] DEBUG o.a.h.i.c.PoolingHttpClientConnectionManager - Connection released: [id: 1][route: {}->http://dev.markitondemand.com:80][total kept alive: 2; route allocated: 1 of 20; total allocated: 2 of 200]
+09:53:38.324 [Test worker] DEBUG o.a.h.impl.execchain.MainClientExec - Cancelling request execution
+{"Status":"SUCCESS","Name":"Deutsche Bank AG","Symbol":"DB","LastPrice":14.9,"Change":0.210000000000001,"ChangePercent":1.42954390742002,"Timestamp":"Fri Sep 2 15:59:00 UTC-04:00 2016","MSDate":42615.6659722222,"MarketCap":20551167700,"Volume":187996,"ChangeYTD":24.15,"ChangePercentYTD":-38.3022774327122,"High":14.92,"Low":14.75,"Open":14.85}
+14.9
+DB
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
